@@ -1,14 +1,16 @@
 public class Game{
     private France empire=new France();
-    private Country Austria=new Country("Austrian Empire", "Austrian",625400,100,100,100);
+    private Country Austria=new Country("The Austrian Empire", "Austrian",625400,100,100,100);
     private Country Prussia=new Country("Prussia", "Prussian",0,100,100,100);
-    private Country England=new Country("England", "English",0,100,100,100);
-    private Country Russia=new Country("Russia", "Russian",0,100,100,100);
+    private Country Britain=new Country("Great Britain", "British",0,100,100,100);
+    private Country Russia=new Country("The Russian Empire", "Russian",0,100,100,100);
     private Country Spain=new Country("Spain", "Spanish",0,100,100,100);
     private Country Portugal=new Country("Portugal", "Portugese",0,100,100,100);
-    private Country Venice=new Country("Venice", "Venician ",0,100,100,100);
-    private Country Peidmont=new Country("Peidmont", "Peidmontese",0,100,100,100);
-    private Country Sicilies=new Country("Sicilies", "Sicilian",0,100,100,100);
+    private Country Denmark=new Country("Denmark", "Danish",0,100,100,100);
+    private Country Sweden=new Country("Sweden", "Swedish",0,100,100,100);
+    private Country Sicily=new Country("Kingdom of two Sicilies", "Sicilian",0,100,100,100);
+    private Country Ottoman=new Country("The Ottoman Empire", "Ottoman",0,100,100,100);
+  
    
 
     public static String printMain(){
