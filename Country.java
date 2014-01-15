@@ -1,30 +1,38 @@
+import java.util.ArrayList;
+
 public class Country{
     
     private String name;
     private String adjective;
-    private double landOwned;
-    private int attack;
+    private double land;
+    
     private int troopMax;
     private int troopCount;
     private int opinionFrance;
+    private int prestige;
+    private int aggressiveness; 
+    private int conflicts;
     
-    public Country(String newName,String newAdj, double newLand, int newAt, int newDf, int prest, int op){
+    public Country(String newName,String newAdj, double newLand, int newAt, int newDf, int prest, int op, int agg){
 	name = newName;
 	adjective = newAdj;
-	landOwned = newLand;
-	attack = newAt;
-	defense = newDf;
+	land = newLand;
+	troopMax = newAt;
+	troopCount = newDf;
 	prestige = prest;
 	opinionFrance = op;
+	aggressiveness = agg;
+	conflicts = 0;
+	  
     }
     
     //ACSESSOR//
     
     public String getName(){return name;}
 
-    public String getAdj(){return adjetive;}
+    public String getAdj(){return adjective;}
 
-    public double getLand(){return landOwned;}
+    public double getLand(){return land;}
 
     public int getTroopMax(){return troopMax;}
 
@@ -33,23 +41,32 @@ public class Country{
     public int getPrestige(){return prestige;}
 
     public int getOpinion(){return opinionFrance;}
+    public int getAggresive(){return aggressiveness;}
+    public int getConflict(){return conflicts;};
 
 
     //MUTATORS//
 
     public double addLand(double newLand){land+=newLand; return land-newLand;}
-    public double subLand(double lostLand){land-=lostLand; return land + lostland; }
+    public double subLand(double lostLand){land-=lostLand; return land + lostLand; }
 
     public double setLand(double newLand){double old = land; land=newLand; return old;}
-    public int setTroopMax(int newVal){int old = TroopMax; TroopMax=newVal; return old;}
+    public int settroopMax(int newVal){int old = troopMax; troopMax=newVal; return old;}
     public int changeTroopCount(int newVal){int old = troopCount; troopCount=newVal; return old;}
     public int setPrestige(int newVal){int old = prestige; prestige= newVal; 
 	if (prestige > 100){
 	    prestige = 100;}
 	else if( prestige > 0){prestige = 0;}
-		return old};
+	return old;}
      public int setOpinion(int newVal){int old = opinionFrance; opinionFrance= newVal; 
 	if (opinionFrance > 100){
 	    opinionFrance = 100;}return old;}
     
+    public int changeAggressive(int add){int old = aggressiveness; aggressiveness += add; 
+	if (aggressiveness > 100){
+	    aggressiveness = 100;}
+	if (aggressiveness < 0){
+	    aggressiveness = 0;}
+	return old;}
+    public void conflictIncrement(){conflicts+=1;}
 }

@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+
+
 public class Game{
     private France Empire = new France();
     private Country Austria = new Country("The Austrian Empire", "Austrian",625400,100,100,100);
@@ -28,22 +31,29 @@ public class Game{
 
     public Game(){
 	System.out.println("You are France in 1799. The great military general Napoleon has just staged a coup. This new leader has one goal: to conquer Europe. Use your powers of diplomacy and your military to manipulate those around you");
-	System.out.prinln("Where do you want to start?");
+	System.out.println("Where do you want to start?");
 	boolean EndGame=false;
 	while(!EndGame){
 	    int turns=3;
+	    String results="";
 	    while(turns>0){
-		String results="";
+		
 		printMain();
 		int select=Keyboard.readInt();
-		if (select==1)
+		if (select == 1)
 		    printStats();
-		else if(select==2)
-		    France.foreign(countries);
-		else if (select==3)
-		    France.domesticOptions();
-		else if(select=5)
-		    EndGame=true;
+		/* results is transfered in since we need to write the results there
+		   foreign() & domesticOptions() returns number of turns used*/
+		else if(select == 2)
+		    turns = turns - Empire.foreign(countries,results);
+		else if (select == 3)
+		    turns = turns - Empire.domesticOptions(countries,results);
+		else if(select == 4){
+		    break;}
+
+		else if(select == 5){
+		    EndGame=true; break;}
+		
 		turns-=1
 		    }
 		}
