@@ -14,11 +14,13 @@ public class Game{
     private Country Sicily = new Country("Kingdom of two Sicilies", "Sicilian",0,100,100,100);
     private Country Ottoman = new Country("The Ottoman Empire", "Ottoman",0,100,100,100);
     private Country[] countries={Austria, Prussia, Britian, Russia, Spain, Portugal,Denmark, Sweden, Sicily, Ottoman}; 
+    private int year = 1799;
+    private int month = 1;
   
    
 
     public static String printMain(){
-	String ret="\t 1: Stat \n\t 2:Foreign Affairs \n\t 3:Domestic Affairs \n\t 4:End Turn \n\t 5:End Game";
+	String ret="\t 1: Stat \n\t 2:Foreign Affairs \n\t 3:Domestic Affairs \n\t 4:End Turn \n\t5: View Current War\n\t 6:End Game";
 	return ret;
     }
     public static String printStats(){
@@ -47,11 +49,12 @@ public class Game{
 		else if(select == 2)
 		    turns = turns - Empire.foreign(countries,results);
 		else if (select == 3)
-		    turns = turns - Empire.domesticOptions(countries,results);
+		    Empire.domesticOptions(results),;
 		else if(select == 4){
 		    break;}
-
 		else if(select == 5){
+		    System.out.println(empire.getCurrent().toString());}
+		else if(select == 6){
 		    EndGame=true; break;}
 		else{
 		    System.out.println("Please enter a valid number.");
@@ -60,6 +63,14 @@ public class Game{
 		
 		turns-=1;
 		    }
+	    System.out.println(results);
+	    month++;
+	    if (month>12){
+		year++;
+		month = 1;
 		}
+	    System.out.println("The date is " + year+"-"+month+"-1");
+	    if (empire.getCurrent().getActive){
+		empire.getCurrent().incDate();}
     }
 }

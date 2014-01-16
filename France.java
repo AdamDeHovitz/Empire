@@ -21,6 +21,8 @@ public class France extends Country{
 
     public double getTreasury(){return treasury;}
     public int getDissent(){return dissent;}
+    public war getCurrent(){
+	return currentWar;}
     
     public double changeTreasury(double changeTres){double old=treasury;treasury=changeTres;return old;}
     public int changeDiss(int changeDis){int old=dissent;dissent-=changeDis;return old;}
@@ -81,7 +83,7 @@ public class France extends Country{
 		    
 	    
 	
-    public  String domesticOptions(){
+    public  String domesticOptions(Country select, String result){
 	String retStr= "1: Establish Legion of Honor \n\t Increases prestige";
 	return retStr;
     }

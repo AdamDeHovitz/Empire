@@ -7,6 +7,7 @@ public class War{
     private int warScore;
     private boolean active;
     private String name;
+    private int date;
     
     public War(){
 	warScore = 0;
@@ -19,9 +20,12 @@ public class War{
     public Country getHead(){return head;}
     public int getWarScore(){
 	return warScore;}
+    public int incDate(){
+	date++;}
     public int addWarScore(int n){
 	warScore +=n; return warScore - n;}
     public void setActive(boolean input, Country select){
+	date = 0;
 	active = input;
 	head = select;
 	String numb;
@@ -67,10 +71,20 @@ public class War{
 	    retStr += c.getName()+ ", ";}
 	return retStr;} 
     public int options (Country select){
+	boolean end = true;
+	while (end){
 	System.out.println("Choose an action wisely, remembering that you have a warscore value of "+ getWarScore());
 	System.out.println("\t1: Negotiate with the entire alliance \n\t2: Negotiate with " +select.getName()+" \n\t3:Go back");
 		int choice=Keyboard.readInt();
 		if (choice = 1){
+		    boolean loop = true;
+		    while (loop){
+			System.out.println("\t1: Make Demands \n\t2: Offer White Peace \n\t3: Offer terms of surrender\n\t4:Go back");
+			int call=Keyboard.readInt();
+			if (call == 2){
+			    System.out.println("work");
+		    
+
 		    
 
 }

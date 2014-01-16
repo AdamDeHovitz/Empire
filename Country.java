@@ -13,6 +13,7 @@ public class Country{
     private int aggressiveness; 
     private int conflicts;
     
+    
     public Country(String newName,String newAdj, double newLand, int newAt, int newDf, int prest, int op, int agg){
 	name = newName;
 	adjective = newAdj;
@@ -60,7 +61,9 @@ public class Country{
 	return old;}
      public int setOpinion(int newVal){int old = opinionFrance; opinionFrance= newVal; 
 	if (opinionFrance > 100){
-	    opinionFrance = 100;}return old;}
+	    opinionFrance = 100;}
+	else if(opinionFrance < -50){opinionFrance = -50;}
+	return old;}
     
     public int changeAggressive(int add){int old = aggressiveness; aggressiveness += add; 
 	if (aggressiveness > 100){
