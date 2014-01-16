@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import cs1.Keyboard;
 
 
 public class France extends Country{
@@ -12,7 +13,7 @@ public class France extends Country{
  
 
     public France(){
-	super("The French Republic","French", 1230, 300000,100000,80,100);
+	super("The French Republic","French", 1230, 300000,100000,80,100,0);
 	treasury=100;
 	dissent=0;
 	currentWar = new War();
@@ -21,7 +22,7 @@ public class France extends Country{
     public double getTreasury(){return treasury;}
     public int getDissent(){return dissent;}
     
-    public double changeTreasury(double changeTres){double old=treaury;treasury=+newTres;return old;}
+    public double changeTreasury(double changeTres){double old=treasury;treasury=changeTres;return old;}
     public int changeDiss(int changeDis){int old=dissent;dissent-=changeDis;return old;}
 
     //public String surrender(){
@@ -30,8 +31,8 @@ public class France extends Country{
 	int turns=0;
 	while (turns < 3){
 	    System.out.println("Select a country to interact with");
-	    for(x=1;x<=countries.length;x++)
-		System.out.println("\t"+x+": "+country[x].getName());
+	    for(int x=1;x<=countries.length;x++)
+		System.out.println("\t"+x+": "+countries[x].getName());
 	    Country select=countries[Keyboard.readInt()];
 	    if (currentWar.getAxis().contains(select)){
 		currentWar.options(select);}
@@ -64,14 +65,18 @@ public class France extends Country{
 			currentWar.setActive(true, select);
 
 			for (country a:countries){
-			    if (a.getOpinion() < 30 + (a.getAggressive()/2) && (double)a.getTroopCount()/ a.getTroopMac() > .25)
+			    if ((a.getOpinion() < 20 + (a.getAggressive()/2) + select.getPrestige()/4) && (double)a.getTroopCount()/ a.getTroopMax() > .25)
 				currentWar.addAxis(a);}
 			results += "\n you have declared the " + currentWar.getName()+" which features the nations of "+
 			    currentWar.printAllies() + "and their glorious leader France versus the damnable nations of " + currentWar.printAxis()+ "and their treacherous leader " + currentWar.getHead();}
 		    // Declaring war shouldn't take a turn, to allow for the character to declare war on multiple enemies
 		}
+	
+		else if (choice == 4){
+		    break;}
 	    }
 	}
+    }
 			
 		    
 	    

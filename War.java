@@ -17,6 +17,8 @@ public class War{
     public ArrayList getAllies(){return allies;} 
     public ArrayList getAxis(){return axis;} 
     public Country getHead(){return head;}
+    public int getWarScore(){
+	return warScore;}
     public int addWarScore(int n){
 	warScore +=n; return warScore - n;}
     public void setActive(boolean input, Country select){
@@ -64,6 +66,12 @@ public class War{
 	for (Country c:allies){
 	    retStr += c.getName()+ ", ";}
 	return retStr;} 
+    public int options (Country select){
+	System.out.println("Choose an action wisely, remembering that you have a warscore value of "+ getWarScore());
+	System.out.println("\t1: Negotiate with the entire alliance \n\t2: Negotiate with " +select.getName()+" \n\t3:Go back");
+		int choice=Keyboard.readInt();
+		if (choice = 1){
+		    
 
 }
     
