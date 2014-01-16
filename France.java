@@ -64,12 +64,15 @@ public class France extends Country{
 			currentWar.setActive(true, select);
 
 			for (country a:countries){
-			    if (a.getOpinion() < 30 + (a.getAggressive()/2) && (double)a.getTroopCount()/ a.getTroopMac() > .25)
+			    if ((a.getOpinion() < 20 + (a.getAggressive()/2) + select.getPrestige()/4) && (double)a.getTroopCount()/ a.getTroopMax() > .25)
 				currentWar.addAxis(a);}
 			results += "\n you have declared the " + currentWar.getName()+" which features the nations of "+
 			    currentWar.printAllies() + "and their glorious leader France versus the damnable nations of " + currentWar.printAxis()+ "and their treacherous leader " + currentWar.getHead();}
 		    // Declaring war shouldn't take a turn, to allow for the character to declare war on multiple enemies
 		}
+		else if (choice == 4){
+		    break;}
+	    }
 			
 		    
 	    
