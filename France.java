@@ -59,7 +59,7 @@ public class France extends Country{
 		else if (choice ==3){
 		    if (currentWar.getActive()){
 			currentWar.addAxis(select);
-			results+="\n"select.getName()+ " has joined the "+ currentWar.getName();}
+			results+="\n"+select.getName()+ " has joined the "+ currentWar.getName();}
 		    else{
 			currentWar.setActive(true, select);
 
@@ -70,6 +70,8 @@ public class France extends Country{
 			    currentWar.printAllies() + "and their glorious leader France versus the damnable nations of " + currentWar.printAxis()+ "and their treacherous leader " + currentWar.getHead();}
 		    // Declaring war shouldn't take a turn, to allow for the character to declare war on multiple enemies
 		}
+	    }
+	}
 			
 		    
 	    

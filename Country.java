@@ -56,7 +56,7 @@ public class Country{
     public int setPrestige(int newVal){int old = prestige; prestige= newVal; 
 	if (prestige > 100){
 	    prestige = 100;}
-	else if( prestige > 0){prestige = 0;}
+	else if( prestige < 0){prestige = 0;}
 	return old;}
      public int setOpinion(int newVal){int old = opinionFrance; opinionFrance= newVal; 
 	if (opinionFrance > 100){

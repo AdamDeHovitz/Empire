@@ -13,7 +13,7 @@ public class Game{
     private Country Sweden = new Country("Sweden", "Swedish",0,100,100,100);
     private Country Sicily = new Country("Kingdom of two Sicilies", "Sicilian",0,100,100,100);
     private Country Ottoman = new Country("The Ottoman Empire", "Ottoman",0,100,100,100);
-    private Country[] countries{Austria, Prussia, Britian, Russia, Spain, Portugal,Denmark, Sweden, Sicily, Ottoman}; 
+    private Country[] countries={Austria, Prussia, Britian, Russia, Spain, Portugal,Denmark, Sweden, Sicily, Ottoman}; 
   
    
 
@@ -22,7 +22,7 @@ public class Game{
 	return ret;
     }
     public static String printStats(){
-	String ret=empire+"\n"+Austria+"\n"+England+"\n"+Piedmont+"\n"+Portugal+"\n"+Prussia+"\n"+Russia+"\n"+Spain+"\n"+Venice;
+	String ret=empire+"/n"+Austria+"/n"+ Prussia +"/n"+Britian +"/n"+Russia +"/n"+Spain+"/n"+ Portugal+"/n"+Denmark+"/n"+ Sweden+"/n"+Sicily+"/n"+ Ottoman;
 	return ret;
     }
     public static String domesticAction(){return "";}
@@ -53,8 +53,12 @@ public class Game{
 
 		else if(select == 5){
 		    EndGame=true; break;}
+		else{
+		    System.out.println("Please enter a valid number.");
+		    turns+=1;
+		}
 		
-		turns-=1
+		turns-=1;
 		    }
 		}
     }
