@@ -27,7 +27,6 @@ public class Game{
 	String ret=empire+"/n"+Austria+"/n"+ Prussia +"/n"+Britian +"/n"+Russia +"/n"+Spain+"/n"+ Portugal+"/n"+Denmark+"/n"+ Sweden+"/n"+Sicily+"/n"+ Ottoman;
 	return ret;
     }
-    public static String domesticAction(){return "";}
 
 
 
@@ -36,9 +35,8 @@ public class Game{
 	System.out.println("Where do you want to start?");
 	boolean EndGame=false;
 	while(!EndGame){
-	    int turns=3;
-	    String results="";
-	    while(turns>0){
+	    Object[] results={"",3};
+	    while(results[1]>0){
 		
 		printMain();
 		int select=Keyboard.readInt();
@@ -47,9 +45,9 @@ public class Game{
 		/* results is transfered in since we need to write the results there
 		   foreign() & domesticOptions() returns number of turns used*/
 		else if(select == 2)
-		    turns = turns - Empire.foreign(countries,results);
+		    results =  Empire.foreign(countries,results);
 		else if (select == 3)
-		    Empire.domesticOptions(results),;
+		    results = Empire.domesticOptions(results);
 		else if(select == 4){
 		    break;}
 		else if(select == 5){
@@ -58,11 +56,8 @@ public class Game{
 		    EndGame=true; break;}
 		else{
 		    System.out.println("Please enter a valid number.");
-		    turns+=1;
 		}
-		
-		turns-=1;
-		    }
+	    }
 	    System.out.println(results);
 	    month++;
 	    if (month>12){
@@ -72,5 +67,6 @@ public class Game{
 	    System.out.println("The date is " + year+"-"+month+"-1");
 	    if (empire.getCurrent().getActive){
 		empire.getCurrent().incDate();}
+	}
     }
 }
