@@ -70,6 +70,10 @@ public class War{
 	for (Country c:allies){
 	    retStr += c.getName()+ ", ";}
 	return retStr;} 
+    public void endWar(){
+	active = false;
+	axis.removeAll(axis);}
+	
     public int options (Country select){
 	boolean end = true;
 	while (end){
@@ -82,7 +86,22 @@ public class War{
 			System.out.println("\t1: Make Demands \n\t2: Offer White Peace \n\t3: Offer terms of surrender\n\t4:Go back");
 			int call=Keyboard.readInt();
 			if (call == 2){
-			    System.out.println("work");
+			    if (warScore > 0){
+				if (date <5){
+				    System.out.println("The duration of this war has been too short, wait at least 5 monthes");}
+			    }
+			    else {
+				System.out.println("Your enemies accept your call for peace and tranquility");
+				this.endWar();
+			    }
+			}
+				
+			    
+			if (call == 1){
+			    System.out.println("How much of your war score (total " + this.getWarScore()+") do you want to use?");
+			    
+			    
+
 		    
 
 		    
