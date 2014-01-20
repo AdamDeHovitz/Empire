@@ -44,7 +44,7 @@ public class Country{
     public int getOpinion(){return opinionFrance;}
     public int getAggresive(){return aggressiveness;}
     public int getConflict(){return conflicts;};
-
+    
 
     //MUTATORS//
 
@@ -72,4 +72,16 @@ public class Country{
 	    aggressiveness = 0;}
 	return old;}
     public void conflictIncrement(){conflicts+=1;}
+    
+    public String toString(){
+	String retStr=("\n\n\n\nName:"+getName()+
+		       "\n\tLand:"+getLand()+
+		       "\n\tTroop Count:"+getTroopCount()+
+		       "\n\tPrestige:"+getPrestige()+
+		       "\n\tOppinion of France:"+ getOpinion()+
+		       "\n\tAgressiveness:"+getAggresive()+
+		       "\n\tConflict Count:"+getConflict());
+	return retStr;
+    }
+
 }

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import cs1.Keyboard;
 
 public class War{
     private Country head;
@@ -13,7 +14,7 @@ public class War{
 	warScore = 0;
 	active = false;
     }
-    
+    public String getName(){return name;}
     public boolean getActive(){return active;}
     public ArrayList getAllies(){return allies;} 
     public ArrayList getAxis(){return axis;} 
@@ -21,7 +22,8 @@ public class War{
     public int getWarScore(){
 	return warScore;}
     public int incDate(){
-	date++;}
+	date++;return date-1;
+    }
     public int addWarScore(int n){
 	warScore +=n; return warScore - n;}
     public void setActive(boolean input, Country select){
@@ -73,6 +75,19 @@ public class War{
     public void endWar(){
 	active = false;
 	axis.removeAll(axis);}
+    public String toString(){
+	String ret;
+	if(active){
+	     ret=("Name:"+name+
+			"\nAllies:"+printAllies()+
+			"\nHead:"+head.getName()+
+			"\nAxis:"+printAxis()+
+			"\nWarScore:"+warScore);}
+	else
+	    ret="You are currently at peace! Fix that!";
+	    
+	return ret;
+    }
 	
     public int options (Country select, France empire){
 	boolean end = true;
@@ -80,7 +95,7 @@ public class War{
 	System.out.println("Choose an action wisely, remembering that you have a warscore value of "+ getWarScore());
 	System.out.println("\t1: Negotiate with the entire alliance \n\t2: Negotiate with " +select.getName()+" \n\t3:Go back");
 		int choice=Keyboard.readInt();
-		if (choice = 1){
+		if (choice == 1){
 		    boolean loop = true;
 		    while (loop){
 			System.out.println("\t1: Make Demands \n\t2: Offer White Peace \n\t3: Offer surrender\n\t4:Go back");
@@ -106,19 +121,21 @@ public class War{
 				System.out.println("you don't have enough warscore, 1 warscore can be used for 1000 km of useful land\nHow land do you want?");
 			    }
 			    else{
-				break}}
-			    System.out.println("You have this much warscore: " + this.getWarScore() - selection /1000+".\nHow much gold do you want? ( 1 warscore = 10 gold)");
-			    int gold;
+				break;}
+			    }
+			    System.out.println("You have this much warscore: " + (this.getWarScore() - selection /1000) +".\nHow much gold do you want? ( 1 warscore = 10 gold)");
+			    int gold=0;
 			    while (true){
 			    selection=Keyboard.readInt();
 			    if (selection > 10 * (warScore - selection/1000)){
 				System.out.println("you don't have enough warscore, 1 warscore can be used for 10 gold\nHow much gold do you want?");
 			    }
 			    else{
-				break}}
+				break;}
+			    }
 			    System.out.println("Your current deal with "+ select.getName()+" is for " + selection+ "square km of useful land and " + gold+ " gold costing you " + (selection/1000 + gold/10)+ " warscore\n 1: yes, 2: no");
 			    int decision = Keyboard.readInt();
-			    if (decision = 1){
+			    if (decision == 1){
 				warScore -= (selection/1000 + gold/10);
 				select.subLand(selection);
 				empire.addLand(selection);
@@ -129,20 +146,17 @@ public class War{
 				break;
 			    }
 			}
-			if (call = 3){
+			if (call == 3){
 			    if (warScore > 0){
 				System.out.println("You are winning! You cannot surrender now and defile the " + empire.getName()+"!");
 			    }
-			    System.out.println("Your enemies offer you what they call \"favorable\" terms, "+ empire.getTreasury()*(warscore/100.0)+" gold as well as " + warScore*250+" square kilometers of your land\n Do you accept?\n1: yes, 2: no");
+			    System.out.println("Your enemies offer you what they call \"favorable\" terms, "+ empire.getTreasury()*(warScore/100.0)+" gold as well as " + warScore*250+" square kilometers of your land\n Do you accept?\n1: yes, 2: no");
 			    int accept = Keyboard.readInt();
-			    if (accept = 1){
-				
-			    
-			    
-
-		    
-
-		    
-
+			    if (accept == 1){
+			    }
+			}
+		    }
+		}
+	}
+	return -1;    }
 }
-    
