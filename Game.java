@@ -3,16 +3,17 @@ import java.util.ArrayList;
 
 public class Game{
     private France Empire = new France();
-    private Country Austria = new Country("The Austrian Empire", "Austrian",625400,100,100,100);
-    private Country Prussia = new Country("Prussia", "Prussian",0,100,100,100);
-    private Country Britain = new Country("Great Britain", "British",0,100,100,100);
-    private Country Russia = new Country("The Russian Empire", "Russian",0,100,100,100);
-    private Country Spain = new Country("Spain", "Spanish",0,100,100,100);
-    private Country Portugal =new Country("Portugal", "Portugese",0,100,100,100);
-    private Country Denmark = new Country("Denmark", "Danish",0,100,100,100);
-    private Country Sweden = new Country("Sweden", "Swedish",0,100,100,100);
-    private Country Sicily = new Country("Kingdom of two Sicilies", "Sicilian",0,100,100,100);
-    private Country Ottoman = new Country("The Ottoman Empire", "Ottoman",0,100,100,100);
+    	/*String newName,String newAdj, double newLand, int newMax, int newcount, int prest, int op, int agg*/
+    private Country Austria = new Country("The Austrian Empire", "Austrian",400000,200000,125000,30,50,20);
+    private Country Prussia = new Country("Prussia", "Prussian",250000,300000,200000,75,30,50);
+    private Country Britain = new Country("Great Britain", "British",300000,200000,100000,70,10,70);
+    private Country Russia = new Country("The Russian Empire", "Russian",600000,300000,150000,60,50,20);
+    private Country Spain = new Country("Spain", "Spanish",500000,150000,75000,10,60,0);
+    private Country Portugal =new Country("Portugal", "Portugese",100000,100000,80000,20,30,10);
+    private Country Denmark = new Country("Denmark", "Danish",200000,150000,80000,50,40,20);
+    private Country Sweden = new Country("Sweden", "Swedish",200000,180000,90000,40,40,20);
+    private Country Sicily = new Country("Kingdom of two Sicilies", "Sicilian",100000,50000,50000,20,40,0);
+    private Country Ottoman = new Country("The Ottoman Empire", "Ottoman",400000,200000,150000,10,50,0);
     private Country[] countries={Austria, Prussia, Britian, Russia, Spain, Portugal,Denmark, Sweden, Sicily, Ottoman}; 
     private int year = 1799;
     private int month = 1;

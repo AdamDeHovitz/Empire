@@ -13,7 +13,7 @@ public class France extends Country{
  
 
     public France(){
-	super("The French Republic","French", 640427, 300000,200000,80,100,0);
+	super("The French Republic","French", 600000, 300000,200000,80,100,100);
 	/*String newName,String newAdj, double newLand, int newMax, int newcount, int prest, int op, int agg*/
 	treasury=100;
 	dissent=0;
@@ -38,7 +38,7 @@ public class France extends Country{
 		System.out.println("\t"+x+": "+countries[x].getName());
 	    Country select=countries[Keyboard.readInt()];
 	    if (currentWar.getAxis().contains(select)){
-		currentWar.options(select);}
+		currentWar.options(select,empire);}
 	    
 	    else{
 		System.out.println("What would you like to do?");
@@ -68,7 +68,7 @@ public class France extends Country{
 			currentWar.setActive(true, select);
 
 			for (country a:countries){
-			    if ((a.getOpinion() < 20 + (a.getAggressive()/2) + select.getPrestige()/4) && (double)a.getTroopCount()/ a.getTroopMax() > .25)
+			    if ((a.getOpinion() < 5 + (a.getAggressive()/2) + select.getPrestige()/4 + (int)(Math.random()*20)) && (double)a.getTroopCount()/ a.getTroopMax() > .25)
 				currentWar.addAxis(a);}
 			results[0] += "\n you have declared the " + currentWar.getName()+" which features the nations of "+
 			    currentWar.printAllies() + "and their glorious leader France versus the damnable nations of " + currentWar.printAxis()+ "and their treacherous leader " + currentWar.getHead();}
