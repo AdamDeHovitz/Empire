@@ -100,6 +100,7 @@ public class War{
  
     public String battle(France Empire){
 	String retStr="";
+
 	int axisTroops=head.getTroopCount()+head.getPrestige();
 	for (Country x:axis)
 	    axisTroops+=x.getTroopCount()+x.getPrestige();
@@ -110,15 +111,20 @@ public class War{
 
 	int battle=(int)(Math.random()*(allyTroops+axisTroops));
 	warScore+= (int)((allyTroops-battle)/10000);
+
+
 	int TroopsLostAlly;
 	if (allies.size()>0)
 	    TroopsLostAlly= (int)((battle/100)/(allies.size()+1));
 	else
 	    TroopsLostAlly=(int)((battle/100)/(allies.size()+1));
+
 	for (Country x:allies)
 	    x.changeTroopCount(x.getTroopCount()-TroopsLostAlly);
 	Empire.changeTroopCount((Empire.getTroopCount()-TroopsLostAlly));
 	int TroopsLostAxis;
+
+
 	if (axis.size()>0)
 	    TroopsLostAxis=(int)((((axisTroops+allyTroops)-battle)/100)/axis.size()+1);
 	else
@@ -126,6 +132,7 @@ public class War{
 	head.changeTroopCount((head.getTroopCount()-TroopsLostAxis));
 	for (Country x:axis)
 	    x.changeTroopCount(x.getTroopCount()-TroopsLostAxis);
+
 	if (battle < allyTroops){
 	    Empire.setPrestige(Empire.getPrestige()+10);
 	    for(Country x: allies)
@@ -134,6 +141,7 @@ public class War{
 		x.setPrestige(x.getPrestige()-10);
 	    retStr+="You beat the enemy in a glorious battle! You lost "+TroopsLostAlly+" troops while your enemy lost "+ TroopsLostAxis +" troops. You gained "+(int)((allyTroops-battle)/10000) +" war score. God is clearly with you.";
 	}
+
 	if (battle> allyTroops){
 	    Empire.setPrestige(Empire.getPrestige()-10);
 	    for (Country x: axis)
@@ -158,6 +166,7 @@ public class War{
 		    boolean loop = true;
 		    while (loop){
 			System.out.println("\t1: Make Demands \n\t2: Offer White Peace \n\t3: Offer surrender\n\t4:Go back");
+			System.out.print("Choose wisely:");
 			int call=Keyboard.readInt();
 			if (call == 2){
 			    if (warScore > 0){
