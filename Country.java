@@ -40,6 +40,7 @@ public class Country{
     public int getTroopCount(){return troopCount;}
 
     public int getPrestige(){return prestige;}
+   
 
     public int getOpinion(){return opinionFrance;}
     public int getAggresive(){return aggressiveness;}
@@ -78,9 +79,10 @@ public class Country{
 		       "\n\tLand:"+getLand()+
 		       "\n\tTroop Count:"+getTroopCount()+
 		       "\n\tPrestige:"+getPrestige()+
-		       "\n\tOppinion of France:"+ getOpinion()+
-		       "\n\tAgressiveness:"+getAggresive()+
-		       "\n\tConflict Count:"+getConflict());
+		       "\n\tOpinion of France:"+ getOpinion()+
+		       "\n\tAgressiveness:"+getAggresive()
+		       //"\n\tConflict Count:"+getConflict()
+		       );
 	return retStr;
     }
 

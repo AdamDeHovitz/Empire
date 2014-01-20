@@ -61,7 +61,7 @@ public class Game{
 		    System.out.println("Please enter a valid number.");
 		}
 	    }
-	    System.out.println(results);
+	    System.out.println(results[0]);
 	    month++;
 	    if (month>12){
 		year++;

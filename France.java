@@ -36,8 +36,8 @@ public class France extends Country{
 	    System.out.println("Select a country to interact with");
 	    for(int x=1;x<=countries.length;x++)
 		System.out.println("\t"+x+": "+countries[x-1].getName());
-	    Country select=countries[Keyboard.readInt()];
-	    if (currentWar.getAxis().contains(select)){
+	    Country select=countries[Keyboard.readInt()-1];
+	    if (currentWar.getActive() && (currentWar.getAxis().contains(select) || currentWar.getHead().equals(select))){
 		currentWar.options(select,this);}
 	    
 	    else{
@@ -69,10 +69,10 @@ public class France extends Country{
 			currentWar.setActive(true, select);
 
 			for (Country a:countries){
-			    if ((a.getOpinion() < 5 + (a.getAggresive()/2) + select.getPrestige()/4 + (int)(Math.random()*20)) && (double)a.getTroopCount()/ a.getTroopMax() > .25)
-				currentWar.addAxis(a);}
-			retStr += "\n you have declared the " + currentWar.getName()+" which features the nations of "+
-			    currentWar.printAllies() + "and their glorious leader France versus the damnable nations of " + currentWar.printAxis()+ "and their treacherous leader " + currentWar.getHead();}
+			    if ((a.getOpinion() < 5 + (a.getAggresive()/2) + select.getPrestige()/4 + (int)(Math.random()*20)) && (double)a.getTroopCount()/ a.getTroopMax() > .25){
+				currentWar.addAxis(a);}}
+			retStr += "\n You have declared the " + currentWar.getName()+" which features the nations of "+
+			    currentWar.printAllies() + "and their glorious leader France versus the damnable nations of " + currentWar.printAxis()+ "and their treacherous leader " + currentWar.getHead().getName();}
 		    // Declaring war shouldn't take a turn, to allow for the character to declare war on multiple enemies
 		}
 	
