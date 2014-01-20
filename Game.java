@@ -137,7 +137,8 @@ public class Game{
 		}
 	    }
 	    if (Empire.getTreasury()>0){
-		Empire.changeTroopCount(Empire.getTroopCount()+ 5000 + (Empire.getMilitarySchools()*1000));}
+		Empire.changeTroopCount(Empire.getTroopCount()+ 100 + (Empire.getMilitarySchools()*100));}
+
 	    
 	    String retStr=(String)results[0];
 	    retStr+=randomEvents()+"\n";

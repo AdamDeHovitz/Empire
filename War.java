@@ -135,17 +135,22 @@ public class War{
 
 	if (battle < allyTroops){
 	    Empire.setPrestige(Empire.getPrestige()+10);
-	    for(Country x: allies)
+	    for(Country x: allies){
 		x.setOpinion(x.getOpinion()+10);
-	    for (Country x: axis)
+		x.changeTroopCount(Empire.getTroopCount()+ 100);}
+	    for (Country x: axis){
 		x.setPrestige(x.getPrestige()-10);
+		x.changeTroopCount(Empire.getTroopCount()+ 1000);}
 	    retStr+="You beat the enemy in a glorious battle! You lost "+TroopsLostAlly+" troops while your enemy lost "+ TroopsLostAxis +" troops. You gained "+(int)((allyTroops-battle)/10000) +" war score. God is clearly with you.";
 	}
 
 	if (battle> allyTroops){
 	    Empire.setPrestige(Empire.getPrestige()-10);
-	    for (Country x: axis)
+	    for (Country x: axis){
 		x.setPrestige(x.getPrestige()+10);
+		x.changeTroopCount(Empire.getTroopCount()+ 100);}
+	     for (Country x: allies){
+		x.changeTroopCount(Empire.getTroopCount()+ 1000);}
 	    retStr+="The enemy crushed you on the battle feild. You lost "+TroopsLostAlly+" troops while your enemy lost "+ TroopsLostAxis +" troops. You lost "+(int)((allyTroops-battle)/10000) +" war score. You should be ashamed. We are French.";
 	}
 	return retStr;

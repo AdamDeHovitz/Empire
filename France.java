@@ -96,7 +96,7 @@ public class France extends Country{
 	Integer tr= (Integer)results[1];
 	String retStr=(String)results[0];
 	System.out.println("What would you like to do?");
-	System.out.println("1: Establish Legion of Honor \n\t Increases prestige\n2:Establish a Military School:\n\t Each school increases Troop Count by 10 every month");
+	System.out.println("1: Establish Legion of Honor \n\t Increases prestige\n2:Establish a Military School:\n\t Each school increases Troop Count by an extra 1000 every month");
 	System.out.print("Choose wisely:");
 	int choice=Keyboard.readInt();
 	if (choice==1){
