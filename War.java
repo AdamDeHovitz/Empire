@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import cs1.Keyboard;
 
 public class War{
+    private France Empire;
     private Country head;
     private ArrayList<Country> allies;
     private ArrayList<Country> axis;
@@ -60,7 +61,7 @@ public class War{
     }
      public void addAxis(Country A){
 	 if (! A.equals(head)){
-	     allies.add(A);}
+	     axis.add(A);}
     }
     public void addAlly(ArrayList<Country> A){
 	for( Country c :A){
@@ -96,9 +97,59 @@ public class War{
 	    
 	return ret;
     }
+ 
+    public String battle(France Empire){
+	String retStr="";
+	int axisTroops=head.getTroopCount()+head.getPrestige();
+	for (Country x:axis)
+	    axisTroops+=x.getTroopCount()+x.getPrestige();
+	
+	int allyTroops=Empire.getTroopCount()+Empire.getPrestige();
+	for (Country x:allies)
+	    allyTroops+=x.getTroopCount()+x.getPrestige();
+
+	int battle=(int)(Math.random()*(allyTroops+axisTroops));
+	warScore+= (int)((allyTroops-battle)/10000);
+	int TroopsLostAlly;
+	if (allies.size()>0)
+	    TroopsLostAlly= (int)((battle/100)/(allies.size()+1));
+	else
+	    TroopsLostAlly=(int)((battle/100)/(allies.size()+1));
+	for (Country x:allies)
+	    x.changeTroopCount(x.getTroopCount()-TroopsLostAlly);
+	Empire.changeTroopCount((Empire.getTroopCount()-TroopsLostAlly));
+	int TroopsLostAxis;
+	if (axis.size()>0)
+	    TroopsLostAxis=(int)((((axisTroops+allyTroops)-battle)/100)/axis.size()+1);
+	else
+	     TroopsLostAxis=(int)((((axisTroops+allyTroops)-battle)/100));
+	head.changeTroopCount((head.getTroopCount()-TroopsLostAxis));
+	for (Country x:axis)
+	    x.changeTroopCount(x.getTroopCount()-TroopsLostAxis);
+	if (battle < allyTroops){
+	    Empire.setPrestige(Empire.getPrestige()+10);
+	    for(Country x: allies)
+		x.setOpinion(x.getOpinion()+10);
+	    for (Country x: axis)
+		x.setPrestige(x.getPrestige()-10);
+	    retStr+="You beat the enemy in a glorious battle! You lost "+TroopsLostAlly+" troops while your enemy lost "+ TroopsLostAxis +" troops. You gained "+(int)((allyTroops-battle)/10000) +" war score. God is clearly with you.";
+	}
+	if (battle> allyTroops){
+	    Empire.setPrestige(Empire.getPrestige()-10);
+	    for (Country x: axis)
+		x.setPrestige(x.getPrestige()+10);
+	    retStr+="The enemy crushed you on the battle feild. You lost "+TroopsLostAlly+" troops while your enemy lost "+ TroopsLostAxis +" troops. You lost "+(int)((allyTroops-battle)/10000) +" war score. You should be ashamed. We are French.";
+	}
+	return retStr;
+    }
+	    
+			 
+	
+	
 	
     public int options (Country select, France empire){
 	boolean end = true;
+	Empire=empire;
 	while (end){
 	System.out.println("Choose an action wisely, remembering that you have a warscore value of "+ getWarScore());
 	//System.out.println("\t1: Negotiate with the entire alliance \n\t2: Negotiate with " +select.getName()+" \n\t3:Go back");
@@ -135,8 +186,8 @@ public class War{
 			    System.out.println("You have this much warscore: " + (this.getWarScore() - selection /1000) +".\nHow much gold do you want? ( 1 warscore = 10 gold)");
 			    int gold=0;
 			    while (true){
-			    selection=Keyboard.readInt();
-			    if (selection > 10 * (warScore - selection/1000)){
+			    gold=Keyboard.readInt();
+			    if (gold > 10 * (warScore - gold/10)){
 				System.out.println("you don't have enough warscore, 1 warscore can be used for 10 gold\nHow much gold do you want?");
 			    }
 			    else{

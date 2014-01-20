@@ -27,21 +27,27 @@ public class Game{
 	String ret=Empire+"/n"+Austria+"/n"+ Prussia +"/n"+Britain +"/n"+Russia +"/n"+Spain+"/n"+ Portugal+"/n"+Denmark+"/n"+ Sweden+"/n"+Sicily+"/n"+ Ottoman;
 	System.out.println( ret);
     }
-    public static Country[] getCountries(){
-	return countries;
+
+    public String randomEvents(){
+	String ret="";
+	int event=(int)(Math.random()*3);
+	if (event==0){
+	    ret="Your spies report a new weapon appearing on british ships. It is some sort of cannon, only instead od the typical fire, they shoot strange beams of light, capable of mass destruction. Some reported that during attacks they could hear the canons shreiking EXTERMINATE.\n Britain's troop count doubles";
+	    Britain.changeTroopCount(Britain.getTroopCount()*2);}
+	return  ret;
     }
+    public Game(){}
 
-
-
-    public Game(){
-	
+    public void play(){
 	System.out.println("You are France in 1799. The great military general Napoleon has just staged a coup. This new leader has one goal: to conquer Europe. Use your powers of diplomacy and your military to manipulate those around you");
-	System.out.println("Where do you want to start?");
+
 	boolean EndGame=false;
 	while(!EndGame){
-	    Object[] results= new Object[]{"",3};
+	    Object[] results= new Object[]{"Results:\n",3};
 	    while(((Integer)results[1])>0){
+		System.out.println("What do you want to do?");
 		printMain();
+		System.out.print("Choose wisely:");
 		int select=Keyboard.readInt();
 		if (select == 1)
 		    printStats();
@@ -61,6 +67,14 @@ public class Game{
 		    System.out.println("Please enter a valid number.");
 		}
 	    }
+	    Empire.changeTroopCount(Empire.getTroopCount()+(Empire.getMilitarySchools()*10));
+	    String retStr=(String)results[0];
+	    retStr+=randomEvents()+"\n";
+	    if (Empire.getCurrent().getActive())
+		retStr+=Empire.getCurrent().battle(Empire);
+	    results[0]=retStr;
+	    
+		
 	    System.out.println(results[0]);
 	    month++;
 	    if (month>12){
@@ -73,6 +87,8 @@ public class Game{
 	}
     }
     public static void main(String [] args){
-	Game me=new Game();}
+	Game me=new Game();
+	me.play();
+}
 	
 }

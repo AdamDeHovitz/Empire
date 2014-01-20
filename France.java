@@ -24,7 +24,7 @@ public class France extends Country{
     public int getDissent(){return dissent;}
     public War getCurrent(){
 	return currentWar;}
-    
+    public int getMilitarySchools(){return militarySchoolCount;}
     public double changeTreasury(double changeTres){double old=treasury;treasury=changeTres;return changeTres;}
     public int changeDiss(int changeDis){int old=dissent;dissent-=changeDis;return old;}
 
@@ -36,6 +36,7 @@ public class France extends Country{
 	    System.out.println("Select a country to interact with");
 	    for(int x=1;x<=countries.length;x++)
 		System.out.println("\t"+x+": "+countries[x-1].getName());
+	    System.out.print("Choose wisely:");
 	    Country select=countries[Keyboard.readInt()-1];
 	    if (currentWar.getActive() && (currentWar.getAxis().contains(select) || currentWar.getHead().equals(select))){
 		currentWar.options(select,this);}
@@ -43,11 +44,14 @@ public class France extends Country{
 	    else{
 		System.out.println("What would you like to do?");
 		System.out.println("\t1: Send gift \n\t2: Offer alliance \n\t3:Declare war\n\t4:Go back");
+		System.out.print("Choose wisely:");
 		int choice=Keyboard.readInt();
 		if (choice==1){
 		    select.setOpinion(select.getOpinion()+10);
 		    this.treasury-=100;
 		    tr-=1;
+		    retStr+="You have sent"+select.getName()+"a gift. Their oppinion of you has increased, but it wasn't cheap.";
+		    retStr+="But hey, I guess you can buy friends.";
 		    
 		}
 		else if(choice==2){
@@ -55,10 +59,11 @@ public class France extends Country{
 			System.out.println(select.getName() + " is already your ally, and is confused by your offer");
 		    }
 		    else if(select.getOpinion() <= 70 + (select.getAggresive() / 5)){
-			retStr+="\n " + select.getName()+ " has rejected to even consider your offer of an alliance";
+			retStr+=select.getName()+ " has rejected to even consider your offer of an alliance";
 			tr-=1;}
 		    else {
 			currentWar.addAlly(select);
+			retStr+=select.getName()+"has accepted your offer for an alliance and wishes you prosperity";
 		    }
 		}
 		else if (choice ==3){
@@ -79,7 +84,7 @@ public class France extends Country{
  
 	    }
 	
-	results[0]=retStr;
+	results[0]=retStr+"\n";
 	results[1]=tr;
 	return results;
     }
@@ -88,7 +93,22 @@ public class France extends Country{
 	    
 	
     public  Object[] domesticOptions (Object[] results){
-	String retStr= "1: Establish Legion of Honor \n\t Increases prestige";
-	return new Object[]{};
+	Integer tr= (Integer)results[1];
+	String retStr=(String)results[0];
+	System.out.println("What would you like to do?");
+	System.out.println("1: Establish Legion of Honor \n\t Increases prestige\n2:Establish a Military School:\n\t Each school increases Troop Count by 10 every month");
+	int choice=Keyboard.readInt();
+	if (choice==1){
+	    retStr+="You formed a legion of honor, increasing your prestige by 10";
+	    tr-=1;
+	    this.setPrestige(this.getPrestige()+10);
+	}
+	if (choice==2){
+	    retStr+="You have established military schools.";
+	    militarySchoolCount+=1;
+	}
+	results[0]=retStr+"\n";
+	results[1]=tr;
+	return results;
     }
 }
