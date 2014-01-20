@@ -53,7 +53,7 @@ public class Country{
     public double subLand(double lostLand){land-=lostLand; return land + lostLand; }
 
     public double setLand(double newLand){double old = land; land=newLand; return old;}
-    public int settroopMax(int newVal){int old = troopMax; troopMax=newVal; return old;}
+    public int setTroopMax(int newVal){int old = troopMax; troopMax=newVal; return old;}
     public int changeTroopCount(int newVal){int old = troopCount; troopCount=newVal; return old;}
     public int setPrestige(int newVal){int old = prestige; prestige= newVal; 
 	if (prestige > 100){
