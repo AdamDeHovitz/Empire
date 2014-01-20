@@ -48,7 +48,7 @@ public class Game{
 		/* results is transfered in since we need to write the results there
 		   foreign() & domesticOptions() returns number of turns used*/
 		else if(select == 2)
-		    results = Empire.foreign((Object[])results);
+		    results = Empire.foreign(countries,(Object[])results);
 		else if (select == 3)
 		    results = Empire.domesticOptions(results);
 		else if(select == 4){

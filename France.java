@@ -30,14 +30,12 @@ public class France extends Country{
 
     //public String surrender(){
     //	return "Germany";}
-    public Object[] foreign(Object[]results){
-	Country[] countries=Game.getCountries();
+    public Object[] foreign(Country[]countries,Object[]results){
 	Integer tr= (Integer)results[1];
 	String retStr=(String)results[0];
-	while (tr < 3){
 	    System.out.println("Select a country to interact with");
 	    for(int x=1;x<=countries.length;x++)
-		System.out.println("\t"+x+": "+countries[x].getName());
+		System.out.println("\t"+x+": "+countries[x-1].getName());
 	    Country select=countries[Keyboard.readInt()];
 	    if (currentWar.getAxis().contains(select)){
 		currentWar.options(select,this);}
@@ -78,10 +76,9 @@ public class France extends Country{
 		    // Declaring war shouldn't take a turn, to allow for the character to declare war on multiple enemies
 		}
 	
-		else if (choice == 4){
-		    break;}
+ 
 	    }
-	}
+	
 	results[0]=retStr;
 	results[1]=tr;
 	return results;
