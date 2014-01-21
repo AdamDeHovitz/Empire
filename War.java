@@ -101,23 +101,23 @@ public class War{
     public String battle(France Empire){
 	String retStr="";
 
-	int axisTroops=head.getTroopCount()+head.getPrestige();
+	int axisTroops=head.getTroopCount()*head.getPrestige();
 	for (Country x:axis)
-	    axisTroops+=x.getTroopCount()+x.getPrestige();
+	    axisTroops+=x.getTroopCount()*x.getPrestige();
 	
-	int allyTroops=Empire.getTroopCount()+Empire.getPrestige();
+	int allyTroops=Empire.getTroopCount()*Empire.getPrestige();
 	for (Country x:allies)
-	    allyTroops+=x.getTroopCount()+x.getPrestige();
+	    allyTroops+=x.getTroopCount()*x.getPrestige();
 
 	int battle=(int)(Math.random()*(allyTroops+axisTroops));
-	warScore+= (int)((allyTroops-battle)/10000);
+	warScore+= (int)((allyTroops-battle-1500)/100000.0);
 
 
 	int TroopsLostAlly;
 	if (allies.size()>0)
-	    TroopsLostAlly= (int)((battle/100)/(allies.size()+1));
+	    TroopsLostAlly= (int)((battle/10000)/(allies.size()+1));
 	else
-	    TroopsLostAlly=(int)((battle/100)/(allies.size()+1));
+	    TroopsLostAlly=(int)((battle/10000)/(allies.size()+1));
 
 	for (Country x:allies)
 	    x.changeTroopCount(x.getTroopCount()-TroopsLostAlly);
@@ -126,9 +126,13 @@ public class War{
 
 
 	if (axis.size()>0)
-	    TroopsLostAxis=(int)((((axisTroops+allyTroops)-battle)/100)/axis.size()+1);
+	    TroopsLostAxis=(int)((((axisTroops+allyTroops)-battle)/10000)/axis.size()+1);
 	else
+<<<<<<< HEAD
 	    TroopsLostAxis=(int)((((axisTroops+allyTroops)-battle)/100));
+=======
+	     TroopsLostAxis=(int)((((axisTroops+allyTroops)-battle)/10000));
+>>>>>>> e52ed382a7c22782933e44b575550dd6eb2db199
 	head.changeTroopCount((head.getTroopCount()-TroopsLostAxis));
 	for (Country x:axis)
 	    x.changeTroopCount(x.getTroopCount()-TroopsLostAxis);
