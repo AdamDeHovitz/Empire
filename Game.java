@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 import cs1.Keyboard;
 
 public class Game{
@@ -20,7 +21,7 @@ public class Game{
 
     //public Game(){}
     public void printMain(){
-	String ret="\t 1: Show Statistics \n\t 2:Foreign Affairs \n\t 3: Domestic Affairs \n\t 4: End Turn \n\t 5: View Current War\n\t 6: End Game";
+	String ret="\t 1: Show Statistics \n\t 2:Foreign Affairs \n\t 3: Domestic Affairs \n\t 4: End Turn \n\t 5: View Current War\n\t 6: End Game\n\t 7:Save Game";
 	System.out.println( ret);
     }
     public void printStats(){
@@ -108,11 +109,12 @@ public class Game{
     
     
     public void play(){
+
 	System.out.println("You are France in 1799. The great military general Napoleon has just staged a coup. This new leader has one goal: to conquer Europe. Use your powers of diplomacy and your military to manipulate those around you");
 
 	boolean EndGame=false;
 	while(!EndGame){
-	    Object[] results= new Object[]{"Results:\n",3};
+	    Object[] results= new Object[]{"A recount of what you did:\n",3};
 	    while(((Integer)results[1])>0){
 		System.out.println("You have " + results[1]+ " moves left");
 		System.out.println("What do you want to do?");
@@ -133,6 +135,7 @@ public class Game{
 		    System.out.println(Empire.getCurrent().toString());}
 		else if(select == 6){
 		    EndGame=true; break;}
+		else if(select == 7)
 		else{
 		    System.out.println("Please enter a valid number.");
 		}
@@ -161,7 +164,22 @@ public class Game{
 	}
     }
     public static void main(String [] args){
-	Game me=new Game();
+	System.out.println("Welcome to Empire Builder 1799!");
+	System.out.println("\t1: New Game \n\t2:Load Game");
+	System.out.println("Choose Wisely:");
+	int start=Keyboard.readInt();
+	Game me;
+	if (start==1)
+	    me=new Game();
+	if (start==2){
+	    System.out.print("Enter Name:");
+	    String name=Keyboard.readString();
+	    Scanner S= new Scanner(name);
+	    String[] data=new String[countries.size()+1];
+	    int x=0;
+	    while(S.hasNextLine())
+		data[x]=S.nextLine();
+	    
 	me.play();
     }
 	
