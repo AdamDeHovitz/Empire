@@ -128,11 +128,11 @@ public class War{
 	if (axis.size()>0)
 	    TroopsLostAxis=(int)((((axisTroops+allyTroops)-battle)/10000)/axis.size()+1);
 	else
-<<<<<<< HEAD
+
 	    TroopsLostAxis=(int)((((axisTroops+allyTroops)-battle)/100));
-=======
+
 	     TroopsLostAxis=(int)((((axisTroops+allyTroops)-battle)/10000));
->>>>>>> e52ed382a7c22782933e44b575550dd6eb2db199
+
 	head.changeTroopCount((head.getTroopCount()-TroopsLostAxis));
 	for (Country x:axis)
 	    x.changeTroopCount(x.getTroopCount()-TroopsLostAxis);
@@ -191,11 +191,11 @@ public class War{
 				
 			    
 		if (call == 1){
-		    if (warScore > 1){
+		    if (warScore < 1){
 			System.out.println("You must have positive warscore to make demands!");}
 		    else{
 				
-			System.out.println("You have this much warscore: " + this.getWarScore()+".\nHow much land do you want? (They have"+ select.getLand()+" km and 1000 km = 1 warscore)");
+			System.out.println("You have this much warscore: " + this.getWarScore()+".\nHow much land do you want? (They have "+ select.getLand()+" km and 1000 km = 1 warscore)");
 			int selection;
 			while (true){
 			    selection=Keyboard.readInt();

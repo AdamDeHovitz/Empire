@@ -9,6 +9,8 @@ public class France extends Country{
     private double monthlyIncome;
     private int soldiersPerMonth;
     private War currentWar;
+    private boolean legion;
+    private boolean emperor;
     
  
 
@@ -18,6 +20,8 @@ public class France extends Country{
 	treasury=100;
 	dissent=0;
 	currentWar = new War();
+	legion = false;
+	emperor = false;
     }
 
     public double getTreasury(){return treasury;}
@@ -30,6 +34,12 @@ public class France extends Country{
 
     //public String surrender(){
     //	return "Germany";}
+    public int lowerOp(int val,Country[] countries){
+	for (Country a:countries){
+	    a.setOpinion(a.getOpinion - val);}
+	return val;
+    }
+	
     public Object[] foreign(Country[]countries,Object[]results){
 	Integer tr= (Integer)results[1];
 	String retStr=(String)results[0];
@@ -53,8 +63,8 @@ public class France extends Country{
 			select.setOpinion(select.getOpinion()+10);
 			this.treasury-=100;
 			tr-=1;
-			retStr+="You have sent "+select.getName()+" a gift. Their opinion of you has increased, but it wasn't cheap.";
-			retStr+="But hey, I guess you can buy friends.";
+			retStr+="\n"+"You have sent "+select.getName()+" a gift. Their opinion of you has increased, but it wasn't cheap.";
+			retStr+="\n"+"But hey, I guess you can buy friends.";
 		    }
 		    else{
 			System.out.println("You don't have enough gold to do that");}
@@ -64,12 +74,12 @@ public class France extends Country{
 			System.out.println(select.getName() + " is already your ally, and is confused by your offer");
 		    }
 		    else if(select.getOpinion() <= 70 + (select.getAggresive() / 5)){
-			retStr+=select.getName()+ " has rejected to even consider your offer of an alliance";
+			retStr+= "\n"+select.getName()+ " has rejected to even consider your offer of an alliance";
 			
 			tr-=1;}
 		    else {
 			currentWar.addAlly(select);
-			retStr+=select.getName()+" has accepted your offer for an alliance and wishes you prosperity";
+			retStr+="\n"+select.getName()+" has accepted your offer for an alliance and wishes you prosperity";
 			tr-=1;
 		    }
 		}
@@ -84,7 +94,7 @@ public class France extends Country{
 			for (Country a:countries){
 			    if ((a.getOpinion() < 5 + (a.getAggresive()/2) + select.getPrestige()/4 + (int)(Math.random()*20)) && (double)a.getTroopCount()/ a.getTroopMax() > .25){
 				currentWar.addAxis(a);}}
-			retStr += "\n You have declared the " + currentWar.getName()+" which features the nations of "+
+			retStr += "\nYou have declared the " + currentWar.getName()+" which features the nations of "+
 			    currentWar.printAllies() + "and their glorious leader France versus the damnable nations of " + currentWar.printAxis()+ "and their treacherous leader " + currentWar.getHead().getName();}
 		    // Declaring war shouldn't take a turn, to allow for the character to declare war on multiple enemies
 		}
@@ -104,24 +114,85 @@ public class France extends Country{
 		    
 	    
 	
-    public  Object[] domesticOptions (Object[] results){
+    public  Object[] domesticOptions (Object[] results, Country[] countries){
 	Integer tr= (Integer)results[1];
 	String retStr=(String)results[0];
 	System.out.println("What would you like to do?");
-	System.out.println("1: Establish Legion of Honor \n\t Increases prestige\n2:Establish a Military School:\n\t Each school increases Troop Count by an extra 1000 every month");
-	System.out.print("Choose wisely:");
-	int choice=Keyboard.readInt();
-	if (choice==1){
-	    retStr+="You formed a legion of honor, increasing your prestige by 10";
-	    tr-=1;
-	    this.setPrestige(this.getPrestige()+10);
+	if (! legion){
+	    System.out.println("\n\t1: Establish Legion of Honor \n\t Increases prestige\n(costs 75 gold)\n2:Establish a Military School:\n\t Each school increases Troop Count by an extra 1000 every month\n(costs 50 gold to create and 1 gold each month)");
+	    System.out.print("Choose wisely:");
+	    int choice=Keyboard.readInt();
+	    if (choice==1){
+		if (this.treasury < 75){
+		    System.out.println("You need moar monies");}
+		else{
+		    retStr+="\n"+"You formed the legion of honor, increasing your prestige by 10";
+		    tr-=1;
+		    this.setPrestige(this.getPrestige()+10);
+		    this.treasury-=75;
+		    legion = true;
+		}
+	    }
+	    if (choice==2){
+		if (this.treasury < 50){
+		    System.out.println("You need moar monies");}
+		else{
+		    retStr+="\n"+"You have established a military school.";
+		    militarySchoolCount+=1;
+		    this.treasury-=50;}
+	    }
 	}
-	if (choice==2){
-	    retStr+="You have established military schools.";
-	    militarySchoolCount+=1;
+	else if (! emperor){
+	    System.out.println("\n\t1: Crown yourself emperor \n\t Increases prestige by 50, angers your neighbors, creates the empire, and raises your troop count \n(costs 300 gold)\n2:Establish a Military School:\n\t Each school increases Troop Count by an extra 1000 every month\n(costs 50 gold to create and 1 gold each month)");
+	    System.out.print("Choose wisely:");
+	    int choice=Keyboard.readInt();
+	    if (choice==1){
+		if (this.treasury <300){
+		    System.out.println("You need moar monies");}
+		else {
+		    retStr+="\n"+"You have summoned the pope to coronate you as the one and only Emeperor of the French\n this day will live in on in glory";
+		    tr-=1;
+		    this.setPrestige(this.getPrestige()+50);
+		    this.setTroopMax(this.getTroopMax()+100000);
+		    this.treasury-=300;
+		    this.setName("The Empire of the French");
+		    this.lowerOp(10,countries);
+		    emperor = true;
+		}
+		
+	    }
+	    if (choice==2){
+		if (this.treasury < 50){
+		    System.out.println("You need moar monies");}
+		else{
+		    retStr+=""\n"+You have established a military school.";
+		    militarySchoolCount+=1;
+		    this.treasury-=50;}
+	    }
 	}
-	results[0]=retStr+"\n";
-	results[1]=tr;
-	return results;
+	else {
+	     System.out.println("\n\t1:Establish a Military School:\n\t Each school increases Troop Count by an extra 1000 every month\n(costs 50 gold to create and 1 gold each month)");
+	    System.out.print("Choose wisely:");
+	    int choice=Keyboard.readInt();
+	    
+	    if (choice==1){
+		if (this.treasury < 50){
+		    System.out.println("You need moar monies");}
+		else{
+		    retStr+=""\n"+You have established a military school.";
+		    militarySchoolCount+=1;
+		    this.treasury-=50;}
+	    }
+
+
+
+
+
+
+	    results[0]=retStr+"\n";
+	    results[1]=tr;
+	    return results;
+	    
+	}
     }
 }

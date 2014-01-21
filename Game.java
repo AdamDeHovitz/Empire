@@ -126,7 +126,7 @@ public class Game{
 		else if(select == 2)
 		    results = Empire.foreign(countries,(Object[])results);
 		else if (select == 3)
-		    results = Empire.domesticOptions(results);
+		    results = Empire.domesticOptions(results, countries);
 		else if(select == 4){
 		    break;}
 		else if(select == 5){
