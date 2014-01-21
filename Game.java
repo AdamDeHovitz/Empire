@@ -20,7 +20,7 @@ public class Game{
 
     //public Game(){}
     public void printMain(){
-	String ret="\t 1: Stat \n\t 2:Foreign Affairs \n\t 3:Domestic Affairs \n\t 4:End Turn \n\t 5: View Current War\n\t 6:End Game";
+	String ret="\t 1: Show Statistics \n\t 2:Foreign Affairs \n\t 3: Domestic Affairs \n\t 4: End Turn \n\t 5: View Current War\n\t 6: End Game";
 	System.out.println( ret);
     }
     public void printStats(){
@@ -114,6 +114,7 @@ public class Game{
 	while(!EndGame){
 	    Object[] results= new Object[]{"Results:\n",3};
 	    while(((Integer)results[1])>0){
+		System.out.println("You have " + results[1]+ " moves left");
 		System.out.println("What do you want to do?");
 		printMain();
 		System.out.print("Choose wisely:");
@@ -152,7 +153,9 @@ public class Game{
 		year++;
 		month = 1;
 		}
+	    Empire.changeTreasury(Empire.getTreasury()+ (Empire.getLand()/12000) - Empire.getMilitarySchools());
 	    System.out.println("The date is " + year+"-"+month+"-1");
+	    System.out.println("You have "+Empire.getTreasury()+ " gold");
 	    if (Empire.getCurrent().getActive()){
 		Empire.getCurrent().incDate();}
 	}

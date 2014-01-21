@@ -13,7 +13,7 @@ public class France extends Country{
  
 
     public France(){
-	super("The French Republic","French", 600000, 300000,200000,80,100,100);
+	super("The French Republic","French", 600000, 350000,300000,80,100,100);
 	/*String newName,String newAdj, double newLand, int newMax, int newcount, int prest, int op, int agg*/
 	treasury=100;
 	dissent=0;
@@ -33,26 +33,31 @@ public class France extends Country{
     public Object[] foreign(Country[]countries,Object[]results){
 	Integer tr= (Integer)results[1];
 	String retStr=(String)results[0];
-	    System.out.println("Select a country to interact with");
-	    for(int x=1;x<=countries.length;x++)
-		System.out.println("\t"+x+": "+countries[x-1].getName());
-	    System.out.print("Choose wisely:");
-	    Country select=countries[Keyboard.readInt()-1];
-	    if (currentWar.getActive() && (currentWar.getAxis().contains(select) || currentWar.getHead().equals(select))){
-		currentWar.options(select,this);}
+	System.out.println("Select a country to interact with");
+	for(int x=1;x<=countries.length;x++)
+	    System.out.println("\t"+x+": "+countries[x-1].getName());
+	System.out.print("Choose wisely:");
+	Country select=countries[Keyboard.readInt()-1];
+	if (currentWar.getActive() && (currentWar.getAxis().contains(select) || currentWar.getHead().equals(select))){
+	    currentWar.options(select,this);}
 	    
-	    else{
+	else{
+	    boolean cont = true;
+	    while (cont && tr > 0){
 		System.out.println("What would you like to do?");
-		System.out.println("\t1: Send gift \n\t2: Offer alliance \n\t3:Declare war\n\t4:Go back");
+		System.out.println("\t1: Send gift (100 gold) \n\t2: Offer alliance \n\t3: Declare war\n\t4: Show country's stats \n\t5: Go back");
 		System.out.print("Choose wisely:");
 		int choice=Keyboard.readInt();
 		if (choice==1){
-		    select.setOpinion(select.getOpinion()+10);
-		    this.treasury-=100;
-		    tr-=1;
-		    retStr+="You have sent"+select.getName()+"a gift. Their oppinion of you has increased, but it wasn't cheap.";
-		    retStr+="But hey, I guess you can buy friends.";
-		    
+		    if (this.getTreasury()>=100){
+			select.setOpinion(select.getOpinion()+10);
+			this.treasury-=100;
+			tr-=1;
+			retStr+="You have sent "+select.getName()+" a gift. Their opinion of you has increased, but it wasn't cheap.";
+			retStr+="But hey, I guess you can buy friends.";
+		    }
+		    else{
+			System.out.println("You don't have enough gold to do that");}
 		}
 		else if(choice==2){
 		    if(currentWar.getAllies().contains(select)){
@@ -60,13 +65,16 @@ public class France extends Country{
 		    }
 		    else if(select.getOpinion() <= 70 + (select.getAggresive() / 5)){
 			retStr+=select.getName()+ " has rejected to even consider your offer of an alliance";
+			
 			tr-=1;}
 		    else {
 			currentWar.addAlly(select);
-			retStr+=select.getName()+"has accepted your offer for an alliance and wishes you prosperity";
+			retStr+=select.getName()+" has accepted your offer for an alliance and wishes you prosperity";
+			tr-=1;
 		    }
 		}
 		else if (choice ==3){
+		    cont = false;
 		    if (currentWar.getActive()){
 			currentWar.addAxis(select);
 			retStr+="\n"+select.getName()+ " has joined the "+ currentWar.getName();}
@@ -80,9 +88,13 @@ public class France extends Country{
 			    currentWar.printAllies() + "and their glorious leader France versus the damnable nations of " + currentWar.printAxis()+ "and their treacherous leader " + currentWar.getHead().getName();}
 		    // Declaring war shouldn't take a turn, to allow for the character to declare war on multiple enemies
 		}
-	
- 
+		else if (choice == 4){
+		    System.out.println(select);}
+		else if (choice == 5){
+		    cont = false;}
+		
 	    }
+	}
 	
 	results[0]=retStr+"\n";
 	results[1]=tr;

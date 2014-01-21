@@ -75,7 +75,7 @@ public class Country{
     public void conflictIncrement(){conflicts+=1;}
     
     public String toString(){
-	String retStr=("\n\n\n\nName:"+getName()+
+	String retStr=("\n\n\nName:"+getName()+
 		       "\n\tLand:"+getLand()+
 		       "\n\tTroop Count:"+getTroopCount()+
 		       "\n\tPrestige:"+getPrestige()+
