@@ -101,16 +101,16 @@ public class War{
     public String battle(France Empire){
 	String retStr="";
 
-	int axisTroops=head.getTroopCount()*head.getPrestige();
+	int axisTroops=head.getTroopCount()+head.getPrestige();
 	for (Country x:axis)
-	    axisTroops+=x.getTroopCount()*x.getPrestige();
+	    axisTroops+=x.getTroopCount()+x.getPrestige();
 	
-	int allyTroops=Empire.getTroopCount()*Empire.getPrestige();
+	int allyTroops=Empire.getTroopCount()+Empire.getPrestige();
 	for (Country x:allies)
-	    allyTroops+=x.getTroopCount()*x.getPrestige();
+	    allyTroops+=x.getTroopCount()+x.getPrestige();
 
 	int battle=(int)(Math.random()*(allyTroops+axisTroops));
-	warScore+= (int)((allyTroops-battle-1500)/100000.0);
+	warScore+= (int)((allyTroops-battle-1500)/100.0);
 
 
 	int TroopsLostAlly;

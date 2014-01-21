@@ -2,16 +2,16 @@ import java.util.ArrayList;
 
 public class Country{
     
-    private String name;
-    private String adjective;
-    private double land;
+    protected String name;
+    protected String adjective;
+    protected double land;
     
-    private int troopMax;
-    private int troopCount;
-    private int opinionFrance;
-    private int prestige;
-    private int aggressiveness; 
-    private int conflicts;
+    protected int troopMax;
+    protected int troopCount;
+    protected int opinionFrance;
+    protected int prestige;
+    protected int aggressiveness; 
+    protected int conflicts;
     
     
     public Country(String newName,String newAdj, double newLand, int newAt, int newDf, int prest, int op, int agg){
@@ -55,7 +55,7 @@ public class Country{
     public double setLand(double newLand){double old = land; land=newLand; return old;}
     public int setTroopMax(int newVal){int old = troopMax; troopMax=newVal; return old;}
     public int changeTroopCount(int newVal){int old = troopCount; troopCount=newVal; return old;}
-    public void setName(){
+    public void setName(String newVal){
 	name = newVal;}
     public int setPrestige(int newVal){int old = prestige; prestige= newVal; 
 	if (prestige > 100){

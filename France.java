@@ -36,7 +36,7 @@ public class France extends Country{
     //	return "Germany";}
     public int lowerOp(int val,Country[] countries){
 	for (Country a:countries){
-	    a.setOpinion(a.getOpinion - val);}
+	    a.setOpinion(a.getOpinion() - val);}
 	return val;
     }
 	
@@ -63,6 +63,7 @@ public class France extends Country{
 			select.setOpinion(select.getOpinion()+10);
 			this.treasury-=100;
 			tr-=1;
+			System.out.println("\n"+"You have sent "+select.getName()+" a gift. Their opinion of you has increased by 10.");
 			retStr+="\n"+"You have sent "+select.getName()+" a gift. Their opinion of you has increased, but it wasn't cheap.";
 			retStr+="\n"+"But hey, I guess you can buy friends.";
 		    }
@@ -74,11 +75,13 @@ public class France extends Country{
 			System.out.println(select.getName() + " is already your ally, and is confused by your offer");
 		    }
 		    else if(select.getOpinion() <= 70 + (select.getAggresive() / 5)){
+			System.out.println("\n"+select.getName()+ " has rejected to even consider your offer of an alliance");
 			retStr+= "\n"+select.getName()+ " has rejected to even consider your offer of an alliance";
 			
 			tr-=1;}
 		    else {
 			currentWar.addAlly(select);
+			System.out.println("\n"+select.getName()+" has accepted your offer for an alliance and wishes you prosperity");
 			retStr+="\n"+select.getName()+" has accepted your offer for an alliance and wishes you prosperity";
 			tr-=1;
 		    }
@@ -87,6 +90,7 @@ public class France extends Country{
 		    cont = false;
 		    if (currentWar.getActive()){
 			currentWar.addAxis(select);
+			System.out.println("\n"+select.getName()+ " has joined the "+ currentWar.getName());
 			retStr+="\n"+select.getName()+ " has joined the "+ currentWar.getName();}
 		    else{
 			currentWar.setActive(true, select);
@@ -94,8 +98,15 @@ public class France extends Country{
 			for (Country a:countries){
 			    if ((a.getOpinion() < 5 + (a.getAggresive()/2) + select.getPrestige()/4 + (int)(Math.random()*20)) && (double)a.getTroopCount()/ a.getTroopMax() > .25){
 				currentWar.addAxis(a);}}
-			retStr += "\nYou have declared the " + currentWar.getName()+" which features the nations of "+
+
+			String ret= "";
+			if(currentWar.getAllies().size() == 0){
+			    ret ="\nYou have declared the " + currentWar.getName()+" which features the glorious nation of "+ name +" versus the damnable nations of " + currentWar.printAxis()+ "and their treacherous leader " + currentWar.getHead().getName();}
+			else {
+			    ret = "\nYou have declared the " + currentWar.getName()+" which features the nations of "+
 			    currentWar.printAllies() + "and their glorious leader France versus the damnable nations of " + currentWar.printAxis()+ "and their treacherous leader " + currentWar.getHead().getName();}
+			System.out.println(ret);
+			retStr += ret; }
 		    // Declaring war shouldn't take a turn, to allow for the character to declare war on multiple enemies
 		}
 		else if (choice == 4){
@@ -126,6 +137,7 @@ public class France extends Country{
 		if (this.treasury < 75){
 		    System.out.println("You need moar monies");}
 		else{
+		    System.out.println("\n"+"You formed the legion of honor, increasing your prestige by 10");
 		    retStr+="\n"+"You formed the legion of honor, increasing your prestige by 10";
 		    tr-=1;
 		    this.setPrestige(this.getPrestige()+10);
@@ -137,6 +149,7 @@ public class France extends Country{
 		if (this.treasury < 50){
 		    System.out.println("You need moar monies");}
 		else{
+		    System.out.println("\n"+"You have established a military school.");
 		    retStr+="\n"+"You have established a military school.";
 		    militarySchoolCount+=1;
 		    this.treasury-=50;}
@@ -150,6 +163,7 @@ public class France extends Country{
 		if (this.treasury <300){
 		    System.out.println("You need moar monies");}
 		else {
+		    System.out.println("\n"+"You have summoned the pope to coronate you as the one and only Emeperor of the French\n this day will live in on in glory");
 		    retStr+="\n"+"You have summoned the pope to coronate you as the one and only Emeperor of the French\n this day will live in on in glory";
 		    tr-=1;
 		    this.setPrestige(this.getPrestige()+50);
@@ -165,7 +179,8 @@ public class France extends Country{
 		if (this.treasury < 50){
 		    System.out.println("You need moar monies");}
 		else{
-		    retStr+=""\n"+You have established a military school.";
+		    System.out.println("\n"+"You formed the legion of honor, increasing your prestige by 10");
+		    retStr+="\n"+"You have established a military school.";
 		    militarySchoolCount+=1;
 		    this.treasury-=50;}
 	    }
@@ -179,20 +194,20 @@ public class France extends Country{
 		if (this.treasury < 50){
 		    System.out.println("You need moar monies");}
 		else{
-		    retStr+=""\n"+You have established a military school.";
+		    retStr+="\n"+"You have established a military school.";
 		    militarySchoolCount+=1;
 		    this.treasury-=50;}
 	    }
 
 
 
-
+	}
 
 
 	    results[0]=retStr+"\n";
 	    results[1]=tr;
 	    return results;
 	    
-	}
+	
     }
 }
