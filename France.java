@@ -15,13 +15,22 @@ public class France extends Country{
  
 
     public France(){
-	super("The French Republic","French", 600000, 350000,300000,80,100,100);
+	super("The French Republic","French", 600000, 350000,300000,80,100,100,0);
 	/*String newName,String newAdj, double newLand, int newMax, int newcount, int prest, int op, int agg*/
 	treasury=100;
 	dissent=0;
 	currentWar = new War();
 	legion = false;
 	emperor = false;
+    }
+    public France (String newName,String newAdj, double newLand, int newAt, int newDf, int prest, int op, int agg,int nconflicts,int _treasury, int _dissent,int schoolCount, boolean leg, boolean emp){
+	super(newName,newAdj,newLand,newAt,newDf,prest,op,agg,nconflicts);
+	treasury=_treasury;
+	dissent= _dissent;
+	currentWar = new War();
+	legion = leg;
+	emperor = emp;
+	militarySchoolCount=schoolCount;
     }
 
     public double getTreasury(){return treasury;}
@@ -30,8 +39,10 @@ public class France extends Country{
 	return currentWar;}
     public int getMilitarySchools(){return militarySchoolCount;}
     public double changeTreasury(double changeTres){double old=treasury;treasury=changeTres;return changeTres;}
-    public int changeDiss(int changeDis){int old=dissent;dissent-=changeDis;return old;}
+    //public int changeDiss(int changeDis){int old=dissent;dissent-=changeDis;return old;}
 
+    public boolean getLeg(){return legion;}
+    public boolean getEmp(){return emperor;}
     //public String surrender(){
     //	return "Germany";}
     public int lowerOp(int val,Country[] countries){

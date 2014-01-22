@@ -1,20 +1,20 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
+import java.io.*;
 import cs1.Keyboard;
 
 public class Game{
     private France Empire = new France();
     	/*String newName,String newAdj, double newLand, int newMax, int newcount, int prest, int op, int agg*/
-    private static  Country Austria = new Country("The Austrian Empire", "Austrian",400000,200000,125000,30,50,20);
-    private static Country Prussia = new Country("Prussia", "Prussian",250000,300000,200000,65,30,50);
-    private static Country Britain = new Country("Great Britain", "British",300000,200000,100000,65,10,70);
-    private static Country Russia = new Country("The Russian Empire", "Russian",600000,300000,150000,60,50,20);
-    private static Country Spain = new Country("Spain", "Spanish",500000,150000,75000,10,60,0);
-    private static Country Portugal =new Country("Portugal", "Portugese",100000,100000,80000,20,30,10);
-    private static Country Denmark = new Country("Denmark", "Danish",200000,150000,80000,50,40,20);
-    private static Country Sweden = new Country("Sweden", "Swedish",200000,180000,90000,40,40,20);
-    private static Country Sicily = new Country("Kingdom of two Sicilies", "Sicilian",100000,50000,50000,20,40,0);
-    private static Country Ottoman = new Country("The Ottoman Empire", "Ottoman",400000,200000,150000,10,50,0);
+    private static  Country Austria = new Country("The Austrian Empire", "Austrian",400000,200000,125000,30,50,20,0);
+    private static Country Prussia = new Country("Prussia", "Prussian",250000,300000,200000,65,30,50,0);
+    private static Country Britain = new Country("Great Britain", "British",300000,200000,100000,65,10,70,0);
+    private static Country Russia = new Country("The Russian Empire", "Russian",600000,300000,150000,60,50,20,0);
+    private static Country Spain = new Country("Spain", "Spanish",500000,150000,75000,10,60,0,0);
+    private static Country Portugal =new Country("Portugal", "Portugese",100000,100000,80000,20,30,10,0);
+    private static Country Denmark = new Country("Denmark", "Danish",200000,150000,80000,50,40,20,0);
+    private static Country Sweden = new Country("Sweden", "Swedish",200000,180000,90000,40,40,20,0);
+    private static Country Sicily = new Country("Kingdom of two Sicilies", "Sicilian",100000,50000,50000,20,40,0,0);
+    private static Country Ottoman = new Country("The Ottoman Empire", "Ottoman",400000,200000,150000,10,50,0,0);
     private static Country[] countries = new Country[] {Austria, Prussia, Britain, Russia, Spain, Portugal, Denmark, Sweden, Sicily, Ottoman};
     private int year = 1799;
     private int month = 1;
@@ -135,7 +135,20 @@ public class Game{
 		    System.out.println(Empire.getCurrent().toString());}
 		else if(select == 6){
 		    EndGame=true; break;}
-		else if(select == 7)
+		else if(select == 7){
+		    System.out.print("What name would you like to save this game under?");
+
+		    try{
+		    String name= Keyboard.readString()+".txt";
+		    Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(name), "utf-8"));
+		    writer.write(Empire.getName()+","+Empire.getAdj()+","+Empire.getLand()+","+Empire.getTroopMax()+","+
+				 Empire.getTroopCount()+","+Empire.getPrestige()+","+Empire.getOpinion()+","+Empire.getAggresive()+","+
+				 Empire.getConflict()+","+Empire.getTreasury()+","+Empire.getDissent()+","+Empire. getMilitarySchools()+","+Empire.getLeg()+","+Empire.getEmp());
+		    }
+		    catch(IOException e){System.err.println("File not found try again");}
+	       	
+		}
+	
 		else{
 		    System.out.println("Please enter a valid number.");
 		}
@@ -171,14 +184,25 @@ public class Game{
 	Game me;
 	if (start==1)
 	    me=new Game();
-	if (start==2){
+	else{
 	    System.out.print("Enter Name:");
 	    String name=Keyboard.readString();
 	    Scanner S= new Scanner(name);
-	    String[] data=new String[countries.size()+1];
+	    ArrayList<ArrayList<String>> data=new ArrayList<ArrayList<String>>();
 	    int x=0;
-	    while(S.hasNextLine())
-		data[x]=S.nextLine();
+	    ArrayList<String> temp;
+	    while(S.hasNextLine()){
+		temp=new ArrayList<String>();
+		String n=S.nextLine();
+		while(n.indexOf(",")!=-1){
+		    temp.add(n.substring(0,n.indexOf(",")));
+		    n=n.substring(n.indexOf(",")+1);
+		}
+		data.add(temp);
+	    }
+	    me=new Game();
+	}
+				     
 	    
 	me.play();
     }

@@ -17,6 +17,12 @@ public class War{
 	allies = new ArrayList<Country>();
 	axis = new ArrayList<Country>();
     }
+    public War(int _warScore,boolean _active, ArrayList _allies,ArrayList _axis){
+	warScore = _warScore;
+	active = _active;
+	allies =  _allies;
+	axis =  _axis;
+    }
     public String getName(){return name;}
     public boolean getActive(){return active;}
     public ArrayList<Country> getAllies(){return allies;} 

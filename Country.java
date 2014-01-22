@@ -14,7 +14,7 @@ public class Country{
     protected int conflicts;
     
     
-    public Country(String newName,String newAdj, double newLand, int newAt, int newDf, int prest, int op, int agg){
+    public Country(String newName,String newAdj, double newLand, int newAt, int newDf, int prest, int op, int agg,int nconflicts){
 	name = newName;
 	adjective = newAdj;
 	land = newLand;
@@ -23,7 +23,7 @@ public class Country{
 	prestige = prest;
 	opinionFrance = op;
 	aggressiveness = agg;
-	conflicts = 0;
+	conflicts = nconflicts;
 	  
     }
     
