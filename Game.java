@@ -145,13 +145,13 @@ public class Game{
 		    BufferedWriter writer = new BufferedWriter(new FileWriter(name));
 		    writer.write(Empire.getName()+","+Empire.getAdj()+","+Empire.getLand()+","+Empire.getTroopMax()+","+
 				 Empire.getTroopCount()+","+Empire.getPrestige()+","+Empire.getOpinion()+","+Empire.getAggresive()+","+
-				 Empire.getConflict()+","+Empire.getTreasury()+","+Empire. getMilitarySchools()+","+Empire.getLeg()+","+Empire.getEmp());
+				 Empire.getConflict()+","+Empire.getTreasury()+","+Empire. getMilitarySchools()+","+Empire.getLeg()+","+Empire.getEmp()+",");
 		    War war=Empire.getCurrent();
 		    writer.write("\n"+war.getWarScore()+","+war.getActive()+","+war.getAllies(1)+","+war.getAxis(1)+","+
-				 war.getName()+","+war.getDate());
+				 war.getName()+","+war.getDate()+",");
 		    for (Country x: countries){
 			writer.write("\n"+x.getName()+","+x.getAdj()+","+x.getLand()+","+x.getTroopMax()+","+
-				     x.getTroopCount()+","+x.getPrestige()+","+x.getOpinion()+","+x.getAggresive());}
+				     x.getTroopCount()+","+x.getPrestige()+","+x.getOpinion()+","+x.getAggresive()+",");}
 		    writer.close();
 		    }
 		    catch(IOException e){System.err.println("File not found try again");}
@@ -187,7 +187,7 @@ public class Game{
     }
     public static void main(String [] args){
 	System.out.println("Welcome to Empire Builder 1799!");
-	System.out.println("\t1: New Game \n\t2:Load Game");
+	System.out.println("\t1: New Game \n\t2: Load Game");
 	System.out.print("Choose Wisely:");
 	int start=Keyboard.readInt();
 	Game me;
@@ -199,21 +199,67 @@ public class Game{
 	    String name=Keyboard.readString()+".txt";
 	    File f=new File(name);
 	    Scanner S= new Scanner(f);
-	    ArrayList<ArrayList<String>> data=new ArrayList<ArrayList<String>>();
+	    ArrayList<ArrayList<Object>> data=new ArrayList<ArrayList<Object>>();
 	    int x=0;
-	    ArrayList<String> temp;
+	    ArrayList<Object> temp;
 	    while(S.hasNextLine()){
-		temp=new ArrayList<String>();
+		temp=new ArrayList<Object>();
 		String n=S.nextLine();
 		while(n.indexOf(",")!=-1){
 		    temp.add(n.substring(0,n.indexOf(",")));
 		    n=n.substring(n.indexOf(",")+1);
 		}
-		data.add(temp);
-
+		 data.add(temp);
 	    }
 	    System.out.println(data);
+	    for(int c=2;c<data.size(); c++){
+		for(int y=2;y<data.get(c).size();y++)
+		    data.get(c).set(y,Double.parseDouble((String)data.get(c).get(y)));
 	    }
+	    for(int e=2;e<data.get(0).size()-2;e++)
+		data.get(0).set(e,Double.parseDouble((String)data.get(0).get(e)));
+	    data.get(0).set(data.get(0).size()-2,data.get(0).get(data.get(0).size()-2).equals("true"));
+	    data.get(0).set(data.get(0).size()-1,data.get(0).get(data.get(0).size()-1).equals("true"));
+
+	    data.get(1).set(0,Double.parseDouble((String)data.get(0).get(0)));
+	    data.get(1).set(1,((String)data.get(1).get(0)).equals("true"));
+	    data.get(1).set(2,((String)data.get(1).get(2)).equals("true"));
+	    ArrayList<Country> _tempAllies=new  ArrayList<Countries>();
+	    String temp=data.get(1).get(3);
+	    while(temp.indexOf(",")!=-1){
+		String country=data.get(1).get(3).substring(0,data.get(1).get(3).indexOf(","));
+		for (Country x: countries){
+		    if(x.getName().equals(country))
+			_tempAllies.add(x);
+		}
+		temp=temp.substring(temp.indexOf(","+1));
+	    }
+	    ArrayList<Country> _tempAxis=new  ArrayList<Countries>();
+	    temp=data.get(1).get(4);
+	    while(temp.indexOf(",")!=-1){
+		String country=temp.substring(0,temp.indexOf(","));
+		for (Country x: countries){
+		    if(x.getName().equals(country))
+			_tempAxis.add(x);
+		}
+		temp=temp.substring(temp.indexOf(","+1));
+	    }
+	    data.get(1).set(5,Double.parseDouble(data.get(0).get(5)));
+	    Empire=new France(data.get(0).get(0),data.get(0).get(1),data.get(0).get(2),data.get(0).get(3),data.get(0).get(4),data.get(5).get(6),data.get(0).get(7),data.get(0).get(8),data.get(1).get(9),data.get(1).get(10),data.get(1).get(11));
+	    
+	    War newWar= new War(data.get(1).get(0),data.get(1).get(2),_tempAllies,_tempAxis,data.get(1).get(5));
+	    Empire.setCurrent(newWar);
+	    
+	    for(int w=0;w<countries.size();w++){
+		int y=w+2;
+		countries.get(w)=new Country((String)data.get(w).get(0),(String)data.get(w).get(1),(Integer)data.get(w).get(2),(Integer)data.get(w).get(3),(Integer)data.get(w).get(4),(Integer)data.get(w).get(5),(Integer)data.get(w).get(6));
+	    }
+	    
+	   
+	    System.out.println(data);
+	    }
+	    
+	    
 	    catch(IOException e){System.err.println("File not found try again");}
 	
 

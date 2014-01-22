@@ -50,6 +50,7 @@ public class France extends Country{
 	return val;
     }
 	
+    public void setCurrent(War cur){currentWar=cur;}
     public Object[] foreign(Country[]countries,Object[]results){
 	Integer tr= (Integer)results[1];
 	String retStr=(String)results[0];
