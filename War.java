@@ -17,7 +17,7 @@ public class War{
 	allies = new ArrayList<Country>();
 	axis = new ArrayList<Country>();
     }
-    public War(int _warScore,boolean _active, ArrayList _allies,ArrayList _axis){
+    public War(int _warScore,boolean _active, ArrayList _allies,ArrayList _axis,String _name,){
 	warScore = _warScore;
 	active = _active;
 	allies =  _allies;
