@@ -142,10 +142,12 @@ public class Game{
 
 		    try{
 		    String name= Keyboard.readString()+".txt";
-		    Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(name), "utf-8"));
+		    BufferedWriter writer = new BufferedWriter(new FileWriter(name));
 		    writer.write(Empire.getName()+","+Empire.getAdj()+","+Empire.getLand()+","+Empire.getTroopMax()+","+
 				 Empire.getTroopCount()+","+Empire.getPrestige()+","+Empire.getOpinion()+","+Empire.getAggresive()+","+
 				 Empire.getConflict()+","+Empire.getTreasury()+","+Empire.getDissent()+","+Empire. getMilitarySchools()+","+Empire.getLeg()+","+Empire.getEmp());
+		    writer.write(
+		    writer.close();
 		    }
 		    catch(IOException e){System.err.println("File not found try again");}
 	       	
