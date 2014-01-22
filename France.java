@@ -15,7 +15,7 @@ public class France extends Country{
  
 
     public France(){
-	super("The French Republic","French", 600000, 350000,300000,80,100,100,0);
+	super("The French Republic","French", 600000, 450000,400000,80,100,100,0);
 	/*String newName,String newAdj, double newLand, int newMax, int newcount, int prest, int op, int agg*/
 	treasury=100;
 	dissent=0;

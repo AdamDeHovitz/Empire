@@ -54,7 +54,15 @@ public class Country{
 
     public double setLand(double newLand){double old = land; land=newLand; return old;}
     public int setTroopMax(int newVal){int old = troopMax; troopMax=newVal; return old;}
-    public int changeTroopCount(int newVal){int old = troopCount; troopCount=newVal; return old;}
+    public int changeTroopCount(int newVal){int old = troopCount; troopCount=newVal; 
+	if (troopCount > troopMax){
+	    troopCount = troopMax;}
+	else if (troopCount < 0){
+	    troopCount = 0;}
+    
+
+
+	return old;}
     public void setName(String newVal){
 	name = newVal;}
     public int setPrestige(int newVal){int old = prestige; prestige= newVal; 
@@ -77,7 +85,7 @@ public class Country{
     public void conflictIncrement(){conflicts+=1;}
     
     public String toString(){
-	String retStr=("\n\n\nName:"+getName()+
+	String retStr=("\nName:"+getName()+
 		       "\n\tLand:"+getLand()+
 		       "\n\tTroop Count:"+getTroopCount()+
 		       "\n\tPrestige:"+getPrestige()+

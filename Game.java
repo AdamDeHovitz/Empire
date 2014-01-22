@@ -5,7 +5,7 @@ import cs1.Keyboard;
 public class Game{
     private France Empire = new France();
     	/*String newName,String newAdj, double newLand, int newMax, int newcount, int prest, int op, int agg*/
-    private static  Country Austria = new Country("The Austrian Empire", "Austrian",400000,200000,125000,30,50,20,0);
+    private static Country Austria = new Country("The Austrian Empire", "Austrian",400000,200000,125000,30,50,20,0);
     private static Country Prussia = new Country("Prussia", "Prussian",250000,300000,200000,65,30,50,0);
     private static Country Britain = new Country("Great Britain", "British",300000,200000,100000,65,10,70,0);
     private static Country Russia = new Country("The Russian Empire", "Russian",600000,300000,150000,60,50,20,0);
@@ -25,7 +25,7 @@ public class Game{
 	System.out.println( ret);
     }
     public void printStats(){
-	String ret=Empire+"/n"+Austria+"/n"+ Prussia +"/n"+Britain +"/n"+Russia +"/n"+Spain+"/n"+ Portugal+"/n"+Denmark+"/n"+ Sweden+"/n"+Sicily+"/n"+ Ottoman;
+	String ret=Empire+"\n"+Austria+"\n"+ Prussia +"\n"+Britain +"\n"+Russia +"\n"+Spain+"\n"+ Portugal+"\n"+Denmark+"\n"+ Sweden+"\n"+Sicily+"\n"+ Ottoman;
 	System.out.println( ret);
     }
 
@@ -115,6 +115,8 @@ public class Game{
 	boolean EndGame=false;
 	while(!EndGame){
 	    Object[] results= new Object[]{"A recount of what you did:\n",3};
+	    System.out.println("The date is " + year+"-"+month+"-1");
+	    System.out.println("You have "+Empire.getTreasury()+ " gold");
 	    while(((Integer)results[1])>0){
 		System.out.println("You have " + results[1]+ " moves left");
 		System.out.println("What do you want to do?");
@@ -154,8 +156,9 @@ public class Game{
 		}
 	    }
 	    if (Empire.getTreasury()>0){
-		Empire.changeTroopCount(Empire.getTroopCount()+ 100 + (Empire.getMilitarySchools()*100));}
-
+		Empire.changeTroopCount(Empire.getTroopCount()+ 500 + (Empire.getMilitarySchools()*100));}
+	    for (Country a: countries){
+		a.changeTroopCount(a.getTroopCount() + 750);}
 	    
 	    String retStr=(String)results[0];
 	    retStr+=randomEvents()+"\n";
@@ -170,8 +173,7 @@ public class Game{
 		month = 1;
 		}
 	    Empire.changeTreasury(Empire.getTreasury()+ (Empire.getLand()/12000) - Empire.getMilitarySchools());
-	    System.out.println("The date is " + year+"-"+month+"-1");
-	    System.out.println("You have "+Empire.getTreasury()+ " gold");
+	    
 	    if (Empire.getCurrent().getActive()){
 		Empire.getCurrent().incDate();}
 	}
