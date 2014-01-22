@@ -4,9 +4,8 @@ import cs1.Keyboard;
 
 public class France extends Country{
     private double treasury;
-    private int dissent; 
     private int militarySchoolCount;
-    private double monthlyIncome;
+    //private double monthlyIncome;
     private int soldiersPerMonth;
     private War currentWar;
     private boolean legion;
@@ -18,15 +17,15 @@ public class France extends Country{
 	super("The French Republic","French", 600000, 450000,400000,80,100,100,0);
 	/*String newName,String newAdj, double newLand, int newMax, int newcount, int prest, int op, int agg*/
 	treasury=100;
-	dissent=0;
 	currentWar = new War();
 	legion = false;
 	emperor = false;
+	militarySchoolCount = 0;
     }
-    public France (String newName,String newAdj, double newLand, int newAt, int newDf, int prest, int op, int agg,int nconflicts,int _treasury, int _dissent,int schoolCount, boolean leg, boolean emp){
+    public France (String newName,String newAdj, double newLand, int newAt, int newDf, int prest, int op, int agg,int nconflicts,int _treasury,int schoolCount, boolean leg, boolean emp){
 	super(newName,newAdj,newLand,newAt,newDf,prest,op,agg,nconflicts);
 	treasury=_treasury;
-	dissent= _dissent;
+	
 	currentWar = new War();
 	legion = leg;
 	emperor = emp;
@@ -34,10 +33,10 @@ public class France extends Country{
     }
 
     public double getTreasury(){return treasury;}
-    public int getDissent(){return dissent;}
     public War getCurrent(){
 	return currentWar;}
     public int getMilitarySchools(){return militarySchoolCount;}
+    
     public double changeTreasury(double changeTres){double old=treasury;treasury=changeTres;return changeTres;}
     //public int changeDiss(int changeDis){int old=dissent;dissent-=changeDis;return old;}
 
@@ -115,7 +114,7 @@ public class France extends Country{
 			    ret ="\nYou have declared the " + currentWar.getName()+" which features the glorious nation of "+ name +" versus the damnable nations of " + currentWar.printAxis()+ "and their treacherous leader " + currentWar.getHead().getName();}
 			else {
 			    ret = "\nYou have declared the " + currentWar.getName()+" which features the nations of "+
-			    currentWar.printAllies() + "and their glorious leader France versus the damnable nations of " + currentWar.printAxis()+ "and their treacherous leader " + currentWar.getHead().getName();}
+				currentWar.printAllies() + "and their glorious leader France versus the damnable nations of " + currentWar.printAxis()+ "and their treacherous leader " + currentWar.getHead().getName();}
 			System.out.println(ret);
 			retStr += ret; }
 		    // Declaring war shouldn't take a turn, to allow for the character to declare war on multiple enemies
@@ -141,7 +140,7 @@ public class France extends Country{
 	String retStr=(String)results[0];
 	System.out.println("What would you like to do?");
 	if (! legion){
-	    System.out.println("\n\t1: Establish Legion of Honor \n\t Increases prestige\n(costs 75 gold)\n2:Establish a Military School:\n\t Each school increases Troop Count by an extra 1000 every month\n(costs 50 gold to create and 1 gold each month)");
+	    System.out.println("\n\t1: Establish Legion of Honor \n\t Increases prestige\n\t(costs 75 gold)\n2:Establish a Military School:\n\t Each school increases Troop Count by an extra 1000 every month\n\t(costs 50 gold to create and 1 gold each month)");
 	    System.out.print("Choose wisely:");
 	    int choice=Keyboard.readInt();
 	    if (choice==1){
@@ -163,11 +162,13 @@ public class France extends Country{
 		    System.out.println("\n"+"You have established a military school.");
 		    retStr+="\n"+"You have established a military school.";
 		    militarySchoolCount+=1;
-		    this.treasury-=50;}
+		    this.treasury-=50;
+		    tr-=1;}
+		
 	    }
 	}
 	else if (! emperor){
-	    System.out.println("\n\t1: Crown yourself emperor \n\t Increases prestige by 50, angers your neighbors, creates the empire, and raises your troop count \n(costs 300 gold)\n2:Establish a Military School:\n\t Each school increases Troop Count by an extra 1000 every month\n(costs 50 gold to create and 1 gold each month)");
+	    System.out.println("\n\t1: Crown yourself emperor \n\t Increases prestige by 50, angers your neighbors, creates the empire, and raises your troop count \n\t(costs 300 gold)\n2:Establish a Military School:\n\t Each school increases Troop Count by an extra 1000 every month\n\t(costs 50 gold to create and 1 gold each month)");
 	    System.out.print("Choose wisely:");
 	    int choice=Keyboard.readInt();
 	    if (choice==1){
@@ -193,11 +194,12 @@ public class France extends Country{
 		    System.out.println("\n"+"You formed the legion of honor, increasing your prestige by 10");
 		    retStr+="\n"+"You have established a military school.";
 		    militarySchoolCount+=1;
-		    this.treasury-=50;}
+		    this.treasury-=50;
+		    tr-=1;}
 	    }
 	}
 	else {
-	     System.out.println("\n\t1:Establish a Military School:\n\t Each school increases Troop Count by an extra 1000 every month\n(costs 50 gold to create and 1 gold each month)");
+	    System.out.println("\n\t1:Establish a Military School:\n\t Each school increases Troop Count by an extra 1000 every month\n\t(costs 50 gold to create and 1 gold each month)");
 	    System.out.print("Choose wisely:");
 	    int choice=Keyboard.readInt();
 	    
@@ -207,7 +209,8 @@ public class France extends Country{
 		else{
 		    retStr+="\n"+"You have established a military school.";
 		    militarySchoolCount+=1;
-		    this.treasury-=50;}
+		    this.treasury-=50;
+		    tr-=1;}
 	    }
 
 
@@ -215,10 +218,22 @@ public class France extends Country{
 	}
 
 
-	    results[0]=retStr+"\n";
-	    results[1]=tr;
-	    return results;
+	results[0]=retStr+"\n";
+	results[1]=tr;
+	return results;
 	    
 	
+    }
+    //France specific toString()
+    public String toString(){
+	String retStr=("\nName:"+getName()+
+		       "\n\tLand:"+getLand()+
+		       "\n\tTroop Count:"+getTroopCount()+
+		       "\n\tPrestige:"+getPrestige()+
+		       "\n\tTreasury:"+ getTreasury()+
+		       "\n\tNumber of Military Schools:"+getMilitarySchools()
+		       //"\n\tConflict Count:"+getConflict()
+		       );
+	return retStr;
     }
 }

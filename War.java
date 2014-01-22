@@ -17,12 +17,15 @@ public class War{
 	allies = new ArrayList<Country>();
 	axis = new ArrayList<Country>();
     }
-    public War(int _warScore,boolean _active, ArrayList _allies,ArrayList _axis,String _name,){
+    public War(int _warScore,boolean _active, ArrayList _allies,ArrayList _axis,String _name){
 	warScore = _warScore;
 	active = _active;
 	allies =  _allies;
 	axis =  _axis;
     }
+
+    //Getters
+    
     public String getName(){return name;}
     public boolean getActive(){return active;}
     public ArrayList<Country> getAllies(){return allies;} 
@@ -30,6 +33,9 @@ public class War{
     public Country getHead(){return head;}
     public int getWarScore(){
 	return warScore;}
+    
+    
+    // Used as a method to make white peace in the first 5 monthes impossible
     public int incDate(){
 	date++;return date-1;
     }
@@ -160,7 +166,8 @@ public class War{
 		x.setPrestige(x.getPrestige()+1);
 		x.changeTroopCount(Empire.getTroopCount()+ 100);}
 	    for (Country x: allies){
-		x.changeTroopCount(Empire.getTroopCount()+ 100);}
+		x.changeTroopCount(Empire.getTroopCount()+ 100);
+		x.setOpinion(x.getOpinion()-5);}
 	    retStr+="The enemy crushed you on the battle feild. You lost "+TroopsLostAlly+" troops while your enemy lost "+ TroopsLostAxis +" troops. You lost "+(int)((allyTroops-battle)/10000) +" war score. You should be ashamed. We are French.";
 	}
 	return retStr;
@@ -248,9 +255,9 @@ public class War{
 			value = Keyboard.readInt();
 			if (value < 0)
 			    {System.out.println("You must give a positive value");}
-			else if(value > 100){
-			    System.out.println("You're offer is too high for the "+empire.getName()+ " to accept!");
-			}
+			/*	else if(value > 100){
+				System.out.println("You're offer is too high for the "+empire.getName()+ " to accept!");*/
+			
 			else if (value < 10){
 			    System.out.println("You must offer at least 10 warscore");
 			}
