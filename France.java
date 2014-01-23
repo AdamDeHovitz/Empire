@@ -10,7 +10,8 @@ public class France extends Country{
     private War currentWar;
     private boolean legion;
     private boolean emperor;
-    
+    private static String[] insults = {"If I stood close enough to you, I could hear the ocean", "I can hear the wails of your distressed people from here, it's shocking they haven't revolted yet", "With an army as weak as yours, it's surprise you haven't succumbed to barbarians yet", "I have always said \"Impossible is a word to be found only in the dictionary of fools.\" I'm shocked that your vocabulary contains anything more than just Impossible"}; 
+
  
 
     public France(){
@@ -21,6 +22,7 @@ public class France extends Country{
 	legion = false;
 	emperor = false;
 	militarySchoolCount = 0;
+
     }
     public France (String newName,String newAdj, double newLand, int newAt, int newDf, int prest, int op, int agg,int nconflicts,int _treasury,int schoolCount, boolean leg, boolean emp){
 	super(newName,newAdj,newLand,newAt,newDf,prest,op,agg,nconflicts);
@@ -30,6 +32,7 @@ public class France extends Country{
 	legion = leg;
 	emperor = emp;
 	militarySchoolCount=schoolCount;
+	
     }
 
     public double getTreasury(){return treasury;}
@@ -66,7 +69,7 @@ public class France extends Country{
 	    boolean cont = true;
 	    while (cont && tr > 0){
 		System.out.println("What would you like to do?");
-		System.out.println("\t1: Send gift (100 gold) \n\t2: Offer alliance \n\t3: Declare war\n\t4: Show country's stats \n\t5: Go back");
+		System.out.println("\t1: Send gift (100 gold) \n\t2: Offer alliance \n\t3: Declare war\n\t4: Show country's stats \n\t5: Send Insult\n\t6: Go back");
 		System.out.print("Choose wisely:");
 		int choice=Keyboard.readInt();
 		if (choice==1){
@@ -123,6 +126,12 @@ public class France extends Country{
 		else if (choice == 4){
 		    System.out.println(select);}
 		else if (choice == 5){
+		    int insult = (int)(Math.random()*insults.length);
+		    System.out.println("You send "+select.getName()+" an insult, writing \""+insults[insult]+"\"");
+		    System.out.println(select.getName()+" has issued no response");
+		    retStr+="\nYou have insulted "+select.getName()+", but I guess that's what you do when you're the foremost military genius in all of Europe";
+		    select.setOpinion(select.getOpinion()-20);}
+		else if (choice == 6){
 		    cont = false;}
 		else{
 		     System.out.println("Please enter a valid number.");
