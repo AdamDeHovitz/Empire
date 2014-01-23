@@ -231,7 +231,7 @@ public class Game{
 	    }
 	}
     }
-<<<<<<< HEAD
+
     public static void main(String [] args){ //The  main menu before the main menu, This is where you either start a new game or load an old one, before starting to play
 	System.out.println("Welcome to Empire Builder 1799!");
 	System.out.println("\t1: New Game \n\t2: Load Game");
@@ -242,10 +242,12 @@ public class Game{
 	    System.out.print("Enter Name:");
 	    try{
 		String name=Keyboard.readString()+".txt";
-=======
+	    }
+	}
+    }
     public static boolean saveGame(Game me){
 	String name=Keyboard.readString()+".txt";
->>>>>>> 71863c413e509ad6df2f7e39b28b43be1ddb1f17
+
 		File f=new File(name);
 		Scanner S= new Scanner(f);
 		ArrayList<ArrayList<Object>> data=new ArrayList<ArrayList<Object>>();
