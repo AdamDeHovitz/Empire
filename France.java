@@ -24,7 +24,7 @@ public class France extends Country{
 	militarySchoolCount = 0;
 
     }
-    public France (String newName,String newAdj, double newLand, int newAt, int newDf, int prest, int op, int agg,int nconflicts,int _treasury,int schoolCount, boolean leg, boolean emp){
+    public France (String newName,String newAdj, double newLand, int newAt, int newDf, int prest, int op, int agg,int nconflicts,double _treasury,int schoolCount, boolean leg, boolean emp){
 	super(newName,newAdj,newLand,newAt,newDf,prest,op,agg,nconflicts);
 	treasury=_treasury;
 	
