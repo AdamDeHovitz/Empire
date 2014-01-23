@@ -157,7 +157,7 @@ public class France extends Country{
 	    int choice=Keyboard.readInt();
 	    if (choice==1){
 		if (this.treasury < 75){
-		    System.out.println("You need moar monies");}
+		    System.out.println("You need moar monies!");}
 		else{
 		    System.out.println("\n"+"You formed the legion of honor, increasing your prestige by 10");
 		    retStr+="\n"+"You formed the legion of honor, increasing your prestige by 10";
@@ -169,7 +169,7 @@ public class France extends Country{
 	    }
 	    if (choice==2){
 		if (this.treasury < 50){
-		    System.out.println("You need moar monies");}
+		    System.out.println("You need moar monies!");}
 		else{
 		    System.out.println("\n"+"You have established a military school.");
 		    retStr+="\n"+"You have established a military school.";
@@ -188,10 +188,10 @@ public class France extends Country{
 	    int choice=Keyboard.readInt();
 	    if (choice==1){
 		if (this.treasury <300){
-		    System.out.println("You need moar monies");}
+		    System.out.println("You need moar monies!");}
 		else {
-		    System.out.println("\n"+"You have summoned the pope to coronate you as the one and only Emeperor of the French\n this day will live in on in glory");
-		    retStr+="\n"+"You have summoned the pope to coronate you as the one and only Emeperor of the French\n this day will live in on in glory";
+		    System.out.println("\n"+"You have summoned the pope to coronate you as the one and only Emperor of the French\n this day will live in on in glory");
+		    retStr+="\n"+"You have summoned the pope to coronate you as the one and only Emperor of the French\n this day will live in on in glory";
 		    tr-=1;
 		    this.setPrestige(this.getPrestige()+50);
 		    this.setTroopMax(this.getTroopMax()+100000);
@@ -204,7 +204,7 @@ public class France extends Country{
 	    }
 	    if (choice==2){
 		if (this.treasury < 50){
-		    System.out.println("You need moar monies");}
+		    System.out.println("You need moar monies!");}
 		else{
 		    System.out.println("\n"+"You formed the legion of honor, increasing your prestige by 10");
 		    retStr+="\n"+"You have established a military school.";

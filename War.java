@@ -108,9 +108,11 @@ public class War{
 	for (Country c:allies){
 	    retStr += c.getName()+ ", ";}
 	return retStr;} 
-    public void endWar(){
+    public void endWar(){  //Ends the conflict
 	active = false;
-	axis.removeAll(axis);}
+	axis.removeAll(axis);
+	warScore = 0;
+	head = null;}
     public String toString(){
 	String ret;
 	if(active){
