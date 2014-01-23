@@ -24,8 +24,12 @@ public class France extends Country{
 	militarySchoolCount = 0;
 
     }
+<<<<<<< HEAD
     //Constructer used by the load game functionality
     public France (String newName,String newAdj, double newLand, int newAt, int newDf, int prest, int op, int agg,int nconflicts,int _treasury,int schoolCount, boolean leg, boolean emp){
+=======
+    public France (String newName,String newAdj, double newLand, int newAt, int newDf, int prest, int op, int agg,int nconflicts,double _treasury,int schoolCount, boolean leg, boolean emp){
+>>>>>>> 71863c413e509ad6df2f7e39b28b43be1ddb1f17
 	super(newName,newAdj,newLand,newAt,newDf,prest,op,agg,nconflicts);
 	treasury=_treasury;
 	
