@@ -5,7 +5,7 @@ import cs1.Keyboard;
 public class Game{ 
     //Creating every country with it's starting statistics
     private France Empire = new France();
-    /*String newName,String newAdj, double newLand, int newMax, int newcount, int prest, int op, int agg*/
+    /*String newName,String newAdj, double newLand, int newMax, int newcount, int prest, int op, int agg,int nconflicts*/
     private static Country Austria = new Country("The Austrian Empire", "Austrian",400000,200000,125000,30,50,20,0);
     private static Country Prussia = new Country("Prussia", "Prussian",250000,300000,200000,65,30,50,0);
     private static Country Britain = new Country("Great Britain", "British",300000,230000,150000,65,10,70,0);
@@ -14,7 +14,7 @@ public class Game{
     private static Country Portugal =new Country("Portugal", "Portugese",100000,100000,80000,20,30,10,0);
     private static Country Denmark = new Country("Denmark", "Danish",200000,150000,80000,50,40,20,0);
     private static Country Sweden = new Country("Sweden", "Swedish",200000,180000,90000,40,40,20,0);
-    private static Country Sicily = new Country("Kingdom of two Sicilies", "Sicilian",100000,50000,50000,20,40,0,0);
+    private static Country Sicily = new Country("The Kingdom of two Sicilies", "Sicilian",100000,50000,50000,20,40,0,0);
     private static Country Ottoman = new Country("The Ottoman Empire", "Ottoman",400000,200000,100000,10,50,0,0);
     private static Country[] countries = new Country[] {Austria, Prussia, Britain, Russia, Spain, Portugal, Denmark, Sweden, Sicily, Ottoman};
     private int year = 1799;
@@ -22,7 +22,7 @@ public class Game{
 
     //public Game(){}
     public void printMain(){ //Prints out the main options
-	String ret="\t 1: Show Country Statistics \n\t 2: Foreign Affairs \n\t 3: Domestic Affairs \n\t 4: View Current War \n\t 5: End Turn\n\t 6: End Game\n\t 7:Save Game";
+	String ret="\t 1: Show Country Statistics \n\t 2: Foreign Affairs \n\t 3: Domestic Affairs \n\t 4: View Current War \n\t 5: End Turn\n\t 6: End Game\n\t 7: Save Game";
 	System.out.println( ret);
     }
     public void printStats(){ //Prints out each countries statistics
@@ -119,8 +119,9 @@ public class Game{
 	    System.out.println("The date is " + year+"-"+month+"-1");
 	    System.out.println("You have "+Empire.getTreasury()+ " gold");
 	    if (Empire.getCurrent().getWarScore() < -100){
-		System.out.println("Your warscore is less then -100 and you MUST make peace before continuing");
+		
 		while (Empire.getCurrent().getWarScore() < -100){
+		    System.out.println("Your war score is less then -100 and you MUST make peace before continuing");
 		    System.out.println("Choose a country to negogiate with:");
 		    int number = 1;
 		    for(Country A:Empire.getCurrent().getAxis()){
@@ -139,8 +140,9 @@ public class Game{
 		}
 	    }
 	    else if (Empire.getCurrent().getWarScore() > 100){
-		System.out.println("Your warscore is more than 100 and you must make peace with at least one nation before continuing");
+		
 		while (Empire.getCurrent().getWarScore() > 100){
+		    System.out.println("Your war score is more than 100 and you must make peace with at least one nation before continuing");
 		    System.out.println("Choose a country to negogiate with:");
 		    int number = 1;
 		    for(Country A:Empire.getCurrent().getAxis()){
@@ -218,6 +220,7 @@ public class Game{
 		System.out.println(results[0]);
 		month++; 
 		if (month>12){
+		    System.out.println("\nHappy New Year\n");
 		    year++;
 		    month = 1;
 		}

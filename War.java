@@ -26,7 +26,7 @@ public class War{
 	date=_date;
     }
 
-    //Getters with some variation for the purspose of saving
+    //Getters with some variation for the purpose of saving
     public String getName(){return name;}
     public boolean getActive(){return active;}
     public String getAllies(int i){
@@ -50,7 +50,7 @@ public class War{
     public int getWarScore(){
 	return warScore;}
 
-    // Used as a method to make white peace in the first 5 monthes impossible
+    // the date, and it's incrementation, is used to prevent a white peace within the first 5 months of a conflict
     public int incDate(){
 	date++;return date-1;
     }
@@ -113,21 +113,22 @@ public class War{
 	axis.removeAll(axis);
 	warScore = 0;
 	head = null;}
-    public String toString(){
+    public String toString(){  //War toString() method, 
 	String ret;
 	if(active){
 	    ret=("Name:"+name+
 		 "\nAllies:"+printAllies()+
-		 "\nHead:"+head.getName()+
-		 "\nAxis:"+printAxis()+
-		 "\nWarScore:"+warScore);}
+		 "\nHead of enemy coalition:"+head.getName()+
+		 "\nEnemy coalition:"+printAxis()+
+		 "\nWar score:"+warScore +
+		 "\nDuration:"+date);}
 	else
 	    ret="You are currently at peace! Fix that!";
 	    
 	return ret;
     }
  
-    public String battle(France Empire){
+    public String battle(France Empire){   //Method for simulating battles
 	String retStr="";
 
 	int axisTroops=head.getTroopCount()+head.getPrestige();
@@ -159,11 +160,11 @@ public class War{
 
 	if (axis.size()>0)
 	    TroopsLostAxis=(int)((((axisTroops+allyTroops)-battle)/100)/axis.size()+1);
-	else
+	else 
 
 	    TroopsLostAxis=(int)((((axisTroops+allyTroops)-battle)/100));
 
-	     TroopsLostAxis=(int)((((axisTroops+allyTroops)-battle)/100));
+	TroopsLostAxis=(int)((((axisTroops+allyTroops)-battle)/100));
 
 	head.changeTroopCount((head.getTroopCount()-TroopsLostAxis));
 	for (Country x:axis)
@@ -201,7 +202,7 @@ public class War{
 	boolean end = true;
 	Empire=empire;
 	while (end){
-	    System.out.println("Choose an action wisely, remembering that you have a warscore value of "+ getWarScore());
+	    System.out.println("Choose an action wisely, remembering that you have a war score value of "+ getWarScore());
 	    //System.out.println("\t1: Negotiate with the entire alliance \n\t2: Negotiate with " +select.getName()+" \n\t3:Go back");
 	    /*	int choice=Keyboard.readInt();
 		if (choice == 1){*/
@@ -214,42 +215,43 @@ public class War{
 		    if (warScore > 0){
 			if (date <5){
 			    System.out.println("The duration of this war has been too short, wait at least 5 monthes");}
+			else{
+		    
+			    System.out.println("Your enemies accept your call for peace and tranquility");
+			    this.endWar();
+			    loop = false;
+			    end = false;
+			    break;}
+			
 		    }
-		    else {
-			System.out.println("Your enemies accept your call for peace and tranquility");
-			this.endWar();
-			loop = false;
-			break;
-		    }
-		}
-				
+		}		
 			    
 		else if (call == 1){
 		    if (warScore < 1){
-			System.out.println("You must have positive warscore to make demands!");}
+			System.out.println("You must have positive war score to make demands!");}
 		    else{
 				
-			System.out.println("You have this much warscore: " + this.getWarScore()+".\nHow much land do you want? (They have "+ select.getLand()+" km and 1000 km = 1 warscore)");
+			System.out.println("You have this much war score: " + this.getWarScore()+".\nHow much land do you want? (They have "+ select.getLand()+" km and 1000 km = 1 war score)");
 			int selection;
 			while (true){
 			    selection=Keyboard.readInt();
 			    if (selection > 1000 * warScore){
-				System.out.println("you don't have enough warscore, 1 warscore can be used for 1000 km of useful land\nHow land do you want?");
+				System.out.println("you don't have enough war score, 1 war score can be used for 1000 km of useful land\nHow land do you want?");
 			    }
 			    else{
 				break;}
 			}
-			System.out.println("You have this much warscore: " + (this.getWarScore() - selection /1000) +".\nHow much gold do you want? ( 1 warscore = 10 gold)");
+			System.out.println("You have this much war score: " + (this.getWarScore() - selection /1000) +".\nHow much gold do you want? ( 1 war score = 10 gold)");
 			int gold=0;
 			while (true){
 			    gold=Keyboard.readInt();
 			    if (gold > 10 * (warScore - gold/10)){
-				System.out.println("you don't have enough warscore, 1 warscore can be used for 10 gold\nHow much gold do you want?");
+				System.out.println("you don't have enough war score, 1 war score can be used for 10 gold\nHow much gold do you want?");
 			    }
 			    else{
 				break;}
 			}
-			System.out.println("Your current deal with "+ select.getName()+" is for " + selection+ "square km of useful land and " + gold+ " gold costing you " + (selection/1000 + gold/10)+ " warscore\n 1: yes, 2: no");
+			System.out.println("Your current deal with "+ select.getName()+" is for " + selection+ " square km of useful land and " + gold+ " gold costing you " + (selection/1000 + gold/10)+ " war score\n 1: yes, 2: no");
 			int decision = Keyboard.readInt();
 			if (decision == 1){
 			    warScore -= (selection/1000 + gold/10);
@@ -258,13 +260,22 @@ public class War{
 			    empire.changeTreasury(gold);
 			    System.out.println(select.getName()+" has accepted your generous offer");
 			    if (select.equals(head)){
+				if (axis.size() == 0){
+				    System.out.println("With no more enemy combatants, the "+ name+" has come to an end");
+				    this.endWar();
+				    loop = false;
+				    end = false;
+				    break;}
+				else {
 				head = axis.remove((int)(Math.random()*axis.size()));
-				System.out.println("The new head of the axis is " + head.getName());}				
+				System.out.println("The new head of the axis is " + head.getName());}
+			    }
 			    else {axis.remove(select);}
 			    
 			    empire.setPrestige(empire.getPrestige()+2);
 			    select.setPrestige(select.getPrestige()-2);
 			    loop = false;
+			    end = false;
 			    break;
 			}
 		    }
@@ -273,7 +284,7 @@ public class War{
 		    if (warScore > 0){
 			System.out.println("You are winning! You cannot surrender now and defile the " + empire.getName()+"!");
 		    }
-		    System.out.println("How many concessions worth of warscore are you willing to surrender? (current warscore "+warScore+")");
+		    System.out.println("How many concessions worth of war score are you willing to surrender? (current war score "+warScore+")");
 		    int value;
 		    while (true){
 			value = Keyboard.readInt();
@@ -283,10 +294,10 @@ public class War{
 			    System.out.println("You're offer is too high for the "+empire.getName()+ " to accept!");
 			    }*/
 			else if (value < 10){
-			    System.out.println("You must offer at least 10 warscore");
+			    System.out.println("You must offer at least 10 war score");
 			}
 			else{
-			    loop = false;
+			    
 			    break;}
 		    }
 			    
@@ -300,11 +311,22 @@ public class War{
 			empire.setPrestige(empire.getPrestige()-2);
 			select.setPrestige(select.getPrestige()+2);
 			if (select.equals(head)){
-			    head = axis.remove((int)(Math.random()*axis.size()));
-			    System.out.println("The new head of the axis is " + head.getName());}				
+			    if (axis.size() == 0){
+				    System.out.println("With no more enemy combatants, the "+ name+" has come to an end");
+				    this.endWar();
+				    loop = false;
+				    end = false;
+				    break;}
+				else {
+				    head = axis.remove((int)(Math.random()*axis.size()));
+				System.out.println("The new head of the axis is " + head.getName());}
+			}				
 			else {axis.remove(select);}
 			warScore+=value;
-			System.out.println("The new warscore value is "+ warScore+" and your enemies are "+ printAxis()+ " and their leader "+ head.getName());}
+			loop = false;
+			end = false;
+			System.out.println("The new war score value is "+ warScore+" and your enemies are "+ printAxis()+ " and their leader "+ head.getName());}
+		    
 		}
 		else if (call == 4){
 		    end = false;

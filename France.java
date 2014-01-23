@@ -130,6 +130,7 @@ public class France extends Country{
 		    System.out.println("You send "+select.getName()+" an insult, writing \""+insults[insult]+"\"");
 		    System.out.println(select.getName()+" has issued no response");
 		    retStr+="\nYou have insulted "+select.getName()+", but I guess that's what you do when you're the foremost military genius in all of Europe";
+		    tr-=1;
 		    select.setOpinion(select.getOpinion()-20);}
 		else if (choice == 6){
 		    cont = false;}
@@ -152,7 +153,7 @@ public class France extends Country{
 	String retStr=(String)results[0];
 	System.out.println("What would you like to do?");
 	if (! legion){
-	    System.out.println("\n\t1: Establish Legion of Honor \n\t Increases prestige\n\t(costs 75 gold)\n2:Establish a Military School:\n\t Each school increases Troop Count by an extra 1000 every month\n\t(costs 50 gold to create and 1 gold each month)");
+	    System.out.println("\n\t1: Establish Legion of Honor \n\t Increases prestige\n\t(costs 75 gold)\n\t2:Establish a Military School:\n\t Each school increases Troop Count by an extra 1000 every month\n\t(costs 50 gold to create and 1 gold each month)");
 	    System.out.print("Choose wisely:");
 	    int choice=Keyboard.readInt();
 	    if (choice==1){

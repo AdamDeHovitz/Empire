@@ -54,6 +54,8 @@ public class Country{
 
     public double setLand(double newLand){double old = land; land=newLand; return old;}
     public int setTroopMax(int newVal){int old = troopMax; troopMax=newVal; return old;}
+
+    //Mutators with caps
     public int changeTroopCount(int newVal){int old = troopCount; troopCount=newVal; 
 	if (troopCount > troopMax){
 	    troopCount = troopMax;}
@@ -82,8 +84,12 @@ public class Country{
 	if (aggressiveness < 0){
 	    aggressiveness = 0;}
 	return old;}
+
+    //Used in the naming of wars
     public void conflictIncrement(){conflicts+=1;}
     
+
+    //Default Country toString()
     public String toString(){
 	String retStr=("\nName:"+getName()+
 		       "\n\tLand:"+getLand()+
