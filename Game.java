@@ -198,7 +198,7 @@ public class Game{
 					     x.getTroopCount()+","+x.getPrestige()+","+x.getOpinion()+","+x.getAggresive()+","+x.getConflict()+",");}
 			    writer.close();
 			}
-			catch(IOException e){System.err.println("File not found, try again");}
+			catch(IOException e){System.err.println("File not found try again");}
 	       	
 		    }
 	
@@ -224,30 +224,16 @@ public class Game{
 		    year++;
 		    month = 1;
 		}
-		Empire.changeTreasury(Empire.getTreasury()+ ((int)(Empire.getLand()/12000)) - Empire.getMilitarySchools());
+		Empire.changeTreasury(Empire.getTreasury()+ (Empire.getLand()/12000) - Empire.getMilitarySchools());
 	    
 		if (Empire.getCurrent().getActive()){
 		    Empire.getCurrent().incDate();}
 	    }
 	}
     }
-
-    public static void main(String [] args){ //The  main menu before the main menu, This is where you either start a new game or load an old one, before starting to play
-	System.out.println("Welcome to Empire Builder 1799!");
-	System.out.println("\t1: New Game \n\t2: Load Game");
-	System.out.print("Choose Wisely:");
-	int start=Keyboard.readInt();
-	Game me=new Game();
-	if (start==2){
-	    System.out.print("Enter Name:");
-	    try{
-		String name=Keyboard.readString()+".txt";
-	    }
-	}
-    }
-    public static boolean saveGame(Game me){
+    public static void saveGame(Game me){
+	try{
 	String name=Keyboard.readString()+".txt";
-
 		File f=new File(name);
 		Scanner S= new Scanner(f);
 		ArrayList<ArrayList<Object>> data=new ArrayList<ArrayList<Object>>();
@@ -275,6 +261,7 @@ public class Game{
 			data.get(0).set(e,Integer.parseInt((String)data.get(0).get(e)));
 		    else
 			data.get(0).set(e,Double.parseDouble((String)data.get(0).get(e)));
+	    
 
 		}
 
@@ -313,7 +300,9 @@ public class Game{
 		    int y=w+2;
 		    countries[w]=new Country((String)data.get(y).get(0),(String)data.get(y).get(1),((Double)data.get(y).get(2)).doubleValue(),((Integer)data.get(y).get(3)).intValue(),((Integer)data.get(y).get(4)).intValue(),((Integer)data.get(y).get(5)).intValue(),((Integer)data.get(y).get(6)).intValue(),((Integer)data.get(y).get(7)).intValue(),((Integer)data.get(y).get(8)).intValue());
 		}
-	    
+	}
+		
+	catch(IOException e){System.err.println("File not found try again");}    
     }
 	
     public static void main(String [] args){
@@ -324,11 +313,7 @@ public class Game{
 	Game me=new Game();
 	if (start==2){
 	    System.out.print("Enter Name:");
-	    try{saveGame(me);}
-	    
-	    
-	    catch(IOException e){System.err.println("File not found try again");}
-	
+	    saveGame(me);
 	}
 	    
 	
