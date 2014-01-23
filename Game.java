@@ -234,7 +234,7 @@ public class Game{
 	System.out.print("Choose Wisely:");
 	int start=Keyboard.readInt();
 	Game me=new Game();
-	/*if (start==2){
+	if (start==2){
 	    System.out.print("Enter Name:");
 	    try{
 		String name=Keyboard.readString()+".txt";
@@ -254,46 +254,49 @@ public class Game{
 		}
 		System.out.println(data);
 		for(int c=2;c<data.size(); c++){
-		    for(int y=2;y<data.get(c).size();y++)
-			data.get(c).set(y,Double.parseDouble((String)data.get(c).get(y)));
+		    data.get(c).set(2,Double.parseDouble((String)data.get(c).get(2)));
+		    for(int y=3;y<data.get(c).size();y++)
+			data.get(c).set(y,Integer.parseInt((String)data.get(c).get(y)));
 		}
-		for(int e=2;e<data.get(0).size()-2;e++)
-		    data.get(0).set(e,Double.parseDouble((String)data.get(0).get(e)));
+		
+		for(int e=3;e<data.get(0).size()-2;e++)
+		    data.get(0).set(e,Integer.parseInt((String)data.get(0).get(e)));
+		data.get(0).set(2,Double.parseDouble((String)data.get(0).get(2)));
 		data.get(0).set(data.get(0).size()-2,data.get(0).get(data.get(0).size()-2).equals("true"));
 		data.get(0).set(data.get(0).size()-1,data.get(0).get(data.get(0).size()-1).equals("true"));
 
-		data.get(1).set(0,Double.parseDouble((String)data.get(0).get(0)));
-		data.get(1).set(1,((String)data.get(1).get(0)).equals("true"));
+		data.get(1).set(0,Double.parseDouble((String)data.get(1).get(0)));
+		data.get(1).set(1,((String)data.get(1).get(1)).equals("true"));
 		data.get(1).set(2,((String)data.get(1).get(2)).equals("true"));
 		ArrayList<Country> _tempAllies=new  ArrayList<Country>();
 		String temp2=(String)data.get(1).get(3);
-		while(temp2.indexOf(",")!=-1){
-		    String country=temp2.substring(0,temp2.indexOf(","));
+		while(temp2.indexOf(":")!=-1){
+		    String country=temp2.substring(0,temp2.indexOf(":"));
 		    for (Country b: countries){
 			if(b.getName().equals(country))
 			    _tempAllies.add(b);
 		    }
-		    temp2=temp2.substring(temp2.indexOf(","+1));
+		    temp2=temp2.substring(temp2.indexOf(":")+1);
 		}
 		ArrayList<Country> _tempAxis=new  ArrayList<Country>();
 		temp2=(String)data.get(1).get(4);
-		while(temp2.indexOf(",")!=-1){
-		    String country=temp2.substring(0,temp2.indexOf(","));
+		while(temp2.indexOf(":")!=-1){
+		    String country=temp2.substring(0,temp2.indexOf(":"));
 		    for (Country a: countries){
 			if(a.getName().equals(country))
 			    _tempAxis.add(a);
 		    }
-		    temp2=temp2.substring(temp2.indexOf(","+1));
+		    temp2=temp2.substring(temp2.indexOf(":"+1));
 		}
-		data.get(1).set(5,Double.parseDouble((String)data.get(0).get(5)));
-		me.Empire=new France(data.get(0).get(0),data.get(0).get(1),data.get(0).get(2),data.get(0).get(3),data.get(0).get(4),data.get(5).get(6),data.get(0).get(7),data.get(0).get(8),data.get(1).get(9),data.get(1).get(10),data.get(1).get(11));
-	    
-		War newWar= new War(data.get(1).get(0),data.get(1).get(2),_tempAllies,_tempAxis,data.get(1).get(5));
+		data.get(1).set(5,Double.parseDouble((String)data.get(1).get(5)));
+		me.Empire=new France((String)data.get(0).get(0),(String)data.get(0).get(1),((Double)data.get(0).get(2)).doubleValue(),((Integer)data.get(0).get(3)).intValue(),((Integer)data.get(0).get(4)).intValue(),((Integer)data.get(0).get(5)).intValue(),((Integer)data.get(0).get(6)).intValue(),((Integer)data.get(0).get(7)).intValue(),((Integer)data.get(0).get(8)).intValue(),((Integer)data.get(0).get(9)).intValue(),((Integer)data.get(0).get(10)).intValue(),((String)data.get(0).get(11)).equals("true"),((String)data.get(0).get(12)).equals("true"));
+ 
+		War newWar= new War(((Integer)data.get(1).get(0)).intValue(),((String)data.get(1).get(2)).equals("true"),_tempAllies,_tempAxis,(String)data.get(1).get(5),((Integer)data.get(1).get(6)).intValue());
 		me.Empire.setCurrent(newWar);
 	    
-		for(int w=0;w<countries.size();w++){
+		for(int w=0; w < countries.length ; w++){
 		    int y=w+2;
-		    countries.get(w)=new Country((String)data.get(y).get(0),(String)data.get(y).get(1),(Double)data.get(y).get(2),(Integer)data.get(y).get(3),(Integer)data.get(y).get(4),(Integer)data.get(y).get(5),(Integer)data.get(y).get(6));
+		    countries[w]=new Country((String)data.get(y).get(0),(String)data.get(y).get(1),((Double)data.get(y).get(2)).doubleValue(),((Integer)data.get(y).get(3)).intValue(),((Integer)data.get(y).get(4)).intValue(),((Integer)data.get(y).get(5)).intValue(),((Integer)data.get(y).get(6)).intValue(),((Integer)data.get(y).get(7)).intValue(),((Integer)data.get(y).get(8)).intValue());
 		}
 	    
 	   
@@ -306,7 +309,7 @@ public class Game{
 
 	    
 	    
-	    }*/
+	    }
 				     
 	    
 	me.play();
