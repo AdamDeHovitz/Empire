@@ -124,7 +124,9 @@ public class France extends Country{
 		    System.out.println(select);}
 		else if (choice == 5){
 		    cont = false;}
-		
+		else{
+		     System.out.println("Please enter a valid number.");
+		 }
 	    }
 	}
 	
@@ -167,6 +169,9 @@ public class France extends Country{
 		    tr-=1;}
 		
 	    }
+	    else{
+		 System.out.println("Please enter a valid number.");
+	     }
 	}
 	else if (! emperor){
 	    System.out.println("\n\t1: Crown yourself emperor \n\t Increases prestige by 50, angers your neighbors, creates the empire, and raises your troop count \n\t(costs 300 gold)\n2:Establish a Military School:\n\t Each school increases Troop Count by an extra 1000 every month\n\t(costs 50 gold to create and 1 gold each month)");
@@ -198,6 +203,9 @@ public class France extends Country{
 		    this.treasury-=50;
 		    tr-=1;}
 	    }
+	    else{
+		 System.out.println("Please enter a valid number.");
+	     }
 	}
 	else {
 	    System.out.println("\n\t1:Establish a Military School:\n\t Each school increases Troop Count by an extra 1000 every month\n\t(costs 50 gold to create and 1 gold each month)");
@@ -213,6 +221,9 @@ public class France extends Country{
 		    this.treasury-=50;
 		    tr-=1;}
 	    }
+	    else{
+		 System.out.println("Please enter a valid number.");
+	     }
 
 
 

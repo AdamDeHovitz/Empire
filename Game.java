@@ -2,9 +2,10 @@ import java.util.*;
 import java.io.*;
 import cs1.Keyboard;
 
-public class Game{
+public class Game{ 
+    //Creating every country with it's starting statistics
     private France Empire = new France();
-    	/*String newName,String newAdj, double newLand, int newMax, int newcount, int prest, int op, int agg*/
+    /*String newName,String newAdj, double newLand, int newMax, int newcount, int prest, int op, int agg*/
     private static Country Austria = new Country("The Austrian Empire", "Austrian",400000,200000,125000,30,50,20,0);
     private static Country Prussia = new Country("Prussia", "Prussian",250000,300000,200000,65,30,50,0);
     private static Country Britain = new Country("Great Britain", "British",300000,200000,100000,65,10,70,0);
@@ -20,16 +21,16 @@ public class Game{
     private int month = 1;
 
     //public Game(){}
-    public void printMain(){
-	String ret="\t 1: Show Statistics \n\t 2: Foreign Affairs \n\t 3: Domestic Affairs \n\t 4: End Turn \n\t 5: View Current War\n\t 6: End Game\n\t 7:Save Game";
+    public void printMain(){ //Prints out the main options
+	String ret="\t 1: Show Country Statistics \n\t 2: Foreign Affairs \n\t 3: Domestic Affairs \n\t 4: End Turn \n\t 5: View Current War\n\t 6: End Game\n\t 7:Save Game";
 	System.out.println( ret);
     }
-    public void printStats(){
+    public void printStats(){ //Prints out each countries statistics
 	String ret=Empire+"\n"+Austria+"\n"+ Prussia +"\n"+Britain +"\n"+Russia +"\n"+Spain+"\n"+ Portugal+"\n"+Denmark+"\n"+ Sweden+"\n"+Sicily+"\n"+ Ottoman;
 	System.out.println( ret);
     }
 
-    public String randomEvents(){
+    public String randomEvents(){//Chooses a random event and a random country. If the random event is one that would only effect counries that aren't France, I.E. changing their opinion of France, France gets its own event. Additionally, events are more likely to effect France.
 	String ret="";
 	int event=(int)(Math.random()*100);
 	if (event==50){
@@ -79,7 +80,7 @@ public class Game{
 		    ret="The people of " +subject.getName()+ " have recently grown infatuated with peace, and are requesting demilitarization";
 		    subject.changeAggressive(-20);}
 	    }
-	     else if (chance == 6){
+	    else if (chance == 6){
 		if (normal == 10){
 		    ret = Empire.getName()+ "'s manpower base has recently expanded, raising it's max troop count considerably";
 		    Empire.setTroopMax(Empire.getTroopMax()+50000);
@@ -89,7 +90,7 @@ public class Game{
 		    subject.changeAggressive(-10);
 		    subject.setOpinion(subject.getOpinion()+20);
 		}
-	     }
+	    }
 	    else if (chance == 7){
 		if (normal == 10){
 		    ret = Empire.getName()+ " has experienced a surge in national popularity, granting it prestige";
@@ -108,7 +109,7 @@ public class Game{
     }
     
     
-    public void play(){
+    public void play(){  //Plays the game, as long as this method loops the game continues.
 
 	System.out.println("You are France in 1799. The great military general Napoleon has just staged a coup. This new leader has one goal: to conquer Europe. Use your powers of diplomacy and your military to manipulate those around you");
 
@@ -117,72 +118,114 @@ public class Game{
 	    Object[] results= new Object[]{"A recount of what you did:\n",3};
 	    System.out.println("The date is " + year+"-"+month+"-1");
 	    System.out.println("You have "+Empire.getTreasury()+ " gold");
-	    while(((Integer)results[1])>0){
-		System.out.println("You have " + results[1]+ " moves left");
-		System.out.println("What do you want to do?");
-		printMain();
-		System.out.print("Choose wisely:");
-		int select=Keyboard.readInt();
-		if (select == 1)
-		    printStats();
-		/* results is transfered in since we need to write the results there
-		   foreign() & domesticOptions() returns number of turns used*/
-		else if(select == 2)
-		    results = Empire.foreign(countries,(Object[])results);
-		else if (select == 3)
-		    results = Empire.domesticOptions(results, countries);
-		else if(select == 4){
-		    break;}
-		else if(select == 5){
-		    System.out.println(Empire.getCurrent().toString());}
-		else if(select == 6){
-		    EndGame=true; break;}
-		else if(select == 7){
-		    System.out.print("What name would you like to save this game under?");
+	    if (Empire.getCurrent().getWarScore() < -100){
+		System.out.println("Your warscore is less then -100 and you MUST make peace before continuing");
+		while (Empire.getCurrent().getWarScore() < -100){
+		    System.out.println("Choose a country to negogiate with:");
+		    int number = 1;
+		    for(Country A:Empire.getCurrent().getAxis()){
+			System.out.println("\t"+number+":"+ A.getName());
+			number++;}
+		    System.out.println("\t"+number+":"+Empire.getCurrent().getHead().getName());
+		    System.out.print("Choose wisely:");
+		    int choice = Keyboard.readInt();
+		    if (choice == number){
+			Empire.getCurrent().options(Empire.getCurrent().getHead(),Empire);}
+		    else if (choice < number && choice >0){
+			Empire.getCurrent().options(Empire.getCurrent().getAxis().get(choice - 1),Empire);}
+		    else{
+			System.out.println("Please enter a valid number.");
+		     }
+		}
+	    }
+	    else if (Empire.getCurrent().getWarScore() > 100){
+		System.out.println("Your warscore is more than 100 and you must make peace with at least one nation before continuing");
+		while (Empire.getCurrent().getWarScore() > 100){
+		    System.out.println("Choose a country to negogiate with:");
+		    int number = 1;
+		    for(Country A:Empire.getCurrent().getAxis()){
+			System.out.println("\t"+number+":"+ A.getName());
+			number++;}
+		    System.out.println("\t"+number+":"+Empire.getCurrent().getHead().getName());
+		    System.out.print("Choose wisely:");
+		    int choice = Keyboard.readInt();
+		    if (choice == number){
+			Empire.getCurrent().options(Empire.getCurrent().getHead(),Empire);}
+		    else if (choice < number && choice >0){
+			Empire.getCurrent().options(Empire.getCurrent().getAxis().get(choice - 1),Empire);}
+		    else{
+			System.out.println("Please enter a valid number.");
+		     }
+		}
+	    }
+	    else{
+		while(((Integer)results[1])>0){
+		    System.out.println("You have " + results[1]+ " moves left");
+		    System.out.println("What do you want to do?");
+		    printMain();
+		    System.out.print("Choose wisely:");
+		    int select=Keyboard.readInt();
+		    if (select == 1)
+			printStats();
+		    /* results is transfered in since we need to write the results there
+		       foreign() & domesticOptions() returns number of turns used*/
+		    else if(select == 2)
+			results = Empire.foreign(countries,(Object[])results);
+		    else if (select == 3)
+			results = Empire.domesticOptions(results, countries);
+		    else if(select == 4){
+			break;}
+		    else if(select == 5){
+			System.out.println(Empire.getCurrent().toString());}
+		    else if(select == 6){
+			EndGame=true; break;}
+		    else if(select == 7){
+			System.out.print("What name would you like to save this game under?");
 
-		    try{
-		    String name= Keyboard.readString()+".txt";
-		    BufferedWriter writer = new BufferedWriter(new FileWriter(name));
-		    writer.write(Empire.getName()+","+Empire.getAdj()+","+Empire.getLand()+","+Empire.getTroopMax()+","+
-				 Empire.getTroopCount()+","+Empire.getPrestige()+","+Empire.getOpinion()+","+Empire.getAggresive()+","+
-				 Empire.getConflict()+","+Empire.getTreasury()+","+Empire. getMilitarySchools()+","+Empire.getLeg()+","+Empire.getEmp()+",");
-		    War war=Empire.getCurrent();
-		    writer.write("\n"+war.getWarScore()+","+war.getActive()+","+war.getAllies(1)+","+war.getAxis(1)+","+
-				 war.getName()+","+war.getDate()+",");
-		    for (Country x: countries){
-			writer.write("\n"+x.getName()+","+x.getAdj()+","+x.getLand()+","+x.getTroopMax()+","+
-				     x.getTroopCount()+","+x.getPrestige()+","+x.getOpinion()+","+x.getAggresive()+",");}
-		    writer.close();
-		    }
-		    catch(IOException e){System.err.println("File not found try again");}
+			try{
+			    String name= Keyboard.readString()+".txt";
+			    BufferedWriter writer = new BufferedWriter(new FileWriter(name));
+			    writer.write(Empire.getName()+","+Empire.getAdj()+","+Empire.getLand()+","+Empire.getTroopMax()+","+
+					 Empire.getTroopCount()+","+Empire.getPrestige()+","+Empire.getOpinion()+","+Empire.getAggresive()+","+
+					 Empire.getConflict()+","+Empire.getTreasury()+","+Empire. getMilitarySchools()+","+Empire.getLeg()+","+Empire.getEmp()+",");
+			    War war=Empire.getCurrent();
+			    writer.write("\n"+war.getWarScore()+","+war.getActive()+","+war.getAllies(1)+","+war.getAxis(1)+","+
+					 war.getName()+","+war.getDate()+",");
+			    for (Country x: countries){
+				writer.write("\n"+x.getName()+","+x.getAdj()+","+x.getLand()+","+x.getTroopMax()+","+
+					     x.getTroopCount()+","+x.getPrestige()+","+x.getOpinion()+","+x.getAggresive()+",");}
+			    writer.close();
+			}
+			catch(IOException e){System.err.println("File not found try again");}
 	       	
-		}
+		    }
 	
-		else{
-		    System.out.println("Please enter a valid number.");
+		    else{
+			System.out.println("Please enter a valid number.");
+		    }
 		}
-	    }
-	    if (Empire.getTreasury()>0){
-		Empire.changeTroopCount(Empire.getTroopCount()+ 500 + (Empire.getMilitarySchools()*100));}
-	    for (Country a: countries){
-		a.changeTroopCount(a.getTroopCount() + 750);}
+		if (Empire.getTreasury()>0){
+		    Empire.changeTroopCount(Empire.getTroopCount()+ 500 + (Empire.getMilitarySchools()*100));}
+		for (Country a: countries){
+		    a.changeTroopCount(a.getTroopCount() + 750);}
 	    
-	    String retStr=(String)results[0];
-	    retStr+=randomEvents()+"\n";
-	    if (Empire.getCurrent().getActive()){
-		retStr+=Empire.getCurrent().battle(Empire);
-	    }
-	    results[0]=retStr;	
-	    System.out.println(results[0]);
-	    month++; 
-	    if (month>12){
-		year++;
-		month = 1;
+		String retStr=(String)results[0];
+		retStr+=randomEvents()+"\n";
+		if (Empire.getCurrent().getActive()){
+		    retStr+=Empire.getCurrent().battle(Empire);
 		}
-	    Empire.changeTreasury(Empire.getTreasury()+ (Empire.getLand()/12000) - Empire.getMilitarySchools());
+		results[0]=retStr;	
+		System.out.println(results[0]);
+		month++; 
+		if (month>12){
+		    year++;
+		    month = 1;
+		}
+		Empire.changeTreasury(Empire.getTreasury()+ (Empire.getLand()/12000) - Empire.getMilitarySchools());
 	    
-	    if (Empire.getCurrent().getActive()){
-		Empire.getCurrent().incDate();}
+		if (Empire.getCurrent().getActive()){
+		    Empire.getCurrent().incDate();}
+	    }
 	}
     }
     public static void main(String [] args){
@@ -191,70 +234,70 @@ public class Game{
 	System.out.print("Choose Wisely:");
 	int start=Keyboard.readInt();
 	Game me=new Game();
-	if (start==2){
+	/*if (start==2){
 	    System.out.print("Enter Name:");
 	    try{
-	    String name=Keyboard.readString()+".txt";
-	    File f=new File(name);
-	    Scanner S= new Scanner(f);
-	    ArrayList<ArrayList<Object>> data=new ArrayList<ArrayList<Object>>();
-	    int x=0;
-	    ArrayList<Object> temp;
-	    while(S.hasNextLine()){
-		temp=new ArrayList<Object>();
-		String n=S.nextLine();
-		while(n.indexOf(",")!=-1){
-		    temp.add(n.substring(0,n.indexOf(",")));
-		    n=n.substring(n.indexOf(",")+1);
+		String name=Keyboard.readString()+".txt";
+		File f=new File(name);
+		Scanner S= new Scanner(f);
+		ArrayList<ArrayList<Object>> data=new ArrayList<ArrayList<Object>>();
+		int x=0;
+		ArrayList<Object> temp;
+		while(S.hasNextLine()){
+		    temp=new ArrayList<Object>();
+		    String n=S.nextLine();
+		    while(n.indexOf(",")!=-1){
+			temp.add(n.substring(0,n.indexOf(",")));
+			n=n.substring(n.indexOf(",")+1);
+		    }
+		    data.add(temp);
 		}
-		 data.add(temp);
-	    }
-	    System.out.println(data);
-	    for(int c=2;c<data.size(); c++){
-		for(int y=2;y<data.get(c).size();y++)
-		    data.get(c).set(y,Double.parseDouble((String)data.get(c).get(y)));
-	    }
-	    for(int e=2;e<data.get(0).size()-2;e++)
-		data.get(0).set(e,Double.parseDouble((String)data.get(0).get(e)));
-	    data.get(0).set(data.get(0).size()-2,data.get(0).get(data.get(0).size()-2).equals("true"));
-	    data.get(0).set(data.get(0).size()-1,data.get(0).get(data.get(0).size()-1).equals("true"));
+		System.out.println(data);
+		for(int c=2;c<data.size(); c++){
+		    for(int y=2;y<data.get(c).size();y++)
+			data.get(c).set(y,Double.parseDouble((String)data.get(c).get(y)));
+		}
+		for(int e=2;e<data.get(0).size()-2;e++)
+		    data.get(0).set(e,Double.parseDouble((String)data.get(0).get(e)));
+		data.get(0).set(data.get(0).size()-2,data.get(0).get(data.get(0).size()-2).equals("true"));
+		data.get(0).set(data.get(0).size()-1,data.get(0).get(data.get(0).size()-1).equals("true"));
 
-	    data.get(1).set(0,Double.parseDouble((String)data.get(0).get(0)));
-	    data.get(1).set(1,((String)data.get(1).get(0)).equals("true"));
-	    data.get(1).set(2,((String)data.get(1).get(2)).equals("true"));
-	    ArrayList<Country> _tempAllies=new  ArrayList<Country>();
-	    String temp2=(String)data.get(1).get(3);
-	    while(temp2.indexOf(",")!=-1){
-		String country=temp2.substring(0,temp2.indexOf(","));
-		for (Country b: countries){
-		    if(b.getName().equals(country))
-			_tempAllies.add(b);
+		data.get(1).set(0,Double.parseDouble((String)data.get(0).get(0)));
+		data.get(1).set(1,((String)data.get(1).get(0)).equals("true"));
+		data.get(1).set(2,((String)data.get(1).get(2)).equals("true"));
+		ArrayList<Country> _tempAllies=new  ArrayList<Country>();
+		String temp2=(String)data.get(1).get(3);
+		while(temp2.indexOf(",")!=-1){
+		    String country=temp2.substring(0,temp2.indexOf(","));
+		    for (Country b: countries){
+			if(b.getName().equals(country))
+			    _tempAllies.add(b);
+		    }
+		    temp2=temp2.substring(temp2.indexOf(","+1));
 		}
-		temp2=temp2.substring(temp2.indexOf(","+1));
-	    }
-	    ArrayList<Country> _tempAxis=new  ArrayList<Country>();
-	    temp2=(String)data.get(1).get(4);
-	    while(temp2.indexOf(",")!=-1){
-		String country=temp2.substring(0,temp2.indexOf(","));
-		for (Country a: countries){
-		    if(a.getName().equals(country))
-			_tempAxis.add(a);
+		ArrayList<Country> _tempAxis=new  ArrayList<Country>();
+		temp2=(String)data.get(1).get(4);
+		while(temp2.indexOf(",")!=-1){
+		    String country=temp2.substring(0,temp2.indexOf(","));
+		    for (Country a: countries){
+			if(a.getName().equals(country))
+			    _tempAxis.add(a);
+		    }
+		    temp2=temp2.substring(temp2.indexOf(","+1));
 		}
-		temp2=temp2.substring(temp2.indexOf(","+1));
-	    }
-	    data.get(1).set(5,Double.parseDouble((String)data.get(0).get(5)));
-	    me.Empire=new France(data.get(0).get(0),data.get(0).get(1),data.get(0).get(2),data.get(0).get(3),data.get(0).get(4),data.get(5).get(6),data.get(0).get(7),data.get(0).get(8),data.get(1).get(9),data.get(1).get(10),data.get(1).get(11));
+		data.get(1).set(5,Double.parseDouble((String)data.get(0).get(5)));
+		me.Empire=new France(data.get(0).get(0),data.get(0).get(1),data.get(0).get(2),data.get(0).get(3),data.get(0).get(4),data.get(5).get(6),data.get(0).get(7),data.get(0).get(8),data.get(1).get(9),data.get(1).get(10),data.get(1).get(11));
 	    
-	    War newWar= new War(data.get(1).get(0),data.get(1).get(2),_tempAllies,_tempAxis,data.get(1).get(5));
-	    me.Empire.setCurrent(newWar);
+		War newWar= new War(data.get(1).get(0),data.get(1).get(2),_tempAllies,_tempAxis,data.get(1).get(5));
+		me.Empire.setCurrent(newWar);
 	    
-	    for(int w=0;w<countries.size();w++){
-		int y=w+2;
-		countries.get(w)=new Country((String)data.get(y).get(0),(String)data.get(y).get(1),(Double)data.get(y).get(2),(Integer)data.get(y).get(3),(Integer)data.get(y).get(4),(Integer)data.get(y).get(5),(Integer)data.get(y).get(6));
-	    }
+		for(int w=0;w<countries.size();w++){
+		    int y=w+2;
+		    countries.get(w)=new Country((String)data.get(y).get(0),(String)data.get(y).get(1),(Double)data.get(y).get(2),(Integer)data.get(y).get(3),(Integer)data.get(y).get(4),(Integer)data.get(y).get(5),(Integer)data.get(y).get(6));
+		}
 	    
 	   
-	    System.out.println(data);
+		System.out.println(data);
 	    }
 	    
 	    
@@ -263,10 +306,10 @@ public class Game{
 
 	    
 	    
-	}
+	    }*/
 				     
 	    
 	me.play();
     }
-	
+    
 }
