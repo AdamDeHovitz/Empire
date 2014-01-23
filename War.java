@@ -135,9 +135,12 @@ public class War{
 	int allyTroops=Empire.getTroopCount()+Empire.getPrestige();
 	for (Country x:allies)
 	    allyTroops+=x.getTroopCount()+x.getPrestige();
-
 	int battle=(int)(Math.random()*(allyTroops+axisTroops));
-	warScore+= (int)((allyTroops-battle-1500)/10000.0);
+	while((battle/((allyTroops+axisTroops)*1.0)) <= (2/10.0) || (battle/(allyTroops+axisTroops*1.0)) >= (7/10.0)){
+	    battle=(int)(Math.random()*(allyTroops+axisTroops));
+	    System.out.println(battle);}
+	System.out.println(battle);
+	warScore+= (int)(((allyTroops-battle)/(10000)));
 
 
 	int TroopsLostAlly;
@@ -172,7 +175,7 @@ public class War{
 	    for (Country x: axis){
 		x.setPrestige(x.getPrestige()-1);
 		x.changeTroopCount(x.getTroopCount()+ 100);}
-	    retStr+="You beat the enemy in a glorious battle! You lost "+TroopsLostAlly+" troops while your enemy lost "+ TroopsLostAxis +" troops. You gained "+(int)((allyTroops-battle)/10000) +" war score. God is clearly with you.";
+	    retStr+="You beat the enemy in a glorious battle! You lost "+(TroopsLostAlly*(allies.size()+1))+" troops while your enemy lost "+ (TroopsLostAxis*(axis.size()+1)) +" troops. You gained "+(int)(((allyTroops-battle)/(10000))) +" war score. God is clearly with you.";
 	}
 
 	if (battle> allyTroops){
@@ -183,7 +186,7 @@ public class War{
 		x.setOpinion(x.getOpinion()-5);}
 	    for (Country x: allies){
 		x.changeTroopCount(Empire.getTroopCount()+ 100);}
-	    retStr+="The enemy crushed you on the battle feild. You lost "+TroopsLostAlly+" troops while your enemy lost "+ TroopsLostAxis +" troops. You lost "+(int)((allyTroops-battle)/10000) +" war score. You should be ashamed. We are French.";
+	    retStr+="The enemy crushed you on the battle feild. You lost "+(TroopsLostAlly*(allies.size()+1))+" troops while your enemy lost "+ (TroopsLostAxis*(axis.size()+1)) +" troops. You lost "+(int)(((allyTroops-battle)/10000)) +" war score. You should be ashamed. We are French.";
 	}
 	return retStr;
     }
