@@ -190,10 +190,8 @@ public class Game{
 	System.out.println("\t1: New Game \n\t2: Load Game");
 	System.out.print("Choose Wisely:");
 	int start=Keyboard.readInt();
-	Game me;
-	if (start==1)
-	    me=new Game();
-	else{
+	Game me=new Game();
+	if (start==2){
 	    System.out.print("Enter Name:");
 	    try{
 	    String name=Keyboard.readString()+".txt";
@@ -224,35 +222,35 @@ public class Game{
 	    data.get(1).set(0,Double.parseDouble((String)data.get(0).get(0)));
 	    data.get(1).set(1,((String)data.get(1).get(0)).equals("true"));
 	    data.get(1).set(2,((String)data.get(1).get(2)).equals("true"));
-	    ArrayList<Country> _tempAllies=new  ArrayList<Countries>();
-	    String temp=data.get(1).get(3);
-	    while(temp.indexOf(",")!=-1){
-		String country=data.get(1).get(3).substring(0,data.get(1).get(3).indexOf(","));
-		for (Country x: countries){
-		    if(x.getName().equals(country))
-			_tempAllies.add(x);
+	    ArrayList<Country> _tempAllies=new  ArrayList<Country>();
+	    String temp2=(String)data.get(1).get(3);
+	    while(temp2.indexOf(",")!=-1){
+		String country=temp2.substring(0,temp2.indexOf(","));
+		for (Country b: countries){
+		    if(b.getName().equals(country))
+			_tempAllies.add(b);
 		}
-		temp=temp.substring(temp.indexOf(","+1));
+		temp2=temp2.substring(temp2.indexOf(","+1));
 	    }
-	    ArrayList<Country> _tempAxis=new  ArrayList<Countries>();
-	    temp=data.get(1).get(4);
-	    while(temp.indexOf(",")!=-1){
-		String country=temp.substring(0,temp.indexOf(","));
-		for (Country x: countries){
-		    if(x.getName().equals(country))
-			_tempAxis.add(x);
+	    ArrayList<Country> _tempAxis=new  ArrayList<Country>();
+	    temp2=(String)data.get(1).get(4);
+	    while(temp2.indexOf(",")!=-1){
+		String country=temp2.substring(0,temp2.indexOf(","));
+		for (Country a: countries){
+		    if(a.getName().equals(country))
+			_tempAxis.add(a);
 		}
-		temp=temp.substring(temp.indexOf(","+1));
+		temp2=temp2.substring(temp2.indexOf(","+1));
 	    }
-	    data.get(1).set(5,Double.parseDouble(data.get(0).get(5)));
-	    Empire=new France(data.get(0).get(0),data.get(0).get(1),data.get(0).get(2),data.get(0).get(3),data.get(0).get(4),data.get(5).get(6),data.get(0).get(7),data.get(0).get(8),data.get(1).get(9),data.get(1).get(10),data.get(1).get(11));
+	    data.get(1).set(5,Double.parseDouble((String)data.get(0).get(5)));
+	    me.Empire=new France(data.get(0).get(0),data.get(0).get(1),data.get(0).get(2),data.get(0).get(3),data.get(0).get(4),data.get(5).get(6),data.get(0).get(7),data.get(0).get(8),data.get(1).get(9),data.get(1).get(10),data.get(1).get(11));
 	    
 	    War newWar= new War(data.get(1).get(0),data.get(1).get(2),_tempAllies,_tempAxis,data.get(1).get(5));
-	    Empire.setCurrent(newWar);
+	    me.Empire.setCurrent(newWar);
 	    
 	    for(int w=0;w<countries.size();w++){
 		int y=w+2;
-		countries.get(w)=new Country((String)data.get(w).get(0),(String)data.get(w).get(1),(Integer)data.get(w).get(2),(Integer)data.get(w).get(3),(Integer)data.get(w).get(4),(Integer)data.get(w).get(5),(Integer)data.get(w).get(6));
+		countries.get(w)=new Country((String)data.get(y).get(0),(String)data.get(y).get(1),(Double)data.get(y).get(2),(Integer)data.get(y).get(3),(Integer)data.get(y).get(4),(Integer)data.get(y).get(5),(Integer)data.get(y).get(6));
 	    }
 	    
 	   
@@ -263,7 +261,7 @@ public class Game{
 	    catch(IOException e){System.err.println("File not found try again");}
 	
 
-	    me=new Game();
+	    
 	    
 	}
 				     
