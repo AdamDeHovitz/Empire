@@ -32,14 +32,14 @@ public class War{
     public String getAllies(int i){
 	String ret="[";
 	for(Country x: allies)
-	    ret+=x.getName()+",";
+	    ret+=x.getName()+":";
 	ret+="]";
 	return ret;
     }
     public String getAxis(int i){
 	String ret="[";
 	for(Country x: axis)
-	    ret+=x.getName()+",";
+	    ret+=x.getName()+":";
 	ret+="]";
 	return ret;
     } 
