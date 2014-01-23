@@ -116,12 +116,12 @@ public class War{
     public String toString(){  //War toString() method, 
 	String ret;
 	if(active){
-	    ret=("Name:"+name+
-		 "\nAllies:"+printAllies()+
-		 "\nHead of enemy coalition:"+head.getName()+
-		 "\nEnemy coalition:"+printAxis()+
-		 "\nWar score:"+warScore +
-		 "\nDuration:"+date);}
+	    ret=("Name: "+name+
+		 "\nAllies: "+printAllies()+
+		 "\nHead of enemy coalition: "+head.getName()+
+		 "\nEnemy coalition: "+printAxis()+
+		 "\nWar score: "+warScore +
+		 "\nDuration: "+date);}
 	else
 	    ret="You are currently at peace! Fix that!";
 	    
@@ -224,8 +224,10 @@ public class War{
 			    break;}
 			
 		    }
-		}		
-			    
+		    else {
+			System.out.println("Your enemies reject your offer of white peace on the grounds that they are winning!");
+			    }		
+		}
 		else if (call == 1){
 		    if (warScore < 1){
 			System.out.println("You must have positive war score to make demands!");}

@@ -198,7 +198,7 @@ public class Game{
 					     x.getTroopCount()+","+x.getPrestige()+","+x.getOpinion()+","+x.getAggresive()+",");}
 			    writer.close();
 			}
-			catch(IOException e){System.err.println("File not found try again");}
+			catch(IOException e){System.err.println("File not found, try again");}
 	       	
 		    }
 	
@@ -224,14 +224,14 @@ public class Game{
 		    year++;
 		    month = 1;
 		}
-		Empire.changeTreasury(Empire.getTreasury()+ (Empire.getLand()/12000) - Empire.getMilitarySchools());
+		Empire.changeTreasury(Empire.getTreasury()+ ((int)(Empire.getLand()/12000)) - Empire.getMilitarySchools());
 	    
 		if (Empire.getCurrent().getActive()){
 		    Empire.getCurrent().incDate();}
 	    }
 	}
     }
-    public static void main(String [] args){
+    public static void main(String [] args){ //The  main menu before the main menu, This is where you either start a new game or load an old one, before starting to play
 	System.out.println("Welcome to Empire Builder 1799!");
 	System.out.println("\t1: New Game \n\t2: Load Game");
 	System.out.print("Choose Wisely:");

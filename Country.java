@@ -3,9 +3,8 @@ import java.util.ArrayList;
 public class Country{
     
     protected String name;
-    protected String adjective;
+    protected String adjective;  //Used primarily for the naming of wars
     protected double land;
-    
     protected int troopMax;
     protected int troopCount;
     protected int opinionFrance;
@@ -72,7 +71,7 @@ public class Country{
 	    prestige = 100;}
 	else if( prestige < 0){prestige = 0;}
 	return old;}
-     public int setOpinion(int newVal){int old = opinionFrance; opinionFrance= newVal; 
+    public int setOpinion(int newVal){int old = opinionFrance; opinionFrance= newVal; 
 	if (opinionFrance > 100){
 	    opinionFrance = 100;}
 	else if(opinionFrance < -50){opinionFrance = -50;}
@@ -91,12 +90,12 @@ public class Country{
 
     //Default Country toString()
     public String toString(){
-	String retStr=("\nName:"+getName()+
-		       "\n\tLand:"+getLand()+
-		       "\n\tTroop Count:"+getTroopCount()+
-		       "\n\tPrestige:"+getPrestige()+
-		       "\n\tOpinion of France:"+ getOpinion()+
-		       "\n\tAgressiveness:"+getAggresive()
+	String retStr=("\nName: "+getName()+
+		       "\n\tLand: "+getLand()+
+		       "\n\tTroop Count: "+getTroopCount()+
+		       "\n\tPrestige: "+getPrestige()+
+		       "\n\tOpinion of France: "+ getOpinion()+
+		       "\n\tAgressiveness: "+getAggresive()
 		       //"\n\tConflict Count:"+getConflict()
 		       );
 	return retStr;
