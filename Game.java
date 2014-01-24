@@ -296,10 +296,16 @@ public class Game{
 		    }
 		    temp2=temp2.substring(temp2.indexOf(":"+1));
 		}
+Country tempHead=countries[0]
+temp2=(String)data.get(1).get(6);
+for (Country a: countries){
+			if(a.getName().equals(temp2))
+			    tempHead=a;
+}
 
 		me.Empire=new France((String)data.get(0).get(0),(String)data.get(0).get(1),((Double)data.get(0).get(2)).doubleValue(),((Integer)data.get(0).get(3)).intValue(),((Integer)data.get(0).get(4)).intValue(),((Integer)data.get(0).get(5)).intValue(),((Integer)data.get(0).get(6)).intValue(),((Integer)data.get(0).get(7)).intValue(),((Integer)data.get(0).get(8)).intValue(),((Double)data.get(0).get(9)).doubleValue(),((Integer)data.get(0).get(10)).intValue(),((String)data.get(0).get(11)).equals("true"),((String)data.get(0).get(12)).equals("true"));
  
-		War newWar= new War(((Integer)data.get(1).get(0)).intValue(),((String)data.get(1).get(1)).equals("true"),_tempAllies,_tempAxis,((String)data.get(1).get(4)),((Integer)data.get(1).get(5)).intValue());
+		War newWar= new War(((Integer)data.get(1).get(0)).intValue(),((String)data.get(1).get(1)).equals("true"),_tempAllies,_tempAxis,((String)data.get(1).get(4)),((Integer)data.get(1).get(5)).intValue(),tempHead);
 		me.Empire.setCurrent(newWar);
 	    
 		for(int w=0; w < countries.length ; w++){
