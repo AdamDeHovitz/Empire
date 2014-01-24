@@ -235,7 +235,7 @@ public class War{//Class for each war
 			else{
 		    
 			    System.out.println("Your enemies accept your call for peace and tranquility");
-			    this.endWar();
+			    this.endWar(); //end war does everything to discontinue the conflict
 			    loop = false;
 			    end = false;
 			    break;}
@@ -247,12 +247,12 @@ public class War{//Class for each war
 		}
 		else if (call == 1){
 		    if (warScore < 1){
-			System.out.println("You must have positive war score to make demands!");}
+			System.out.println("You must have positive war score to make demands!");} //limiter
 		    else{
 				
 			System.out.println("You have this much war score: " + this.getWarScore()+".\nHow much land do you want? (They have "+ select.getLand()+" km and 1000 km = 1 war score)");
 			int selection;
-			while (true){
+			while (true){  //repeats in case of error
 			    selection=Keyboard.readInt();
 			    if (selection > 1000 * warScore){
 				System.out.println("you don't have enough war score, 1 war score can be used for 1000 km of useful land\nHow land do you want?");
@@ -301,13 +301,13 @@ public class War{//Class for each war
 		}
 		else if (call == 3){
 		    if (warScore > 0){
-			System.out.println("You are winning! You cannot surrender now and defile the " + empire.getName()+"!");
+			System.out.println("You are winning! You cannot surrender now and defile " + empire.getName()+"!");
 		    }
 		 
 		    int value;
 		    if (axis.size() == 0){
 			
-			System.out.println("Since "+ head.getName() + " is the only nation left in the opposition, they demand their own terms");
+			System.out.println("Since "+ head.getName() + " is the only nation left in the opposition, they demand their own terms");  //This is important because if there is one nation left you should be forced to make a complete peace
 			value = warScore * -1;
 			System.out.println(head.getName()+ " offers you what they call \"favorable\" terms, "+ empire.getTreasury()*(value/100.0)+" gold as well as " + (int)value*250+" square kilometers of your land\n Do you accept?\n1: yes, 2: no");
 			int accept = Keyboard.readInt();
@@ -333,7 +333,8 @@ public class War{//Class for each war
 			    value = Keyboard.readInt();
 			    if (value < 0)
 				{System.out.println("You must give a positive value");}
-			    /*else if(value > 100){
+			    //since war score can now go below 100 based on a decisive battle, this case was removed
+			    /*else if(value > 100){ 
 			      System.out.println("You're offer is too high for the "+empire.getName()+ " to accept!");
 			      }*/
 			    else if (value < 10){
@@ -352,7 +353,7 @@ public class War{//Class for each war
 			    empire.subLand(value*250);
 			    select.addLand(value+250);
 			    empire.setPrestige(empire.getPrestige()-2);
-			    select.setPrestige(select.getPrestige()+2);
+			    select.setPrestige(select.getPrestige()+2);   //prestige adjustments for victories/defeats
 			    if (select.equals(head)){
 				if (axis.size() == 0){
 				    System.out.println("With no more enemy combatants, the "+ name+" has come to an end");
@@ -385,6 +386,6 @@ public class War{//Class for each war
 	    }
 		    
 	}
-	return -1;
+	return -1; //We originally had options return a number in case the turn count changed, but we decided to make military moves not require turn counts because then you couldn't do everything you might need to. The return -1 is just a vestigal statement
     }
 }

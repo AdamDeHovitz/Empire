@@ -67,7 +67,7 @@ public class Game{
 		subject.setPrestige(subject.getPrestige()+10);
 	    }
 	    else if (chance == 4){
-		if (normal == 10){
+		if (normal == 10){   //France gets it's own unique event because aggressivness doesn't matter in it's case
 		    ret = Empire.getName()+ " has experienced a bountiful harvest, and has earned an extra 100 gold this month";
 		    Empire.changeTreasury(Empire.getTreasury() + 100);}
 		else{
@@ -75,7 +75,7 @@ public class Game{
 		subject.changeAggressive(20);
 	    }
 	    else if (chance == 5){
-		if (normal == 10){
+		if (normal == 10){  //same as above
 		    ret = Empire.getName()+ " has experienced a poor harvest, and has lost 50 gold this month alone";
 		    Empire.changeTreasury(Empire.getTreasury() - 50);}
 		else{
@@ -83,7 +83,7 @@ public class Game{
 		    subject.changeAggressive(-20);}
 	    }
 	    else if (chance == 6){
-		if (normal == 10){
+		if (normal == 10){ //same as above
 		    ret = Empire.getName()+ "'s manpower base has recently expanded, raising it's max troop count considerably";
 		    Empire.setTroopMax(Empire.getTroopMax()+50000);
 		}
@@ -94,7 +94,7 @@ public class Game{
 		}
 	    }
 	    else if (chance == 7){
-		if (normal == 10){
+		if (normal == 10){  //same as above
 		    ret = Empire.getName()+ " has experienced a surge in national popularity, granting it prestige";
 		    Empire.setPrestige(Empire.getPrestige() + 20);}
 		else{
@@ -144,7 +144,7 @@ public class Game{
 		     }
 		}
 	    }
-	    else if (Empire.getCurrent().getWarScore() > 100){
+	    else if (Empire.getCurrent().getWarScore() > 100){ //If you're winning by a lot you have to make demands
 		
 		while (Empire.getCurrent().getWarScore() > 100){
 		    System.out.println("Your war score is more than 100 and you must make peace with at least one nation before continuing");
@@ -186,7 +186,7 @@ public class Game{
 			System.out.println(Empire.getCurrent().toString());}
 		    else if(select == 6){
 			EndGame=true; break;}
-		    else if(select == 7){
+		    else if(select == 7){ //saving
 			System.out.print("What name would you like to save this game under?");
 
 			try{
@@ -208,30 +208,31 @@ public class Game{
 		    }
 	
 		    else{
-			System.out.println("Please enter a valid number.");
+			System.out.println("Please enter a valid number."); //wrong input check
 		    }
 		}
+		//replenishing troops
 		if (Empire.getTreasury()>0){
-		    Empire.changeTroopCount(Empire.getTroopCount()+ 500 + (Empire.getMilitarySchools()*100));}
+		    Empire.changeTroopCount(Empire.getTroopCount()+ 500 + (Empire.getMilitarySchools()*100));} 
 		for (Country a: countries){
 		    a.changeTroopCount(a.getTroopCount() + 750);}
 	    
 		String retStr=(String)results[0];
-		retStr+=randomEvents()+"\n";
+		retStr+=randomEvents()+"\n";   //random eventing
 		if (Empire.getCurrent().getActive()){
-		    retStr+=Empire.getCurrent().battle(Empire);
+		    retStr+=Empire.getCurrent().battle(Empire);  //battling
 		}
 		results[0]=retStr;	
-		System.out.println(results[0]);
-		month++; 
+		System.out.println(results[0]);  
+		month++;     //incrementing the dat
 		if (month>12){
 		    System.out.println("\nHappy New Year\n");
 		    year++;
 		    month = 1;
 		}
-		Empire.changeTreasury(Empire.getTreasury()+ (Empire.getLand()/12000) - Empire.getMilitarySchools());
+		Empire.changeTreasury(Empire.getTreasury()+ (Empire.getLand()/12000) - Empire.getMilitarySchools()); //income!
 	    
-		if (Empire.getCurrent().getActive()){
+		if (Empire.getCurrent().getActive()){  //incrementing the war date
 		    Empire.getCurrent().incDate();}
 	    }
 	}

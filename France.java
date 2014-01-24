@@ -14,7 +14,7 @@ public class France extends Country{
 
  
 
-    public France(){ //normal constructer
+    public France(){ //normal constructer                              100,100, these numbers do not effect France's gameplay but need to be coded because of the requirments of the super class. They correspond to opinion of France and aggressivness 
 	super("The French Republic","French", 600000, 450000,400000,80,100,100,0);
 	/*String newName,String newAdj, double newLand, int newMax, int newcount, int prest, int op, int agg*/
 	treasury=100;
@@ -69,7 +69,7 @@ public class France extends Country{
 	    System.out.print("Choose wisely:");
 	    Country select=countries[Keyboard.readInt()-1];
 	    if (currentWar.getActive() && (currentWar.getAxis().contains(select) || currentWar.getHead().equals(select))){
-		currentWar.options(select,this);}
+		currentWar.options(select,this);}  //If you are at war with a country, you get war options instead of the below ones
 	    
 	    else{
 		boolean cont = true;
@@ -88,10 +88,10 @@ public class France extends Country{
 			    retStr+="\n"+"But hey, I guess you can buy friends.";
 			}
 			else{
-			    System.out.println("You don't have enough gold to do that");}
+			    System.out.println("You don't have enough gold to do that");} //make sure you have the mullah
 		    }
 		    else if(choice==2){
-			if(currentWar.getAllies().contains(select)){
+			if(currentWar.getAllies().contains(select)){ //can't ally an ally
 			    System.out.println(select.getName() + " is already your ally, and is confused by your offer");
 			}
 			else if(select.getOpinion() <= 70 + (select.getAggresive() / 5)){
@@ -108,10 +108,10 @@ public class France extends Country{
 		    }
 		    else if (choice ==3){
 			cont = false;
-			if (currentWar.getActive()){
+			if (currentWar.getActive()){   //what to do if there is already a war
 			    currentWar.addAxis(select);
 			    String list ="";
-			    for (Country a:countries){
+			    for (Country a:countries){   //Check to see if any countries hate France enough to join war
 				if ((! currentWar.getAxis().contains(a)) && (! currentWar.getHead().equals(a)) && (a.getOpinion() < 5 + (a.getAggresive()/2) + select.getPrestige()/4 + (int)(Math.random()*20)) && (double)a.getTroopCount()/ a.getTroopMax() > .25){
 				    currentWar.addAxis(a);
 				    list+= a.getName()+", ";
@@ -128,10 +128,10 @@ public class France extends Country{
 			}
 			
 			else{
-			    currentWar.setActive(true, select);
+			    currentWar.setActive(true, select);  //starts a war if there isn't one
 
 			    for (Country a:countries){
-				if ((a.getOpinion() < 5 + (a.getAggresive()/2) + select.getPrestige()/4 + (int)(Math.random()*20)) && (double)a.getTroopCount()/ a.getTroopMax() > .25){
+				if ((a.getOpinion() < 5 + (a.getAggresive()/2) + select.getPrestige()/4 + (int)(Math.random()*20)) && (double)a.getTroopCount()/ a.getTroopMax() > .25){    //adds willing countries
 				    currentWar.addAxis(a);}}
 
 			    String ret= "";
@@ -145,7 +145,7 @@ public class France extends Country{
 			// Declaring war shouldn't take a turn, to allow for the character to declare war on multiple enemies
 		    }
 		    else if (choice == 4){
-			results[0]=retStr;
+			results[0]=retStr;    //calls the sabotage methods to do their thing
 			results[1]=tr;
 			results = sabotage(select, results);
 			tr= (Integer)results[1];
@@ -154,7 +154,7 @@ public class France extends Country{
 		    else if (choice == 6){
 			System.out.println(select);}
 		    else if (choice == 5){
-			int insult = (int)(Math.random()*insults.length);
+			int insult = (int)(Math.random()*insults.length);  //chooses a random insult
 			System.out.println("You send "+select.getName()+" an insult, writing \""+insults[insult]+"\"");
 			System.out.println(select.getName()+" has issued no response");
 			retStr+="\nYou have insulted "+select.getName()+", but I guess that's what you do when you're the foremost military genius in all of Europe";
@@ -185,7 +185,7 @@ public class France extends Country{
 		int result;
 		if (choice == 1){
 		    tr--;
-		    result = (int)(Math.random()*2);
+		    result = (int)(Math.random()*2); //50% chance of success
 		    if (result == 0){
 			System.out.println("Your spies inflitrated "+ select.getName() +" and stole 300 gold!");
 			treasury+=300;
@@ -200,7 +200,7 @@ public class France extends Country{
 		}
 		else if (choice == 2){
 		    tr--;
-		    result = (int)(Math.random()*2);
+		    result = (int)(Math.random()*2); //50% chance of success
 		    if (result == 0){
 			int killed = 7000 + (int)(Math.random() * 6000);
 			System.out.println("Your spies inflitrated "+ select.getName() +" and sabotaged a supply line, killing "+ killed + " " + select.getAdj()+" men");
@@ -229,13 +229,13 @@ public class France extends Country{
 	    boolean cont = true;
 	    while (tr >0 && cont){
 		System.out.println("What would you like to do?");
-		if (! legion){
+		if (! legion){ //checks to make sure you haven't already create the legion of honor
 		    System.out.println("\t1: Establish Legion of Honor \n\t Increases prestige\n\t(costs 75 gold)\n\t2:Establish a Military School:\n\t Each school increases Troop Count by an extra 1000 every month\n\t(costs 50 gold to create and 1 gold each month)\n\t3: Go back");
 		    System.out.print("Choose wisely:");
 		    int choice=Keyboard.readInt();
 		    if (choice==1){
 			if (this.treasury < 75){
-			    System.out.println("You need moar monies!");}
+			    System.out.println("You need moar monies!");} //moolah checker
 			else{
 			    System.out.println("\n"+"You formed the legion of honor, increasing your prestige by 10");
 			    retStr+="\n"+"You formed the legion of honor, increasing your prestige by 10";
@@ -263,7 +263,7 @@ public class France extends Country{
 			System.out.println("Please enter a valid number.");
 		    }
 		}
-		else if (! emperor){
+		else if (! emperor){ //checks to make sure you're not already the emperor
 		    System.out.println("\n\t1: Crown yourself emperor \n\t Increases prestige by 50, angers your neighbors, creates the empire, and raises your troop count \n\t(costs 300 gold)\n2:Establish a Military School:\n\t Each school increases Troop Count by an extra 1000 every month\n\t(costs 50 gold to create and 1 gold each month)\n\t2: Go Back");
 		    System.out.print("Choose wisely:");
 		    int choice=Keyboard.readInt();
@@ -277,7 +277,7 @@ public class France extends Country{
 			    this.setPrestige(this.getPrestige()+50);
 			    this.setTroopMax(this.getTroopMax()+100000);
 			    this.treasury-=300;
-			    this.setName("The Empire of the French");
+			    this.setName("The Empire of the French");  //France is the Emperor!
 			    this.lowerOp(10,countries);
 			    emperor = true;
 			}
@@ -300,7 +300,7 @@ public class France extends Country{
 			System.out.println("Please enter a valid number.");
 		    }
 		}
-		else {
+		else {  //If you already have the legion and are emperor
 		    System.out.println("\n\t1: Establish a Military School:\n\t Each school increases Troop Count by an extra 1000 every month\n\t(costs 50 gold to create and 1 gold each month)\n\t2: Go Back");
 		    System.out.print("Choose wisely:");
 		    int choice=Keyboard.readInt();

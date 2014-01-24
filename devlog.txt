@@ -1,0 +1,78 @@
+Miranda and Adam’s Excellent Adventure (In making a command line RPG)
+aka The Devlog 
+2014-01-09 Day 1:
+	Repositories were set up and we began to draw trace and UML Diagrams. There was much debate over implementation and approach. We ultimately came out with a plan for 3 classes: Game, Country and France. France will extend country.We will code for now in command line, with plans for future GUI.
+
+2014-01-13 Day 3: 
+	We began to put code down. We fleshed out the Country class and set up the constructor and some basic accessors and mutators, so we could get at our variables. We also decided on countries and set them up as instance variables of the Game Class.
+
+2014-01-14 Day 4: 
+	We began coding the main method and set up the decision making complexes. It was decided that domestic and foreign decisions will call helper functions in the France class. We also decided to create a War class to contain the combatants and the attributes of each war and began coding that. This made it easier to store all of the required information, however the way we implemented it limited the game to only one war at a time, which worked better with the scale of the project.
+
+2014-01-15 Day 5:
+	The War class was greatly fleshed out. Accommodations were made so Foreign policy options would be different based on if the player was at war or peace with a nation. We also began setting up the matrix to allow for responses from various actions to be carried over between classes.
+
+2014-01-16 Day 6:
+ 	Some small changes were made to both the War and France Classes in terms of improving game play, as well as providing more War Options. We also began to debug our code in preparation for actually running this nightmare of a project.
+
+2014-01-17 Day 7:
+	We altered the way results are transmitted from a single string to an array containing response and turns left throughout the code.
+
+2014-01-19 Day 9: 
+	War was further expanded to provide further options for making peace.
+The starting statistics for each nation were coded, and were then furiously modified for the sake of at least some balance/realism. 
+
+2014-01-20 Day 10:
+	War was, yet again, expanded. A lot of debugging happened, and we finally ran the project, working through a variety of issues. Rudimentary battles were also developed (and would not stop haunting us for the duration of the project (really just you but okay)). Random events were also coded, giving the game a sense of dynamics.
+
+2014-01-21 Day 11:
+	Having our ducks for the most part in a row in terms of the basics, we embarked on the arduous task of setting up a system under which you could save your game and return to it later.
+Additionally, domestic options were flushed out and finally, after days of hard work, you now had the option to crown yourself Emperor of the French! It was this moment when our project was complete, but we kept going.
+
+2014-01-22 Day 12:
+Nearing the end, saving/writing to a file was finally completed, with loading on the way. Tons of other changes were made on the bulk of the game itself, ranging from forcing players to make peace at a certain point, putting in error messages for the wrong inputs, and labelling methods in the code for ease of reading. A lot of the issues that had been bugging us, yet pushed to the back of the line, were now being addressed.
+Additionally, you know have the option to insult other countries, how cool is that? 
+
+2014-01-22 Day 13:
+
+Saving is now fully functional. There were also alterations and finalizations made to battles(the worst method ever).
+We made tons of tweaks to dialogue, loops, peace-making and if statements (pathway work).
+Sabotage was added in (how great!).
+The game now wishes you a happy new year.
+
+2014-01-22 D-Day
+
+In the final stretch, we overcame the last big hurdles and polished up a lot of situations. Of note is the completion of loading a game and also battle was for the last time modified after an extensive amount of debate over deliberation.
+Lot’s of little prompts were added to prevent specific situations from arise when they weren’t meant to, and a spelling and grammar check was undertaken, although undoubtedly we missed a few. Thank god it’s computer science and not english class
+Additionally README was created and finished, and the DevLog was completed.
+
+
+Obstacles Overcome (and how):
+We had a huge problem with how battle was working. We had a lot of difficulty finding a way to both fairly determine the winner, and fairly decrement Troop Counts. We ended up accomplishing this by adding a second random variable to determine troop losses. It is not ideal, but it is effective.
+
+In developing load game all of the objects are in an ArrayList of ArrayList<Objects>. These were all strings. there was a lot of difficulty turning these into their respective data (ints, doubles and booleans). We ended up having to type cast them into Strings, convert them to the Object form of the appropriate primitive, then type cast them into that Object type, then convert them into primitives. Not the most elegant, but it got the job done.
+
+
+
+Unresolved Issues:
+
+We never created a functional GUI
+The game is only playable as France, which was the original plan, but there was a sort of dream that you could choose any nation and play as it. 
+Another issue is simply playability, the game is kind of fun and it’s a lot of code but it doesn’t lend itself to hours of gameplay. Of course, for it to be what we want it to be would be impossible but greater balance (the game is easy to, well, game) and also a gui would help.
+
+Cool Stuff Learned (conceptual and/or practical)
+
+Learned a lot about document reading/writing in the context of saving and loading. 
+Also greatly increased familiarity with the functionality of github.
+
+Mid-development Design Changes (and why)
+
+Originally we were planning to design it so that you would offer an alliance, and then only find out at the end of your turn. This was scratched upon realizing that it was a) unnecessary and b) made it pointlessly confusing to play.
+Additionally, war wasn’t going to be it’s own class but it ended up making more sense that way. 
+
+Lessons Learned (to apply to future projects, CS or otherwise)
+
+- Descriptive GitHub commits are very useful(very useful)
+- When designing something, aim for the most basic version first and then build up (*cough* Adam*cough*)
+-When you aren’t using a variable in the current version delete it! (*cough* Miranda *cough*)
+

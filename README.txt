@@ -28,7 +28,7 @@ France is an extension of the country class, with a few significant modification
 
 New variables;
 treasury: France has a treasury which affects whether or not you can send gifts, and also if you’re in debt you will not resupply with troops.
-militarySchoolCount: the number of military schools you create will affect your troop replenishment and also cost montly income
+militarySchoolCount: the number of military schools you create will affect your troop replenishment and also cost monthly income
 currentWar: A war class is kept at all times in the France class
 legion/emperor booleans: used exclusively for domestic options
 
