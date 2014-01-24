@@ -143,7 +143,7 @@ public class War{
 	    battle=(int)(Math.random()*(allyTroops+axisTroops));
 	    System.out.println(battle);}
 	System.out.println(battle);
-	warScore+= (int)(((allyTroops-battle)/(10000000)));
+	warScore+= (int)(((allyTroops-battle)/(10000)));
 
 
 	int TroopLossWin=0;
@@ -152,7 +152,7 @@ public class War{
 	int battleScale=(int)(Math.random()*5)+1;
 	TroopLossWin*=battleScale;
 	int TroopLossLose=(10000*battleScale)-TroopLossWin;
-	if (TroopLossWin<TroopLossLose){
+	if (TroopLossWin>TroopLossLose){
 	    int temp=TroopLossWin;
 	    TroopLossWin=TroopLossLose; 
 	    TroopLossLose=temp;
@@ -187,7 +187,7 @@ public class War{
 	    for (Country x: allies){
 		x.setPrestige(x.getPrestige()-1);
 		x.changeTroopCount(x.getTroopCount()-(TroopLossLose/(allies.size()+1)));}
-	    retStr+="The enemy crushed you on the battle feild. You lost "+TroopLossLose+" troops while your enemy lost "+TroopLossWin +" troops. You lost "+(int)(((allyTroops-battle)/10000)) +" war score. You should be ashamed. We are French.";
+	    retStr+="The enemy crushed you on the battle field. You lost "+TroopLossLose+" troops while your enemy lost "+TroopLossWin +" troops. You lost "+(int)(((allyTroops-battle)/10000)) +" war score. You should be ashamed. We are French.";
 	}
 	return retStr;
     }
@@ -224,7 +224,7 @@ public class War{
 		    }
 		    else {
 			System.out.println("Your enemies reject your offer of white peace on the grounds that they are winning!");
-			    }		
+		    }		
 		}
 		else if (call == 1){
 		    if (warScore < 1){
@@ -267,8 +267,8 @@ public class War{
 				    end = false;
 				    break;}
 				else {
-				head = axis.remove((int)(Math.random()*axis.size()));
-				System.out.println("The new head of the axis is " + head.getName());}
+				    head = axis.remove((int)(Math.random()*axis.size()));
+				    System.out.println("The new head of the axis is " + head.getName());}
 			    }
 			    else {axis.remove(select);}
 			    
@@ -284,34 +284,58 @@ public class War{
 		    if (warScore > 0){
 			System.out.println("You are winning! You cannot surrender now and defile the " + empire.getName()+"!");
 		    }
-		    System.out.println("How many concessions worth of war score are you willing to surrender? (current war score "+warScore+")");
+		 
 		    int value;
-		    while (true){
-			value = Keyboard.readInt();
-			if (value < 0)
-			    {System.out.println("You must give a positive value");}
-			/*else if(value > 100){
-			    System.out.println("You're offer is too high for the "+empire.getName()+ " to accept!");
-			    }*/
-			else if (value < 10){
-			    System.out.println("You must offer at least 10 war score");
+		    if (axis.size() == 0){
+			
+			System.out.println("Since "+ head.getName() + " is the only nation left in the opposition, they demand their own terms");
+			value = warScore * -1;
+			System.out.println(head.getName()+ " offers you what they call \"favorable\" terms, "+ empire.getTreasury()*(value/100.0)+" gold as well as " + (int)value*250+" square kilometers of your land\n Do you accept?\n1: yes, 2: no");
+			int accept = Keyboard.readInt();
+			if (accept == 1){
+			    empire.changeTreasury(-1 * (int)(empire.getTreasury()*(value/-100.0)));
+			    empire.subLand(value*250);
+			    select.addLand(value+250);
+			    empire.setPrestige(empire.getPrestige()-2);
+			    select.setPrestige(select.getPrestige()+2);
+			
+			    System.out.println("With no more enemy combatants, the "+ name+" has come to an end");
+			    this.endWar();
+			
+			
+			    loop = false;
+			    end = false;
+			    break;
 			}
-			else{
-			    
-			    break;}
 		    }
+		    else {
+			System.out.println("How many concessions worth of war score are you willing to surrender? (current war score "+warScore+")");
+			while (true){
+			    value = Keyboard.readInt();
+			    if (value < 0)
+				{System.out.println("You must give a positive value");}
+			    /*else if(value > 100){
+			      System.out.println("You're offer is too high for the "+empire.getName()+ " to accept!");
+			      }*/
+			    else if (value < 10){
+				System.out.println("You must offer at least 10 war score");
+			    }
+			    else{
+			    
+				break;}
+			}
 			    
 					
-		    System.out.println("Your enemy offers you what they call \"favorable\" terms, "+ empire.getTreasury()*(value/100.0)+" gold as well as " + (int)value*250+" square kilometers of your land\n Do you accept?\n1: yes, 2: no");
-		    int accept = Keyboard.readInt();
-		    if (accept == 1){
-			empire.changeTreasury(-1 * (int)(empire.getTreasury()*(value/100.0)));
-			empire.subLand(value*250);
-			select.addLand(value+250);
-			empire.setPrestige(empire.getPrestige()-2);
-			select.setPrestige(select.getPrestige()+2);
-			if (select.equals(head)){
-			    if (axis.size() == 0){
+			System.out.println("Your enemy offers you what they call \"favorable\" terms, "+ empire.getTreasury()*(value/100.0)+" gold as well as " + (int)value*250+" square kilometers of your land\n Do you accept?\n1: yes, 2: no");
+			int accept = Keyboard.readInt();
+			if (accept == 1){
+			    empire.changeTreasury(-1 * (int)(empire.getTreasury()*(value/100.0)));
+			    empire.subLand(value*250);
+			    select.addLand(value+250);
+			    empire.setPrestige(empire.getPrestige()-2);
+			    select.setPrestige(select.getPrestige()+2);
+			    if (select.equals(head)){
+				if (axis.size() == 0){
 				    System.out.println("With no more enemy combatants, the "+ name+" has come to an end");
 				    this.endWar();
 				    loop = false;
@@ -319,21 +343,23 @@ public class War{
 				    break;}
 				else {
 				    head = axis.remove((int)(Math.random()*axis.size()));
-				System.out.println("The new head of the axis is " + head.getName());}
-			}				
-			else {axis.remove(select);}
-			warScore+=value;
-			loop = false;
-			end = false;
-			System.out.println("The new war score value is "+ warScore+" and your enemies are "+ printAxis()+ " and their leader "+ head.getName());}
+				    System.out.println("The new head of the axis is " + head.getName());}
+			    }				
+			    else {axis.remove(select);}
+			    warScore+=value;
+			    loop = false;
+			    end = false;
+			    System.out.println("The new war score value is "+ warScore+" and your enemies are "+ printAxis()+ " and their leader "+ head.getName());}
+		    }
+
 		    
 		}
 		else if (call == 4){
 		    end = false;
 		    break;}
 		else{
-		     System.out.println("Please enter a valid number.");
-		 }
+		    System.out.println("Please enter a valid number.");
+		}
 				
 			    
 				

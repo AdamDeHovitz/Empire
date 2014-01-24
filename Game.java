@@ -49,7 +49,7 @@ public class Game{
 	    }
 	    int chance = (int) (Math.random()*7);
 	    if (chance == 0){
-		ret=subject.getName()+ " has experienced an unprecedent wave of volunteers!";
+		ret=subject.getName()+ " has experienced an unprecedented wave of volunteers!";
 		subject.changeTroopCount(subject.getTroopCount()+10000);
 	    }
 	    else if (chance == 1){
@@ -57,7 +57,7 @@ public class Game{
 		subject.changeTroopCount(subject.getTroopCount()-10000);
 	    }
 	    else if (chance == 2){
-		ret=subject.getName()+ "'s diplomats have made a full of themselves in a foriegn court, their prestige drops";
+		ret=subject.getName()+ "'s diplomats have made a fool of themselves in a foriegn court, their prestige drops";
 		subject.setPrestige(subject.getPrestige()-10);
 	    }
 	    else if (chance == 3){
@@ -69,7 +69,7 @@ public class Game{
 		    ret = Empire.getName()+ " has experienced a bountiful harvest, and has earned an extra 100 gold this month";
 		    Empire.changeTreasury(Empire.getTreasury() + 100);}
 		else{
-		    ret=subject.getName()+ " has recently become increasingly militarized and anti-French due to effective propoganda effors";}
+		    ret=subject.getName()+ " has recently become increasingly militarized and anti-French due to effective propoganda efforsts";}
 		subject.changeAggressive(20);
 	    }
 	    else if (chance == 5){

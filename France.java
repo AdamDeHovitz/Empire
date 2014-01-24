@@ -110,8 +110,23 @@ public class France extends Country{
 			cont = false;
 			if (currentWar.getActive()){
 			    currentWar.addAxis(select);
+			    String list ="";
+			    for (Country a:countries){
+				if ((! currentWar.getAxis().contains(a)) && (! currentWar.getHead().equals(a)) && (a.getOpinion() < 5 + (a.getAggresive()/2) + select.getPrestige()/4 + (int)(Math.random()*20)) && (double)a.getTroopCount()/ a.getTroopMax() > .25){
+				    currentWar.addAxis(a);
+				    list+= a.getName()+", ";
+				}
+			    }
 			    System.out.println("\n"+select.getName()+ " has joined the "+ currentWar.getName());
-			    retStr+="\n"+select.getName()+ " has joined the "+ currentWar.getName();}
+			    retStr+="\n"+select.getName()+ " has joined the "+ currentWar.getName();
+			    if (list.length() > 0){
+				list = list.substring(0,list.length()-2);
+				System.out.println("The following nations have also joined: "+ list);
+				retStr+="The following nations have also joined: "+ list;
+			    }
+				    
+			}
+			
 			else{
 			    currentWar.setActive(true, select);
 
