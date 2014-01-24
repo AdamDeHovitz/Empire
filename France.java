@@ -245,7 +245,7 @@ public class France extends Country{
 			    legion = true;
 			}
 		    }
-		    if (choice==2){
+		    else if (choice==2){
 			if (this.treasury < 50){
 			    System.out.println("You need moar monies!");}
 			else{
@@ -256,7 +256,7 @@ public class France extends Country{
 			    tr-=1;}
 		
 		    }
-		    if (choice == 3){
+		    else if (choice == 3){
 			cont = false;
 			break;}
 		    else{
@@ -264,7 +264,7 @@ public class France extends Country{
 		    }
 		}
 		else if (! emperor){ //checks to make sure you're not already the emperor
-		    System.out.println("\n\t1: Crown yourself emperor \n\t Increases prestige by 50, angers your neighbors, creates the empire, and raises your troop count \n\t(costs 300 gold)\n2:Establish a Military School:\n\t Each school increases Troop Count by an extra 1000 every month\n\t(costs 50 gold to create and 1 gold each month)\n\t2: Go Back");
+		    System.out.println("\t1: Crown yourself emperor \n\t Increases prestige by 50, angers your neighbors, creates the empire, and raises your troop count \n\t(costs 300 gold)\n\t2:Establish a Military School:\n\t Each school increases Troop Count by an extra 1000 every month\n\t(costs 50 gold to create and 1 gold each month)\n\t3: Go Back");
 		    System.out.print("Choose wisely:");
 		    int choice=Keyboard.readInt();
 		    if (choice==1){
@@ -283,7 +283,7 @@ public class France extends Country{
 			}
 		
 		    }
-		    if (choice==2){
+		    else if (choice==2){
 			if (this.treasury < 50){
 			    System.out.println("You need moar monies!");}
 			else{
@@ -293,7 +293,7 @@ public class France extends Country{
 			    this.treasury-=50;
 			    tr-=1;}
 		    }
-		    if (choice == 3){
+		    else if (choice == 3){
 			cont = false;
 			break;}
 		    else{
@@ -314,7 +314,7 @@ public class France extends Country{
 			    this.treasury-=50;
 			    tr-=1;}
 		    }
-		    if (choice == 2){
+		    else if (choice == 2){
 			cont = false;
 			break;}
 		    else{

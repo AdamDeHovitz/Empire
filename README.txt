@@ -77,6 +77,7 @@ Alternatively, if you have negative war score then what you can do is surrender 
 
 Important to note: if the war score is greater than 100 or less than -100 you are forced to make peace.
 
+Don’t want to read all this?
 
-
+TO PLAY RUN java Game and follow the instructions! 
 

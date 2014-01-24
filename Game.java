@@ -197,7 +197,7 @@ public class Game{
 					 Empire.getConflict()+","+Empire.getTreasury()+","+Empire. getMilitarySchools()+","+Empire.getLeg()+","+Empire.getEmp()+",");
 			    War war=Empire.getCurrent();
 			    writer.write("\n"+war.getWarScore()+","+war.getActive()+","+war.getAllies(1)+","+war.getAxis(1)+","+
-					 war.getName()+","+war.getDate()+",");
+					 war.getName()+","+war.getDate()+","+war.getHead().getName()+",");
 			    for (Country x: countries){
 				writer.write("\n"+x.getName()+","+x.getAdj()+","+x.getLand()+","+x.getTroopMax()+","+
 					     x.getTroopCount()+","+x.getPrestige()+","+x.getOpinion()+","+x.getAggresive()+","+x.getConflict()+",");}
@@ -296,9 +296,9 @@ public class Game{
 		    }
 		    temp2=temp2.substring(temp2.indexOf(":"+1));
 		}
-Country tempHead=countries[0]
-temp2=(String)data.get(1).get(6);
-for (Country a: countries){
+		Country tempHead=countries[0];
+		temp2=(String)data.get(1).get(6);
+		for (Country a: countries){
 			if(a.getName().equals(temp2))
 			    tempHead=a;
 }
@@ -324,7 +324,7 @@ for (Country a: countries){
 	int start=Keyboard.readInt();
 	Game me=new Game();
 	if (start==2){
-	    System.out.print("Enter Name:");
+	    System.out.print("Enter Game Name:");
 	    saveGame(me);
 	}
 	    
