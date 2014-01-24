@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import cs1.Keyboard;
 
-public class War{
+public class War{//Class for each war
     private France Empire;
     private Country head;
     private ArrayList<Country> allies;
@@ -26,9 +26,13 @@ public class War{
 	date=_date;
     }
 
-    //Getters with some variation for the purpose of saving
+    /////////////
+    //ACCESSORS//
+    /////////////
     public String getName(){return name;}
+
     public boolean getActive(){return active;}
+
     public String getAllies(int i){
 	String ret="[";
 	for(Country x: allies)
@@ -44,24 +48,32 @@ public class War{
 	return ret;
     } 
     public ArrayList<Country> getAllies(){return allies;}
+
     public ArrayList<Country> getAxis(){return axis;}
+
     public Country getHead(){return head;}
+
     public int getDate(){return date;}
-    public int getWarScore(){
-	return warScore;}
+
+    public int getWarScore(){return warScore;}
+
+    //////////////
+    ///MUTATORS///
+    /////////////
 
     // the date, and it's incrementation, is used to prevent a white peace within the first 5 months of a conflict
     public int incDate(){
 	date++;return date-1;
     }
+
     public int addWarScore(int n){
 	warScore +=n; 
 	if (warScore > 100){
 	    warScore = 100;}
 	if (warScore < -100){
 	    warScore = -100;}
-
 	return warScore - n;}
+
     public void setActive(boolean input, Country select){
 	date = 0;
 	active = input;
@@ -78,41 +90,46 @@ public class War{
 	else {numb = select.getConflict()+"th";}
 	name = numb+ " Franco-" + select.getAdj()+ " war";
 	warScore = 0;
-
-
     }
 
     public void addAlly(Country A){
-	
 	allies.add(A);
     }
     public void addAxis(Country A){
 	if (! A.equals(head)){
 	    axis.add(A);}
     }
+
     public void addAlly(ArrayList<Country> A){
 	for( Country c :A){
 	    allies.add(c);}
     }
+
     public void addAxis(ArrayList<Country> A){
 	for (Country c:A){
 	    axis.add(c);}
     }
+
     public String printAxis(){
 	String retStr = "";
 	for (Country c:axis){
 	    retStr += c.getName() + ", ";}
 	return retStr;} 
+
     public String printAllies(){
 	String retStr = "";
 	for (Country c:allies){
 	    retStr += c.getName()+ ", ";}
 	return retStr;} 
+
     public void endWar(){  //Ends the conflict
 	active = false;
 	axis.removeAll(axis);
 	warScore = 0;
 	head = null;}
+
+
+
     public String toString(){  //War toString() method, 
 	String ret;
 	if(active){
@@ -128,6 +145,9 @@ public class War{
 	return ret;
     }
  
+    //////////////
+    ///DO STUFF//
+    /////////////
     public String battle(France Empire){   //Method for simulating battles
 	String retStr="";
 
@@ -139,10 +159,9 @@ public class War{
 	for (Country x:allies)
 	    allyTroops+=x.getTroopCount()+x.getPrestige()*100;
 	int battle=(int)(Math.random()*(allyTroops+axisTroops));
-	while((battle/((allyTroops+axisTroops)*1.0)) <= (3/10.0) || (battle/(allyTroops+axisTroops*1.0)) >= (7/10.0)){
+	while((battle/((allyTroops+axisTroops)*1.0)) <= (3/10.0) || (battle/(allyTroops+axisTroops*1.0)) >= (7/10.0))
 	    battle=(int)(Math.random()*(allyTroops+axisTroops));
-	    System.out.println(battle);}
-	System.out.println(battle);
+     
 	warScore+= (int)(((allyTroops-battle)/(10000)));
 
 

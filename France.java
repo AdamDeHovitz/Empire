@@ -173,13 +173,14 @@ public class France extends Country{
 	    return results;
 	}
 			
-       
+    //So you want to be a sabatour? Now you can! Options for sabotaging your enemies
 	public Object[] sabotage(Country select, Object[] results){
 	    Integer tr= (Integer)results[1];
 	    String retStr=(String)results[0];
 	    boolean loop = true;
 	    while (loop){
-		System.out.println("\n\t1: Attempt to steal gold\n\t2: Attempt to sabotage military \n\t3:Go back");
+		System.out.println("\t1: Attempt to steal gold\n\t2: Attempt to sabotage military \n\t3:Go back");
+		System.out.print("Choose wisely:");
 		int choice=Keyboard.readInt();
 		int result;
 		if (choice == 1){
@@ -229,7 +230,7 @@ public class France extends Country{
 	    while (tr >0 && cont){
 		System.out.println("What would you like to do?");
 		if (! legion){
-		    System.out.println("\n\t1: Establish Legion of Honor \n\t Increases prestige\n\t(costs 75 gold)\n\t2:Establish a Military School:\n\t Each school increases Troop Count by an extra 1000 every month\n\t(costs 50 gold to create and 1 gold each month)\n\t3: Go back");
+		    System.out.println("\t1: Establish Legion of Honor \n\t Increases prestige\n\t(costs 75 gold)\n\t2:Establish a Military School:\n\t Each school increases Troop Count by an extra 1000 every month\n\t(costs 50 gold to create and 1 gold each month)\n\t3: Go back");
 		    System.out.print("Choose wisely:");
 		    int choice=Keyboard.readInt();
 		    if (choice==1){

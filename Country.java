@@ -26,7 +26,9 @@ public class Country{
 	  
     }
     
-    //ACSESSOR//
+     /////////////
+    //ACCESSORS//
+    /////////////
     
     public String getName(){return name;}
 
@@ -46,7 +48,9 @@ public class Country{
     public int getConflict(){return conflicts;};
     
 
-    //MUTATORS//
+    //////////////
+    ///MUTATORS///
+    /////////////
 
     public double addLand(double newLand){land+=newLand; return land-newLand;}
     public double subLand(double lostLand){land-=lostLand; return land + lostLand; }
@@ -61,8 +65,6 @@ public class Country{
 	else if (troopCount < 0){
 	    troopCount = 0;}
     
-
-
 	return old;}
     public void setName(String newVal){
 	name = newVal;}

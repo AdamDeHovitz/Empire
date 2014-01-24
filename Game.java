@@ -20,7 +20,9 @@ public class Game{
     private int year = 1799;
     private int month = 1;
 
-    //public Game(){}
+     //////////////
+    ///HELPERS+///
+    /////////////
     public void printMain(){ //Prints out the main options
 	String ret="\t 1: Show Country Statistics \n\t 2: Foreign Affairs \n\t 3: Domestic Affairs \n\t 4: View Current War \n\t 5: End Turn\n\t 6: End Game\n\t 7: Save Game";
 	System.out.println( ret);
@@ -107,8 +109,11 @@ public class Game{
 	}
 	return  ret;
     }
+
     
-    
+      //////////////
+    /////PLAY/////
+    /////////////
     public void play(){  //Plays the game, as long as this method loops the game continues.
 
 	System.out.println("You are France in 1799. The great military general Napoleon has just staged a coup. This new leader has one goal: to conquer Europe. Use your powers of diplomacy and your military to manipulate those around you");
@@ -118,7 +123,7 @@ public class Game{
 	    Object[] results= new Object[]{"A recount of what you did:\n",3};
 	    System.out.println("The date is " + year+"-"+month+"-1");
 	    System.out.println("You have "+Empire.getTreasury()+ " gold");
-	    if (Empire.getCurrent().getWarScore() < -100){
+	    if (Empire.getCurrent().getWarScore() < -100){//If you're losing the war real bad you gotta give in
 		
 		while (Empire.getCurrent().getWarScore() < -100){
 		    System.out.println("Your war score is less then -100 and you MUST make peace before continuing");
