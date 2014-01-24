@@ -131,65 +131,63 @@ public class War{
     public String battle(France Empire){   //Method for simulating battles
 	String retStr="";
 
-	int axisTroops=head.getTroopCount()+head.getPrestige();
+	int axisTroops=head.getTroopCount()+head.getPrestige()*100;
 	for (Country x:axis)
-	    axisTroops+=x.getTroopCount()+x.getPrestige();
+	    axisTroops+=x.getTroopCount()+x.getPrestige()*100;
 	
-	int allyTroops=Empire.getTroopCount()+Empire.getPrestige();
+	int allyTroops=Empire.getTroopCount()+Empire.getPrestige()*100;
 	for (Country x:allies)
-	    allyTroops+=x.getTroopCount()+x.getPrestige();
+	    allyTroops+=x.getTroopCount()+x.getPrestige()*100;
 	int battle=(int)(Math.random()*(allyTroops+axisTroops));
-	while((battle/((allyTroops+axisTroops)*1.0)) <= (2/10.0) || (battle/(allyTroops+axisTroops*1.0)) >= (7/10.0)){
+	while((battle/((allyTroops+axisTroops)*1.0)) <= (3/10.0) || (battle/(allyTroops+axisTroops*1.0)) >= (7/10.0)){
 	    battle=(int)(Math.random()*(allyTroops+axisTroops));
 	    System.out.println(battle);}
 	System.out.println(battle);
-	warScore+= (int)(((allyTroops-battle)/(10000)));
+	warScore+= (int)(((allyTroops-battle)/(10000000)));
 
 
-	int TroopsLostAlly;
-	if (allies.size()>0)
-	    TroopsLostAlly= (int)((battle/100)/(allies.size()+1));
-	else
-	    TroopsLostAlly=(int)((battle/100)/(allies.size()+1));
-
-	for (Country x:allies)
-	    x.changeTroopCount(x.getTroopCount()-TroopsLostAlly);
-	Empire.changeTroopCount((Empire.getTroopCount()-TroopsLostAlly));
-	int TroopsLostAxis;
-
-
-	if (axis.size()>0)
-	    TroopsLostAxis=(int)((((axisTroops+allyTroops)-battle)/100)/axis.size()+1);
-	else 
-
-	    TroopsLostAxis=(int)((((axisTroops+allyTroops)-battle)/100));
-
-	TroopsLostAxis=(int)((((axisTroops+allyTroops)-battle)/100));
-
-	head.changeTroopCount((head.getTroopCount()-TroopsLostAxis));
-	for (Country x:axis)
-	    x.changeTroopCount(x.getTroopCount()-TroopsLostAxis);
+	int TroopLossWin=0;
+	while(TroopLossWin<3000 || TroopLossWin>8000)
+	    TroopLossWin=(int)(Math.random()*10000);
+	int battleScale=(int)(Math.random()*5)+1;
+	TroopLossWin*=battleScale;
+	int TroopLossLose=(10000*battleScale)-TroopLossWin;
+	if (TroopLossWin<TroopLossLose){
+	    int temp=TroopLossWin;
+	    TroopLossWin=TroopLossLose; 
+	    TroopLossLose=temp;
+	}
 
 	if (battle < allyTroops){
 	    Empire.setPrestige(Empire.getPrestige()+1);
+	    Empire.changeTroopCount(Empire.getTroopCount()-TroopLossWin/(allies.size()+1));
 	    for(Country x: allies){
 		x.setOpinion(x.getOpinion()+5);
-		x.changeTroopCount(x.getTroopCount()+ 100);}
+		x.changeTroopCount(x.getTroopCount()-TroopLossWin/(allies.size()+1));}
+	    head.setPrestige(head.getPrestige()-1);
+	    head.changeTroopCount(head.getTroopCount()-TroopLossLose/(axis.size()+1));
 	    for (Country x: axis){
 		x.setPrestige(x.getPrestige()-1);
-		x.changeTroopCount(x.getTroopCount()+ 100);}
-	    retStr+="You beat the enemy in a glorious battle! You lost "+(TroopsLostAlly*(allies.size()+1))+" troops while your enemy lost "+ (TroopsLostAxis*(axis.size()+1)) +" troops. You gained "+(int)(((allyTroops-battle)/(10000))) +" war score. God is clearly with you.";
+		x.changeTroopCount(x.getTroopCount()-(TroopLossLose/(axis.size()+1)));
+	    }
+	    
+	    retStr+="You beat the enemy in a glorious battle! You lost "+TroopLossWin+" troops while your enemy lost "+ TroopLossLose +" troops. You gained "+(int)(((allyTroops-battle)/(10000))) +" war score. God is clearly with you.";
 	}
 
 	if (battle> allyTroops){
-	    Empire.setPrestige(Empire.getPrestige()-1);
+
+	    head.setPrestige(head.getPrestige()+1);
+	    head.changeTroopCount(head.getTroopCount()-TroopLossWin/(axis.size()+1));
 	    for (Country x: axis){
-		x.setPrestige(x.getPrestige()+1);
-		x.changeTroopCount(Empire.getTroopCount()+ 100);
-		x.setOpinion(x.getOpinion()-5);}
+		x.setOpinion(x.getOpinion()+5);
+		x.changeTroopCount(x.getTroopCount()-TroopLossWin/(axis.size()+1));}
+	    
+	    Empire.setPrestige(Empire.getPrestige()-1);
+	    Empire.changeTroopCount(Empire.getTroopCount()-TroopLossWin/(allies.size()+1));
 	    for (Country x: allies){
-		x.changeTroopCount(Empire.getTroopCount()+ 100);}
-	    retStr+="The enemy crushed you on the battle feild. You lost "+(TroopsLostAlly*(allies.size()+1))+" troops while your enemy lost "+ (TroopsLostAxis*(axis.size()+1)) +" troops. You lost "+(int)(((allyTroops-battle)/10000)) +" war score. You should be ashamed. We are French.";
+		x.setPrestige(x.getPrestige()-1);
+		x.changeTroopCount(x.getTroopCount()-(TroopLossLose/(allies.size()+1)));}
+	    retStr+="The enemy crushed you on the battle feild. You lost "+TroopLossLose+" troops while your enemy lost "+TroopLossWin +" troops. You lost "+(int)(((allyTroops-battle)/10000)) +" war score. You should be ashamed. We are French.";
 	}
 	return retStr;
     }
