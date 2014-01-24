@@ -17,13 +17,15 @@ public class War{//Class for each war
 	allies = new ArrayList<Country>();
 	axis = new ArrayList<Country>();
     }
-    public War(int _warScore,boolean _active, ArrayList _allies,ArrayList _axis,String _name,int _date){
+    public War(int _warScore,boolean _active, ArrayList _allies,ArrayList _axis,String _name,int _date, Country _head){
 	warScore = _warScore;
 	active = _active;
 	allies =  _allies;
 	axis =  _axis;
 	name=_name;
 	date=_date;
+        head=_head;
+
     }
 
     /////////////
